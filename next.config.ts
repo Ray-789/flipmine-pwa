@@ -1,11 +1,10 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
-  /* config options here */
-  domains: [
-    'scontent.fyxk1-1.fna.fbcdn.net',
-    'scontent.xx.fbcdn.net', // fallback for other FB regions
-  ],
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
+  experimental: {
+    serverActions: true,
+  },
 };
 
-export default nextConfig;
+module.exports = nextConfig;
+
