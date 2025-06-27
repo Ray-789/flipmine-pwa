@@ -1,17 +1,19 @@
 'use client';
 import React from 'react';
-import { FaArrowRight } from 'react-icons/fa';
+import { FaArrowRight, FaTimes } from 'react-icons/fa';
 
 function SidebarFilters({ view, setView, showSidebar, toggleSidebar }) {
   return (
     <>
-      {/* Floating Toggle Arrow for Mobile */}
-      <button
-        onClick={toggleSidebar}
-        className="fixed bottom-6 left-4 z-50 lg:hidden bg-cyan-600 text-white p-3 rounded-full shadow-lg"
-      >
-        <FaArrowRight />
-      </button>
+      {/* Floating Toggle Arrow for Mobile (when sidebar is closed) */}
+      {!showSidebar && (
+        <button
+          onClick={toggleSidebar}
+          className="fixed bottom-6 left-4 z-50 lg:hidden bg-cyan-600 text-white p-3 rounded-full shadow-lg"
+        >
+          <FaArrowRight />
+        </button>
+      )}
 
       {/* Sidebar */}
       <aside
@@ -25,7 +27,17 @@ function SidebarFilters({ view, setView, showSidebar, toggleSidebar }) {
           lg:flex lg:flex-col
         `}
       >
-        <div className="space-y-4 pt-10">
+        {/* Close Button for Mobile */}
+        <div className="lg:hidden flex justify-end mb-4">
+          <button
+            onClick={toggleSidebar}
+            className="bg-gray-800 p-2 rounded-full text-white"
+          >
+            <FaTimes />
+          </button>
+        </div>
+
+        <div className="space-y-4 pt-2 lg:pt-10">
           <button className="w-full bg-gray-800 py-2 px-4 rounded-md text-left">Search</button>
 
           <div>

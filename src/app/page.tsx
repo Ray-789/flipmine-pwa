@@ -297,12 +297,7 @@ export default function FlipMineApp() {
         />
 
         {/* Sidebar toggle arrow (floating button) */}
-        <button
-          className="lg:hidden fixed top-20 left-2 z-50 bg-gray-800 text-white p-2 rounded-full shadow-md"
-          onClick={toggleSidebar}
-        >
-          {showSidebar ? '←' : '→'}
-        </button>
+        
 
         {/* Main Content */}
         <main className="flex-1 h-[calc(100vh-64px)] overflow-hidden px-4 py-4">
