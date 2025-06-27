@@ -38,7 +38,7 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
       {listings.map((item, i) => (
         <div
           key={i}
-          className="flex bg-white text-black rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all min-h-[280px]"
+          className="flex bg-gray-800 text-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all min-h-[280px]"
         >
           <div className="w-52 min-h-[280px] overflow-hidden z-30">
             <Image

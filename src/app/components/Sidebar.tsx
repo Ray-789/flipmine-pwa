@@ -30,7 +30,7 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
           fixed lg:static 
           top-0 left-0 
           h-screen w-64 
-          bg-gray-900 text-white p-6 space-y-6 overflow-y-auto scrollbar-hide
+          bg-gray-800 text-white p-6 space-y-6 overflow-y-auto scrollbar-hide
           z-[60] lg:z-30 
           lg:flex lg:flex-col
         `}

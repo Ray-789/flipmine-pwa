@@ -305,7 +305,7 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
-        <main className="flex-1 h-[calc(100vh-64px)] overflow-hidden px-4 py-4">
+        <main className="flex-1 h-[calc(100vh-64px)] overflow-hidden px-4 py-4 bg-gray-900 ">
           {/* Mobile layout: roadmap horizontal on top */}
           <div className="lg:hidden mb-4">
             <PlanRoadmapMobile plan={plan} />
