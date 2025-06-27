@@ -3,9 +3,9 @@
 import { FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
 
-function Navbar({ xp }) {
-  const level = Math.floor(xp / 100);
-  const role = level >= 10 ? 'Trader Wolf' : level >= 5 ? 'Strategist' : 'Hustler';
+function Navbar() {
+  // const level = Math.floor(xp / 100);
+  // const role = level >= 10 ? 'Trader Wolf' : level >= 5 ? 'Strategist' : 'Hustler';
 
   return (
     <header className="bg-gray-950 border-b border-gray-800 px-6 py-4 flex justify-between items-center">
@@ -20,7 +20,7 @@ function Navbar({ xp }) {
       <div className="flex items-center gap-6">
         <div className="text-right">
           <p className="text-xs text-gray-400">XP / Role</p>
-          <p className="text-purple-400 font-bold">{xp} / {role}</p>
+          <p className="text-purple-400 font-bold">{0}</p>
         </div>
         <FaUserCircle className="text-white text-3xl" />
       </div>

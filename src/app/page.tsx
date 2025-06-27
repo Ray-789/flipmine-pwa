@@ -285,7 +285,7 @@ export default function FlipMineApp() {
 
   return (
     <div className="bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
-      <Navbar xp={0} />
+      <Navbar  />
 
       <div className="flex flex-1 overflow-hidden ">
         {/* Sidebar – hidden on small screens */}
