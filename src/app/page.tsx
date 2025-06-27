@@ -263,196 +263,37 @@ const listings=[
 ]
 
 
-import { FaUserCircle } from 'react-icons/fa';
-import Link from 'next/link';
+
+import Navbar from './components/Navbar';
+import ProductListing from './components/ProductListings';
+import RoadmapVertical from './components/Roadmap';
+import SidebarFilters from './components/Sidebar';
+
 import { useState } from 'react';
 
 
+
+
+
+
 export default function FlipMineApp() {
-  const [plan, setPlan] = useState([{
-    "website": "Facebook",
-    "url": "https://www.facebook.com/marketplace/item/670091302692146/?ref=search&referral_code=null&referral_story_type=post&tracking=browse_serp%3A2dca02ab-03f9-45f9-be67-98f173ac3f8a&__tn__=!%3AD",
-    "title": "Gaming Laptop Lenovo Legion Y520(Negotiable)",
-    "price": "$435$485",
-    "details": "Condition\nUsed – like new\nBrand\nLenovo",
-    "location": "Hanover Park, IL",
-    "seller": "https://www.facebook.com/marketplace/profile/100024337142726/?product_id=670091302692146",
-    "seller_rating": "N/A",
-    "images": [
-        "https://scontent.fyxk1-1.fna.fbcdn.net/v/t45.5328-4/505578504_918623443712568_7658042700062378444_n.jpg?stp=dst-jpg_p720x720_tt6&_nc_cat=101&ccb=1-7&_nc_sid=247b10&_nc_ohc=98NNM9ThAe8Q7kNvwFRhjz-&_nc_oc=AdlQl5BAfm15gn-8B1zB_GFtzVbNzxpB1xPuqHmoa8mSLEEFQjICSx9FtfOEzaCRqwI&_nc_zt=23&_nc_ht=scontent.fyxk1-1.fna&_nc_gid=Awle53YT-3Z5nxVi0W1Rmw&oh=00_AfMvlu2ga1ARRY4_eQEOfpiSsLsFjFt--qUT3VCySm0veQ&oe=6857D93C",
-        "https://scontent.fyxk1-1.fna.fbcdn.net/v/t45.5328-4/504594328_1221677492415186_9187840361030444314_n.jpg?stp=dst-jpg_p720x720_tt6&_nc_cat=111&ccb=1-7&_nc_sid=247b10&_nc_ohc=NaoyDPsDU0sQ7kNvwGMigHz&_nc_oc=AdkC8R3hZAnOzHVSinzD8rowbvWr1vBWXjpmblXUR8nU5U7_c_5hA-8__efZh3fBjX4&_nc_zt=23&_nc_ht=scontent.fyxk1-1.fna&_nc_gid=Awle53YT-3Z5nxVi0W1Rmw&oh=00_AfPF_90PtFgt-wAviS2hgNr9Tr0CdhfJUELiTFV5Co0ZsA&oe=6857DCD9",
-        "https://scontent.fyxk1-1.fna.fbcdn.net/v/t45.5328-4/505707156_1024619386486144_7612921517466398035_n.jpg?stp=dst-jpg_p720x720_tt6&_nc_cat=100&ccb=1-7&_nc_sid=247b10&_nc_ohc=m-HqKsgieC4Q7kNvwG5xj4Q&_nc_oc=AdnExOOwqrlUjcNgbJlF_0q5J44oU8fjdcBKYkTlJ5IuKgsCoqQt5XFTl_qmk6Vh3Ag&_nc_zt=23&_nc_ht=scontent.fyxk1-1.fna&_nc_gid=Awle53YT-3Z5nxVi0W1Rmw&oh=00_AfNlcMopzqXA3nfJC91HnKmzjxGrN80Qr5pstEUSa1hauw&oe=6857DD77"
-    ]
-},
-{
-    "website": "Facebook",
-    "url": "https://www.facebook.com/marketplace/item/1940284536726074/?ref=search&referral_code=null&referral_story_type=post&tracking=browse_serp%3A2dca02ab-03f9-45f9-be67-98f173ac3f8a&__tn__=!%3AD",
-    "title": "4GB INTEL I7-2620M HP ELITEBOOK 8560W LAPTOP W/ 500GB HDD NVIDIA QUADRO 1000M",
-    "price": "$100$120",
-    "details": "Condition\nUsed – good\nBrand\nHP",
-    "location": "Carmel, IN",
-    "seller": "https://www.facebook.com/marketplace/profile/1117026429/?product_id=1940284536726074",
-    "seller_rating": "4.2 out of 5 stars, from one review",
-    "images": [
-        "https://scontent.fyxk1-1.fna.fbcdn.net/v/t45.5328-4/498588484_1463492351685437_6803067185063245654_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=102&ccb=1-7&_nc_sid=247b10&_nc_ohc=TbevNW66VQgQ7kNvwGq-mZt&_nc_oc=AdljZSS9C2iW5OAouRFtkMIAdy8_CunqjCvxA6PfnKohuUgjb7jegbXzj_KYs8JMDjw&_nc_zt=23&_nc_ht=scontent.fyxk1-1.fna&_nc_gid=sKIv4NtpTxvM1Uk-42urOw&oh=00_AfP8meJbzRwKq9Nn958VJPo9aA5wBiXvSr2YBUHxgYvBFg&oe=6857DB25",
-        "https://scontent.fyxk1-1.fna.fbcdn.net/v/t45.5328-4/498717822_1389322682113542_1596475673687460835_n.jpg?stp=dst-jpg_s960x960_tt6&_nc_cat=101&ccb=1-7&_nc_sid=247b10&_nc_ohc=iRO0_39xP3sQ7kNvwFZbHaF&_nc_oc=AdlyIRbp6LzLGBx40WBl2_JU5_6sydXXDXTpyaeKxYHbvPEgqMCPOa18bw7kmqafQ_A&_nc_zt=23&_nc_ht=scontent.fyxk1-1.fna&_nc_gid=sKIv4NtpTxvM1Uk-42urOw&oh=00_AfMBUbcR-57u1nCracX-osaoARl7yGuUvbYGh7WGomWG7Q&oe=68580AA2"
-    ]
-}]);
+  const [plan] = useState(listings);
+  const [xp, setXp] = useState(0);
+  const [view, setView] = useState('roadmap');
 
   return (
-    <div className="bg-black min-h-screen text-white font-sans flex flex-col overflow-hidden">
-      <Navbar />
+    <div className="bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
+
+      <Navbar xp={xp} />
       <div className="flex flex-1 overflow-hidden">
-        <SidebarFilters />
-        <main className="flex-1 px-6 py-8 overflow-y-auto max-h-screen scrollbar-hide">
-          <GoalHeader plan={plan} />
-          <FlipTimeline plan={plan} setPlan={setPlan} />
+        <SidebarFilters view={view} setView={setView} />
+        + <main className="flex flex-1 px-6 py-4 h-[calc(100vh-64px)] overflow-hidden">
+        <div className="flex gap-6 w-full overflow-hidden">
+            <ProductListing listings={plan} />
+            <RoadmapVertical plan={plan} />
+          </div>
         </main>
       </div>
-    </div>
-  );
-}
-
-function Navbar() {
-  return (
-    <header className="bg-gray-950 border-b border-gray-800 px-6 py-4 flex justify-between items-center">
-      <div className="flex items-center gap-8">
-        <h1 className="text-cyan-400 font-bold text-xl">FlipMine</h1>
-        <nav className="hidden md:flex gap-6 text-sm text-gray-300">
-          <Link href="/" className="hover:text-white">Dashboard</Link>
-          <Link href="/history" className="hover:text-white">History</Link>
-          <Link href="/settings" className="hover:text-white">Settings</Link>
-        </nav>
-      </div>
-      <div className="flex items-center gap-4">
-        <div className="text-right">
-          <p className="text-xs text-gray-400">Available</p>
-          <p className="text-green-400 font-bold">$550</p>
-        </div>
-        <FaUserCircle className="text-white text-3xl" />
-      </div>
-    </header>
-  );
-}
-
-function SidebarFilters() {
-  const [risk, setRisk] = useState('Low');
-
-  return (
-    <aside className="w-64 hidden lg:flex flex-col bg-gray-950 border-r border-gray-800 p-6 space-y-6 max-h-screen overflow-y-auto scrollbar-hide">
-      <h2 className="text-xl font-bold text-cyan-400 mb-4">Filters</h2>
-      <div className="space-y-6 text-sm">
-        <div className="bg-gray-900 p-4 rounded-md">
-          <p className="text-gray-300 font-semibold mb-2">Budget Range</p>
-          <input type="text" placeholder="$ Min" className="w-full bg-gray-800 rounded px-2 py-1 text-white mb-2" />
-          <input type="text" placeholder="$ Max" className="w-full bg-gray-800 rounded px-2 py-1 text-white" />
-        </div>
-        <div className="bg-gray-900 p-4 rounded-md">
-          <p className="text-gray-300 font-semibold mb-2">Category</p>
-          <div className="flex flex-col gap-2 text-white">
-            <label><input type="radio" name="category" className="mr-2" />All</label>
-            <label><input type="radio" name="category" className="mr-2" />Electronics</label>
-            <label><input type="radio" name="category" className="mr-2" />Tools</label>
-            <label><input type="radio" name="category" className="mr-2" />Games</label>
-          </div>
-        </div>
-        <div className="bg-gray-900 p-4 rounded-md">
-          <p className="text-gray-300 font-semibold mb-2">Risk Level</p>
-          <div className="flex gap-2">
-            <button onClick={() => setRisk('Low')} className={`flex-1 py-1 rounded text-sm font-bold transition-all ${risk === 'Low' ? 'bg-green-500 text-black' : 'bg-gray-800 text-green-400 hover:bg-green-600'}`}>Low</button>
-            <button onClick={() => setRisk('Medium')} className={`flex-1 py-1 rounded text-sm font-bold transition-all ${risk === 'Medium' ? 'bg-yellow-400 text-black' : 'bg-gray-800 text-yellow-400 hover:bg-yellow-500'}`}>Medium</button>
-            <button onClick={() => setRisk('High')} className={`flex-1 py-1 rounded text-sm font-bold transition-all ${risk === 'High' ? 'bg-red-500 text-white' : 'bg-gray-800 text-red-400 hover:bg-red-500'}`}>High</button>
-          </div>
-        </div>
-        <div className="bg-gray-900 p-4 rounded-md">
-          <p className="text-gray-300 font-semibold mb-2">Location</p>
-          <input type="text" placeholder="Enter city or postal code" className="w-full bg-gray-800 rounded px-2 py-1 text-white mb-2" />
-          <p className="text-gray-300 font-semibold mb-2">Search Radius (km)</p>
-          <input type="range" min="1" max="100" className="w-full accent-cyan-400" />
-        </div>
-      </div>
-    </aside>
-  );
-}
-
-function GoalHeader({ plan }) {
-  const totalGoal = 1000;
-  const initialAmount = 300;
-  const goalDifference = totalGoal - initialAmount;
-
-  const getProductPrice = (price) => {
-    const match = price.match(/\$?(\d+)/);
-    return match ? parseInt(match[1]) : 0;
-  };
-
-  const totalPlannedValue = plan.reduce((acc, item) => acc + getProductPrice(item.price), 0);
-  const progress = Math.min((totalPlannedValue / goalDifference) * 100, 100);
-
-  let cumulative = 0;
-  return (
-    <section className="mb-12">
-      <p className="text-center text-gray-400 text-sm tracking-widest uppercase">Target Objective</p>
-      <h2 className="text-center text-5xl font-bold text-cyan-400">${initialAmount} → ${totalGoal}</h2>
-      <div className="relative mt-6 h-6 bg-gray-800 rounded-full max-w-3xl mx-auto overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-green-400 transition-all duration-700" style={{ width: `${progress}%` }}></div>
-        {plan.map((item, i) => {
-          const price = getProductPrice(item.price);
-          cumulative += price;
-          const left = Math.min((cumulative / goalDifference) * 100, 100);
-          return (
-            <img
-              key={i}
-              src={`/api/image-proxy?url=${encodeURIComponent(item.images?.[0] || '')}`}
-              className="absolute w-8 h-8 rounded-full object-cover border-2 border-white shadow"
-              style={{ left: `calc(${left}% - 16px)` }}
-              alt="Step"
-              referrerPolicy="no-referrer"
-            />
-          );
-        })}
-      </div>
-      <p className={`mt-2 text-center text-sm ${progress === 100 ? 'text-green-400' : progress > 0 ? 'text-cyan-300' : 'text-gray-500'}`}>
-        {progress === 100 ? 'Goal Reached!' : progress > 0 ? `${Math.floor(progress)}% of goal reached` : 'No steps added yet'}
-      </p>
-    </section>
-  );
-}
-
-function FlipTimeline({ plan, setPlan }) {
-  const addToPlan = (item) => {
-    if (!plan.some(p => p.url === item.url)) {
-      setPlan([...plan, item]);
-    }
-  };
-
-  return (
-    <div className="space-y-6">
-      {listings.map((item, index) => (
-        <div key={index} className="bg-gray-900 rounded-xl p-4 flex flex-col md:flex-row gap-6 border border-gray-800 shadow-lg w-full">
-          <div className="flex-shrink-0 w-full md:w-1/3">
-            <img src={`/api/image-proxy?url=${encodeURIComponent(item.images?.[0] || '')}`} alt={item.title} className="object-cover rounded w-full h-48 md:h-full" referrerPolicy="no-referrer" />
-          </div>
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-4 gap-4">
-            <div className="bg-gray-800 rounded p-3 h-full flex flex-col justify-center">
-              <h3 className="text-lg font-semibold text-white mb-1 line-clamp-2 h-[3em]">{item.title}</h3>
-              <p className="text-sm text-gray-400">Source: <span className="text-cyan-400 font-medium">{item.website}</span></p>
-            </div>
-            <div className="bg-gray-800 rounded p-3 h-full flex flex-col justify-center">
-              <p className="text-sm text-gray-300 font-semibold mb-1">Buy Price</p>
-              <p className="text-white text-lg">{item.price}</p>
-            </div>
-            <div className="bg-gray-800 rounded p-3 h-full flex flex-col justify-center">
-              <p className="text-sm text-gray-300 font-semibold mb-1">Estimated Profit</p>
-              <p className="text-green-400 font-bold">$?</p>
-            </div>
-            <div className="bg-gray-800 rounded p-3 h-full flex flex-col justify-center text-center">
-              <button onClick={() => addToPlan(item)} className="bg-cyan-500 hover:bg-cyan-600 text-white font-bold py-2 px-4 rounded">
-                Add to Plan
-              </button>
-            </div>
-          </div>
-        </div>
-      ))}
     </div>
   );
 }
