@@ -267,10 +267,10 @@ const listings=[
 import Navbar from './components/Navbar';
 import ProductListing from './components/ProductListings';
 import RoadmapVertical from './components/Roadmap';
+import PlanRoadmapMobile from './components/RoadMapMobile';
 import SidebarFilters from './components/Sidebar';
 
 import { useState } from 'react';
-
 
 
 
@@ -280,17 +280,46 @@ export default function FlipMineApp() {
   const [plan] = useState(listings);
   const [xp, setXp] = useState(0);
   const [view, setView] = useState('roadmap');
+  const [showSidebar, setShowSidebar] = useState(false);
+  const toggleSidebar = () => setShowSidebar(!showSidebar);
 
   return (
     <div className="bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
-
       <Navbar xp={xp} />
-      <div className="flex flex-1 overflow-hidden">
-        <SidebarFilters view={view} setView={setView} />
-        + <main className="flex flex-1 px-6 py-4 h-[calc(100vh-64px)] overflow-hidden">
-        <div className="flex gap-6 w-full overflow-hidden">
+
+      <div className="flex flex-1 overflow-hidden ">
+        {/* Sidebar – hidden on small screens */}
+        <SidebarFilters
+          view={view}
+          setView={setView}
+          showSidebar={showSidebar}
+          toggleSidebar={toggleSidebar}
+        />
+
+        {/* Sidebar toggle arrow (floating button) */}
+        <button
+          className="lg:hidden fixed top-20 left-2 z-50 bg-gray-800 text-white p-2 rounded-full shadow-md"
+          onClick={toggleSidebar}
+        >
+          {showSidebar ? '←' : '→'}
+        </button>
+
+        {/* Main Content */}
+        <main className="flex-1 h-[calc(100vh-64px)] overflow-hidden px-4 py-4">
+          {/* Mobile layout: roadmap horizontal on top */}
+          <div className="lg:hidden mb-4">
+            <PlanRoadmapMobile plan={plan} />
+          </div>
+
+          {/* Desktop layout: roadmap on the side */}
+          <div className="hidden lg:flex gap-6 w-full h-full overflow-hidden">
             <ProductListing listings={plan} />
             <RoadmapVertical plan={plan} />
+          </div>
+
+          {/* Listings only on mobile (below roadmap) */}
+          <div className="lg:hidden">
+            <ProductListing listings={plan} />
           </div>
         </main>
       </div>
