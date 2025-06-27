@@ -2,7 +2,7 @@
 import React from 'react';
 import { FaArrowRight, FaTimes } from 'react-icons/fa';
 
-function SidebarFilters({ view, setView, showSidebar, toggleSidebar }) {
+function SidebarFilters({ showSidebar, toggleSidebar }){
   return (
     <>
       {/* Floating Toggle Arrow for Mobile (when sidebar is closed) */}

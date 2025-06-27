@@ -278,14 +278,14 @@ import { useState } from 'react';
 
 export default function FlipMineApp() {
   const [plan] = useState(listings);
-  const [xp, setXp] = useState(0);
+  // const [xp, setXp] = useState(0);
   const [view, setView] = useState('roadmap');
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
 
   return (
     <div className="bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
-      <Navbar xp={xp} />
+      <Navbar xp={0} />
 
       <div className="flex flex-1 overflow-hidden ">
         {/* Sidebar – hidden on small screens */}

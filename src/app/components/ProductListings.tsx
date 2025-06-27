@@ -1,5 +1,5 @@
 import React from 'react';
-
+import Image from 'next/image';
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from 'recharts';
 
 // import { Container } from './styles';
@@ -18,7 +18,7 @@ function ProductListing({ listings }) {
       {listings.map((item, i) => (
         <div key={i} className="flex bg-white text-black rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all min-h-[280px]">
           <div className="w-52 min-h-[280px] overflow-hidden z-30">
-            <img src={item.images[0]} alt={item.title} className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300 z-50" />
+            <Image src={item.images[0]} alt={item.title} className="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300 z-50" />
           </div>
           <div className="p-4 flex flex-col justify-between w-full space-y-2">
             <div>
