@@ -1,5 +1,5 @@
 'use client';
-const listings=[
+const originalListings=[
   {
       "website": "Facebook",
       "url": "https://www.facebook.com/marketplace/item/607045782404836/?ref=search&referral_code=null&referral_story_type=post&tracking=browse_serp%3A2dca02ab-03f9-45f9-be67-98f173ac3f8a&__tn__=!%3AD",
@@ -262,6 +262,14 @@ const listings=[
   }
 ]
 
+const listings = originalListings.map(item => ({
+  ...item,
+  images: [
+    "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
+    "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
+    "https://images.unsplash.com/photo-1593642634367-d91a135587b5",
+  ]
+}));
 
 
 import Navbar from './components/Navbar';
