@@ -272,68 +272,217 @@ const listings = originalListings.map(item => ({
 }));
 
 
-import CategoryChartsSlider from './components/graphsslider';
-import Navbar from './components/Navbar';
-import ProductListing from './components/ProductListings';
-import RoadmapVertical from './components/Roadmap';
-import PlanRoadmapMobile from './components/RoadMapMobile';
-import SidebarFilters from './components/Sidebar';
-
-import { useState } from 'react';
 
 
 
 
 
-export default function FlipMineApp() {
-  const [plan] = useState(listings);
-  // const [xp, setXp] = useState(0);
-  const [showSidebar, setShowSidebar] = useState(false);
-  const toggleSidebar = () => setShowSidebar(!showSidebar);
+
+
+
+
+
+
+
+
+import React, { useState } from 'react';
+import Image from 'next/image';
+import { FaUserCircle, FaHome, FaCompass, FaSearch, FaChartBar, FaTimes } from 'react-icons/fa';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+} from 'recharts';
+
+
+
+
+
+function Navbar() {
+  return (
+    <header className="bg-gray-950 border-b border-gray-800 px-6 py-4 flex justify-between items-center fixed top-0 left-0 right-0 z-40 shadow-md">
+      <h1 className="text-cyan-400 font-bold text-xl">FlipMine</h1>
+      <FaUserCircle className="text-white text-3xl" />
+    </header>
+  );
+}
+
+function BottomNavbar() {
+  return (
+    <nav className="fixed bottom-0 left-0 right-0 bg-gray-950 border-t border-gray-800 px-6 py-3 flex justify-around items-center z-40 lg:hidden">
+      <FaHome className="text-cyan-400 text-xl" />
+      <FaCompass className="text-cyan-400 text-xl" />
+      <FaSearch className="text-cyan-400 text-xl" />
+      <FaChartBar className="text-cyan-400 text-xl" />
+    </nav>
+  );
+}
+
+function CategoryChartsSlider() {
+  const data = ['Electronics', 'Tools', 'Home'].map(category => ({
+    category,
+    data: Array.from({ length: 7 }, (_, i) => ({ name: `D${i + 1}`, demand: Math.floor(Math.random() * 100 + 20) }))
+  }));
 
   return (
-    <div className="bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
-      <Navbar  />
-
-      <div className="flex flex-1 overflow-hidden ">
-        {/* Sidebar – hidden on small screens */}
-        <SidebarFilters
-          showSidebar={showSidebar}
-          toggleSidebar={toggleSidebar}
-        />
-
-        {/* Sidebar toggle arrow (floating button) */}
-        
-
-        {/* Main Content */}
-        <main className="flex-1 h-[calc(100vh-64px)] overflow-auto px-4 py-4 bg-gray-900 scrollbar-hide">
-
-
-          {/* Mobile layout: roadmap horizontal on top */}
-          <div className="lg:hidden mb-4">
-           <CategoryChartsSlider/>
-           <div>
-           <h2 className="text-lg font-bold text-cyan-500">🛣️ Roadmap</h2>
-            <PlanRoadmapMobile plan={plan} />
-            </div>          
+    <div className="px-4 pb-4">
+      <h2 className="text-lg font-semibold text-cyan-400 mb-2">📊 Demand Trends</h2>
+      <div className="flex gap-4 overflow-x-auto no-scrollbar">
+        {data.map((cat, idx) => (
+          <div key={idx} className="bg-gray-900 rounded-xl p-4 w-64 flex-shrink-0 border border-cyan-600">
+            <h3 className="text-white font-semibold text-sm mb-2">{cat.category}</h3>
+            <div className="h-32 bg-gray-900 p-1 rounded-md">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={cat.data} style={{ backgroundColor: '#111827' }}>
+                  <XAxis dataKey="name" hide />
+                  <YAxis hide />
+                  <Tooltip contentStyle={{ backgroundColor: '#1f2937', borderColor: '#22d3ee' }} labelStyle={{ color: '#e5e7eb' }} itemStyle={{ color: '#22d3ee' }} />
+                  <Line type="monotone" dataKey="demand" stroke="#22d3ee" strokeWidth={2} dot={false} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
           </div>
-
-          {/* Desktop layout: roadmap on the side */}
-
-          <div className="hidden lg:flex gap-6 w-full h-full overflow-hidden">
-          <div className="overflow-auto  scrollbar-hide" >
-          <CategoryChartsSlider/>
-            <ProductListing listings={plan} />
-        </div>
-            <RoadmapVertical plan={plan} />
-          </div>
-
-          {/* Listings only on mobile (below roadmap) */}
-          <div className="lg:hidden">
-            <ProductListing listings={plan} />
-          </div>
-        </main>
+        ))}
       </div>
     </div>
   );
 }
+
+function ProductListing({ listings }) {
+  return (
+    <div className="px-4 pb-4">
+      <h2 className="text-lg font-semibold text-cyan-400 mb-2">💼 Listings</h2>
+      <div className="flex flex-col gap-4">
+        {listings.map((item, i) => (
+          <div key={i} className="bg-gray-900 text-white rounded-xl shadow-md overflow-hidden">
+            <Image src={item.images[0]} alt={item.title} width={240} height={160} unoptimized className="w-full h-36 object-cover" />
+            <div className="p-4">
+              <h3 className="text-cyan-400 text-sm font-semibold mb-1">{item.title}</h3>
+              <p className="text-gray-400 text-xs mb-2">{item.details}</p>
+              <p className="text-cyan-300 font-bold mb-2">{item.price}</p>
+              <div className="h-20 bg-gray-900 p-1 rounded-md">
+                <ResponsiveContainer width="100%" height="100%">
+                  <LineChart data={Array.from({ length: 7 }, (_, i) => ({ name: `D${i + 1}`, demand: Math.floor(Math.random() * 100 + 20) }))} style={{ backgroundColor: '#111827' }}>
+                    <XAxis dataKey="name" hide />
+                    <YAxis hide />
+                    <Tooltip contentStyle={{ backgroundColor: '#1f2937', borderColor: '#22d3ee' }} labelStyle={{ color: '#e5e7eb' }} itemStyle={{ color: '#22d3ee' }} />
+                    <Line type="monotone" dataKey="demand" stroke="#22d3ee" strokeWidth={2} dot={false} />
+                  </LineChart>
+                </ResponsiveContainer>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function SidebarFilters() {
+  return (
+    <div className="p-4 space-y-4">
+      <h3 className="text-white text-lg font-semibold">Filters</h3>
+      <div>
+        <label className="block text-sm font-bold mb-2">BUDGET RANGE</label>
+        <input type="range" min="50" max="500" className="w-full" />
+      </div>
+      <div>
+        <label className="block text-sm font-bold mb-2">CATEGORIES</label>
+        <div className="space-y-1">
+          <label className="flex items-center space-x-2">
+            <input type="checkbox" defaultChecked /> <span>Tools</span>
+          </label>
+          <label className="flex items-center space-x-2">
+            <input type="checkbox" defaultChecked /> <span>Electronics</span>
+          </label>
+          <label className="flex items-center space-x-2">
+            <input type="checkbox" defaultChecked /> <span>Home</span>
+          </label>
+        </div>
+      </div>
+      <div>
+        <label className="block text-sm font-bold mb-2">DISTANCE</label>
+        <input type="range" min="10" max="100" className="w-full" />
+      </div>
+      <div>
+        <label className="block text-sm font-bold mb-2">TIMEFRAME</label>
+        <select className="w-full bg-gray-800 p-2 rounded-md">
+          <option>1 week</option>
+          <option>2 weeks</option>
+          <option>1 month</option>
+        </select>
+      </div>
+      <div>
+        <label className="block text-sm font-bold mb-2">RISK LEVEL</label>
+        <div className="space-y-2">
+          <label className="flex items-center space-x-2 bg-green-800 bg-opacity-30 px-3 py-1 rounded-md">
+            <input type="checkbox" />
+            <span className="text-green-400 font-semibold">Low</span>
+          </label>
+          <label className="flex items-center space-x-2 bg-yellow-700 bg-opacity-30 px-3 py-1 rounded-md">
+            <input type="checkbox" />
+            <span className="text-yellow-400 font-semibold">Medium</span>
+          </label>
+          <label className="flex items-center space-x-2 bg-red-800 bg-opacity-30 px-3 py-1 rounded-md">
+            <input type="checkbox" />
+            <span className="text-red-400 font-semibold">High</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Roadmap({ listings }) {
+  return (
+    <div className="p-4">
+      <h3 className="text-white text-lg font-semibold mb-2">Your Roadmap</h3>
+      <div className="flex gap-4 overflow-x-auto lg:flex-col no-scrollbar">
+        {listings.map((item, index) => (
+          <div key={index} className="bg-gray-800 rounded-lg p-3 shadow w-64 flex-shrink-0 lg:w-full">
+            <Image src={item.images[0]} alt={item.title} width={240} height={160} unoptimized className="w-full h-32 object-cover rounded-md mb-2" />
+            <h4 className="text-white text-sm font-bold mb-1">{item.title}</h4>
+            <p className="text-green-400 text-sm font-semibold">Estimated Profit: ${Math.floor(Math.random() * 150)}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function FlipMineApp() {
+  const [plan] = useState(listings);
+
+  return (
+    <div className="bg-gray-950 text-white min-h-screen">
+      <Navbar />
+
+      <div className="hidden lg:block fixed top-16 left-0 w-64 h-[calc(100vh-4rem)] z-30 border-r border-gray-800 bg-gray-900 overflow-y-auto no-scrollbar">
+        <SidebarFilters />
+      </div>
+
+      <div className="hidden lg:block fixed top-16 right-0 w-80 h-[calc(100vh-4rem)] z-30 border-l border-gray-800 bg-gray-900 overflow-y-auto no-scrollbar">
+        <Roadmap listings={plan} />
+      </div>
+
+      <main className="lg:ml-64 lg:mr-80 pt-16 pb-28 px-4 overflow-hidden">
+        <div className="lg:hidden">
+          <CategoryChartsSlider />
+          <Roadmap listings={plan} />
+          <ProductListing listings={plan} />
+        </div>
+        <div className="hidden lg:block mt-6">
+          <CategoryChartsSlider />
+          <ProductListing listings={plan} />
+        </div>
+      </main>
+
+      <BottomNavbar />
+    </div>
+  );
+}
+
+export default FlipMineApp;

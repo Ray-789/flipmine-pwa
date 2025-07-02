@@ -35,6 +35,7 @@ function generateChartData(): { name: string; demand: number }[] {
 const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
   return (
     <div className="flex flex-col gap-6 w-full overflow-y-auto max-h-[calc(100vh-80px)] pr-4 scrollbar-hide">
+      <h2 className="text-lg font-bold text-amber-50 ">💼 Listings</h2>
       {listings.map((item, i) => (
         <div
           key={i}
