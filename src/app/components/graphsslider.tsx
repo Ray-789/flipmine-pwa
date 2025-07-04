@@ -29,7 +29,7 @@ function CategoryChartsSlider() {
 
   return (
     <div className="  pb-4 w-full overflow-x-auto  scrollbar-hide">
-      <h2 className="text-lg font-semibold text-cyan-400 mb-2">📊 Demand Trends</h2>
+      <h2 className="text-lg font-semibold text-amber-50 mb-2">📊 Demand Trends</h2>
       <div className="flex gap-4 overflow-x-auto scrollbar-hide">
         {data.map((cat, idx) => (
           <div

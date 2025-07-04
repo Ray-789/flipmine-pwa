@@ -288,6 +288,7 @@ import { useState } from 'react';
 
 export default function FlipMineApp() {
   const [plan] = useState(listings);
+  const [showRoadmap, setShowRoadmap] = useState(false);
   // const [xp, setXp] = useState(0);
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
@@ -312,12 +313,15 @@ export default function FlipMineApp() {
 
           {/* Mobile layout: roadmap horizontal on top */}
           <div className="lg:hidden mb-4">
-           <CategoryChartsSlider/>
-           <div>
-           <h2 className="text-lg font-bold text-cyan-500">🛣️ Roadmap</h2>
-            <PlanRoadmapMobile plan={plan} />
-            </div>
-            <BottomNavbar/>          
+
+           { showRoadmap? <div className='h-screen w-screen flex justify-around' > 
+            <RoadmapVertical plan={plan} />
+            </div> : <><CategoryChartsSlider /><div>
+                          <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
+                          <PlanRoadmapMobile plan={plan} />
+                          <ProductListing listings={plan} />
+                      </div></>}
+            <BottomNavbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  />          
           </div>
 
           {/* Desktop layout: roadmap on the side */}
@@ -331,9 +335,7 @@ export default function FlipMineApp() {
           </div>
 
           {/* Listings only on mobile (below roadmap) */}
-          <div className="lg:hidden">
-            <ProductListing listings={plan} />
-          </div>
+         
         </main>
       </div>
     </div>
