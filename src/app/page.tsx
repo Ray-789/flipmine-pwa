@@ -272,6 +272,7 @@ const listings = originalListings.map(item => ({
 }));
 
 
+import BottomNavbar from './components/BottomNavbar';
 import CategoryChartsSlider from './components/graphsslider';
 import Navbar from './components/Navbar';
 import ProductListing from './components/ProductListings';
@@ -295,7 +296,7 @@ export default function FlipMineApp() {
     <div className="bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
       <Navbar  />
 
-      <div className="flex flex-1 overflow-hidden ">
+      <div className="flex flex-1">
         {/* Sidebar – hidden on small screens */}
         <SidebarFilters
           showSidebar={showSidebar}
@@ -315,7 +316,8 @@ export default function FlipMineApp() {
            <div>
            <h2 className="text-lg font-bold text-cyan-500">🛣️ Roadmap</h2>
             <PlanRoadmapMobile plan={plan} />
-            </div>          
+            </div>
+            <BottomNavbar/>          
           </div>
 
           {/* Desktop layout: roadmap on the side */}

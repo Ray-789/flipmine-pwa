@@ -15,13 +15,14 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
     <>
       {/* Floating Toggle Arrow for Mobile (when sidebar is closed) */}
       {!showSidebar && (
-        <button
-          onClick={toggleSidebar}
-          className="fixed bottom-6 left-4 z-50 lg:hidden bg-cyan-600 text-white p-3 rounded-full shadow-lg"
-        >
-          <FaArrowRight />
-        </button>
-      )}
+  <button
+    onClick={toggleSidebar}
+    className="fixed top-1/2 left-2 -translate-y-1/2 z-30 lg:hidden  bg-opacity-30 text-white p-2 rounded-r-full shadow-sm backdrop-blur-sm transition-all hover:bg-opacity-60"
+  >
+    <FaArrowRight className="text-lg" />
+  </button>
+)}
+
 
       {/* Sidebar */}
       <aside
@@ -45,14 +46,21 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
           </button>
         </div>
 
-        <div className="space-y-4 pt-2 lg:pt-10">
-          <button className="w-full bg-gray-800 py-2 px-4 rounded-md text-left">Search</button>
+        <div className="space-y-4  ">
+          <div>
+  <label className="block font-bold mb-2">LOCATION</label>
+  <input
+    type="text"
+    placeholder="Enter city or ZIP"
+    className="w-full p-2 rounded-md bg-gray-700 text-white placeholder-gray-400"
+  />
+</div>
 
           <div>
             <label className="block text-sm font-bold mb-2">BUDGET RANGE</label>
             <input type="range" min="50" max="500" className="w-full" />
           </div>
-
+            
           <div>
             <label className="block text-sm font-bold mb-2">CATEGORIES</label>
             <div className="space-y-1">
