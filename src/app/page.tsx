@@ -294,7 +294,7 @@ export default function FlipMineApp() {
   const toggleSidebar = () => setShowSidebar(!showSidebar);
 
   return (
-    <div className="bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
+    <div className=" bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
       <Navbar  />
 
       <div className="flex flex-1">
@@ -313,7 +313,7 @@ export default function FlipMineApp() {
 
           {/* Mobile layout: roadmap horizontal on top */}
           
-          <div className="lg:hidden mb-4 w-screen  h-screen overflow-auto overflow-y-auto  ">
+          <div className="lg:hidden mb-4  h-screen  overflow-y-auto scrollbar-hide  ">
 
            { showRoadmap? <div className="fixed inset-0 z-30  pt-18 pb-18 overflow-y-auto flex justify-center">
             <RoadmapVertical plan={plan} />

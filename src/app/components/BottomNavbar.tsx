@@ -1,5 +1,5 @@
 'use client';
-import { Home, Settings, MapPinned } from 'lucide-react';
+import { Home, Settings, MapPinned,Crown } from 'lucide-react';
 import React from 'react';
 
 interface BottomNavbarProps {
@@ -17,7 +17,9 @@ export default function BottomNavbar({ setShowRoadmap }: BottomNavbarProps) {
           label="RoadMap"
           func={() => setShowRoadmap((prev) => !prev)}
         />
+        <NavItem icon={<Crown size={24} />} label="Top" />
         <NavItem icon={<Settings size={24} />} label="Settings" />
+        
       </div>
     </nav>
   );
