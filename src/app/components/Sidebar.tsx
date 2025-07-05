@@ -17,7 +17,7 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
       {!showSidebar && (
   <button
     onClick={toggleSidebar}
-    className="fixed top-1/2 left-2 -translate-y-1/2 z-30 lg:hidden  bg-opacity-30 text-white p-2 rounded-r-full shadow-sm backdrop-blur-sm transition-all hover:bg-opacity-60"
+    className=" z-50 fixed top-1/2 left-2 -translate-y-1/2 z-30 lg:hidden  bg-opacity-30 text-white p-2 rounded-r-full shadow-sm backdrop-blur-sm transition-all hover:bg-opacity-60"
   >
     <FaArrowRight className="text-lg" />
   </button>
