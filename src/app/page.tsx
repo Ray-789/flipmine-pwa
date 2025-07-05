@@ -312,9 +312,10 @@ export default function FlipMineApp() {
 
 
           {/* Mobile layout: roadmap horizontal on top */}
-          <div className="lg:hidden mb-4">
+          
+          <div className="lg:hidden mb-4 w-screen  h-screen overflow-auto overflow-y-auto  ">
 
-           { showRoadmap? <div className='h-screen w-screen flex justify-around' > 
+           { showRoadmap? <div className="fixed inset-0 z-30  pt-18 pb-18 overflow-y-auto flex justify-center">
             <RoadmapVertical plan={plan} />
             </div> : <><CategoryChartsSlider /><div>
                           <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
