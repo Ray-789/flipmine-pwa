@@ -62,7 +62,7 @@ export default function ProductPage() {
   }, [messages]);
 
   return (
-    <div className="h-screen w-screen flex bg-gray-900 text-white overflow-hidden relative">
+    <div className="  h-screen w-screen flex bg-gray-900 text-white overflow-hidden fixed">
       {/* LEFT SIDE */}
       <div className="w-full md:w-[70%] p-6 flex flex-col gap-6 overflow-y-auto scrollbar-hide">
         <div className="flex flex-col md:flex-row gap-6 items-start">
@@ -145,10 +145,10 @@ export default function ProductPage() {
       </div>
 
       {/* DESKTOP CHAT */}
-      <div className="hidden md:flex flex-col w-[30%] bg-gray-950 p-4">
+      <div className="hidden md:flex flex-col w-[30%] bg-gray-950 p-4 overflow-y-auto scrollbar-hide ">
         <h2 className="text-cyan-400 font-bold text-sm mb-2">💬 AI Chat Assistant</h2>
-        <div className="bg-gray-800 rounded-xl flex-1 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-y-auto p-3 space-y-2" ref={chatRef}>
+        <div className="bg-gray-800 rounded-xl flex-1 flex flex-col overflow-hidden ">
+          <div className="flex-1 overflow-y-auto p-3 space-y-2 overflow-y-auto scrollbar-hide " ref={chatRef}>
             {messages.map((msg, i) => (
               <div key={i} className={`text-sm max-w-xs p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}>
                 {msg.text}
