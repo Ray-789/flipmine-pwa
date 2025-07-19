@@ -65,8 +65,8 @@ export default function ProductPage() {
     <div className="h-screen w-screen flex bg-gray-900 text-white overflow-hidden relative">
       {/* LEFT SIDE */}
       <div className="w-full md:w-[70%] p-6 flex flex-col gap-6 overflow-y-auto scrollbar-hide">
-        <div className="flex gap-6 items-start">
-          <div className="relative w-60 h-60 rounded-xl overflow-hidden shrink-0">
+        <div className="flex flex-col md:flex-row gap-6 items-start">
+          <div className="relative w-full md:w-60 h-60 rounded-xl overflow-hidden shrink-0 mx-auto">
             <Image
               src={currentListing.images[currentImage]}
               alt="product"
@@ -84,7 +84,7 @@ export default function ProductPage() {
             </button>
           </div>
 
-          <div className="flex flex-col gap-2 flex-1">
+          <div className="flex flex-col gap-2 flex-1 w-full">
             <h1 className="text-xl font-bold text-cyan-400">{currentListing.title}</h1>
             <p className="text-lg font-semibold">{currentListing.price}</p>
             <div className="bg-gray-800 p-3 rounded-lg text-sm space-y-1">
@@ -111,14 +111,13 @@ export default function ProductPage() {
           <div className="bg-gray-800 p-4 rounded-xl">
             <h3 className="text-cyan-400 font-semibold text-sm mb-2">🤖 AI Opinion</h3>
             <p className="whitespace-pre-wrap break-words">
-            Based on the listing, this iPhone 13 presents strong flipping potential due to several key factors. First, the product is in a desirable color (Product Red) and storage size (128GB), which tend to retain higher resale value. Second, the battery health is above 90%, and there are no functional defects — making it appealing to a broad audience. The seller has also included original packaging, which improves buyer confidence and perceived value. The pricing appears fair compared to local market averages, especially if it’s listed under $550 CAD. As always, verify the device’s IMEI status, test Face ID, and ensure there are no hidden iCloud locks. Given the current demand and condition, this unit could be resold with a 15–25% profit margin within a week. Highly recommended for intermediate-level flippers looking for fast turnover.
+              This product looks well-priced and highly demanded. Great for flipping. Seller reviews look solid, and the product has no iCloud lock. Strong buy for a quick resale.
             </p>
             <p className="text-xs text-gray-400 mt-1">Confidence: {currentListing.ai_confidence || 87}%</p>
           </div>
           <div className="bg-gray-800 p-4 rounded-xl">
             <h3 className="text-cyan-400 font-semibold text-sm mb-2">📃 Description</h3>
-            <p className="whitespace-pre-wrap break-words">{currentListing.details+`This is a gently used iPhone 13 in striking Product Red, 128GB model. The phone has been meticulously maintained and is in excellent working condition with only minor cosmetic scratches on the back glass and sides. It’s unlocked, so you can use it with any carrier, and there are no iCloud or activation locks. Battery health is at 91%, offering reliable all-day use. Includes original box and USB-C to Lightning cable. Face ID, cameras, speaker, and all buttons function perfectly. This is a great deal for students or anyone looking for a high-performance smartphone without breaking the bank. Available for pickup downtown or delivery within 10km. First come, first served — serious inquiries only, please.
-`}</p>
+            <p className="whitespace-pre-wrap break-words">{currentListing.details}</p>
           </div>
         </div>
 
@@ -170,11 +169,15 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* MOBILE CHAT */}
-      <button className="fixed bottom-6 right-6 md:hidden bg-cyan-500 text-white p-4 rounded-full shadow-lg z-50" onClick={() => setChatOpen(true)}>
+      {/* MOBILE CHAT ICON */}
+      <button
+        className="fixed bottom-6 right-6 md:hidden bg-cyan-500 text-white p-4 rounded-full shadow-lg z-50"
+        onClick={() => setChatOpen(true)}
+      >
         <FaComments />
       </button>
 
+      {/* MOBILE CHAT MODAL */}
       {chatOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex flex-col">
           <div className="bg-gray-800 flex-1 rounded-t-lg flex flex-col overflow-hidden">
