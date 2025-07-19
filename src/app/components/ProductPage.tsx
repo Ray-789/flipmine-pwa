@@ -212,18 +212,15 @@ export default function ProductPage() {
     
         {/* Input */}
         <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900">
-          <input
-            type="text"
-            className="flex-1 px-3 py-2 rounded-lg text-sm text-white outline-none bg-gray-800"
-            placeholder="Type a message..."
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-            inputMode="text"
-            autoComplete="off"
-            autoCorrect="off"
-            spellCheck="false"
-          />
+        <input
+  type="text"
+  className="flex-1 px-3 py-2 rounded-lg text-white outline-none bg-gray-800 text-[16px]"
+  placeholder="Type a message..."
+  value={input}
+  onChange={(e) => setInput(e.target.value)}
+  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+/>
+
           <button
             onClick={sendMessage}
             className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold"
