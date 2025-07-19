@@ -179,32 +179,61 @@ export default function ProductPage() {
 
       {/* MOBILE CHAT MODAL */}
       {chatOpen && (
-       <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex flex-col max-h-[100dvh] overflow-hidden overflow-y-auto scrollbar-hide ">
-        <div className="bg-gray-800 flex-1 rounded-t-lg flex flex-col overflow-hidden overflow-y-auto scrollbar-hide">
-            <div className="flex justify-between items-center p-3 border-b border-gray-700 overflow-y-auto scrollbar-hide ">
-              <h3 className="text-cyan-400 font-bold">AI Chat</h3>
-              <button onClick={() => setChatOpen(false)} className="text-white text-sm">Close</button>
-            </div>
-            <div className="flex-1  p-3 space-y-2 overflow-y-auto scrollbar-hide " ref={chatRef}>
-              {messages.map((msg, i) => (
-                <div key={i} className={`text-sm max-w-xs p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}>
-                  {msg.text}
-                </div>
-              ))}
-            </div>
-            <div className="flex p-2 border-t border-gray-700 gap-2">
-              <input
-                type="text"
-                className="bg-gray-900 flex-1 px-3 py-2 rounded-lg text-sm text-white outline-none"
-                placeholder="Type a message..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-              />
-              <button onClick={sendMessage} className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold">Send</button>
-            </div>
-          </div>
+      
+      <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex flex-col">
+      <div
+        className="bg-gray-800 flex flex-col justify-between rounded-t-lg h-full max-h-[100dvh] w-full"
+        style={{ WebkitOverflowScrolling: 'touch' }}
+      >
+        {/* Header */}
+        <div className="flex justify-between items-center p-3 border-b border-gray-700">
+          <h3 className="text-cyan-400 font-bold">AI Chat</h3>
+          <button onClick={() => setChatOpen(false)} className="text-white text-sm">Close</button>
         </div>
+    
+        {/* Messages */}
+        <div
+          className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide"
+          ref={chatRef}
+        >
+          {messages.map((msg, i) => (
+            <div
+              key={i}
+              className={`text-sm max-w-xs p-2 rounded-lg ${
+                msg.sender === 'user'
+                  ? 'bg-cyan-500 text-white self-end ml-auto'
+                  : 'bg-gray-700 text-white self-start mr-auto'
+              }`}
+            >
+              {msg.text}
+            </div>
+          ))}
+        </div>
+    
+        {/* Input */}
+        <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900">
+          <input
+            type="text"
+            className="flex-1 px-3 py-2 rounded-lg text-sm text-white outline-none bg-gray-800"
+            placeholder="Type a message..."
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+            inputMode="text"
+            autoComplete="off"
+            autoCorrect="off"
+            spellCheck="false"
+          />
+          <button
+            onClick={sendMessage}
+            className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+    
       )}
     </div>
   );
