@@ -4,13 +4,7 @@ import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { FaCopy, FaCheck, FaChevronLeft, FaChevronRight, FaComments } from 'react-icons/fa';
 import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  ReferenceDot,
+  LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceDot,
 } from 'recharts';
 
 function generateChartData() {
@@ -33,14 +27,16 @@ export default function ProductPage() {
   const [input, setInput] = useState('');
   const chatRef = useRef<HTMLDivElement>(null);
 
-  if (!currentListing) return <p className="text-white p-6">No product selected.</p>;
-
   const chartData = generateChartData();
   const max = chartData.reduce((a, b) => (a.demand > b.demand ? a : b));
   const min = chartData.reduce((a, b) => (a.demand < b.demand ? a : b));
 
+  useEffect(() => {
+    if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
+  }, [messages]);
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(currentListing.url || '');
+    navigator.clipboard.writeText(currentListing?.url || '');
     setCopied(true);
     setTimeout(() => setCopied(false), 1500);
   };
@@ -54,18 +50,14 @@ export default function ProductPage() {
     setInput('');
   };
 
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  useEffect(() => {
-    if (chatRef.current) {
-      chatRef.current.scrollTop = chatRef.current.scrollHeight;
-    }
-  }, [messages]);
+  if (!currentListing) return <p className="text-white p-6">No product selected.</p>;
 
   return (
-    <div className=" h-screen w-screen flex bg-gray-900 text-white overflow-hidden relative">
-      {/* LEFT SIDE */}
-      <div className="w-full md:w-[70%] p-6 flex flex-col gap-6 overflow-y-auto scrollbar-hide">
-        <div className="flex flex-col md:flex-row gap-6 items-start">
+    <div className="h-[100svh] w-screen flex flex-col md:flex-row bg-gray-900 text-white overflow-hidden">
+      {/* LEFT SIDE (Main content) */}
+      <div className="flex-1 overflow-y-auto scrollbar-hide p-6 space-y-6">
+        {/* Product images and info */}
+        <div className="flex flex-col md:flex-row gap-6">
           <div className="relative w-full md:w-60 h-60 rounded-xl overflow-hidden shrink-0 mx-auto">
             <Image
               src={currentListing.images[currentImage]}
@@ -84,7 +76,7 @@ export default function ProductPage() {
             </button>
           </div>
 
-          <div className="flex flex-col gap-2 flex-1 w-full">
+          <div className="flex flex-col gap-2 flex-1">
             <h1 className="text-xl font-bold text-cyan-400">{currentListing.title}</h1>
             <p className="text-lg font-semibold">{currentListing.price}</p>
             <div className="bg-gray-800 p-3 rounded-lg text-sm space-y-1">
@@ -107,12 +99,11 @@ export default function ProductPage() {
           </div>
         </div>
 
+        {/* AI Opinion + Description */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-gray-800 p-4 rounded-xl">
             <h3 className="text-cyan-400 font-semibold text-sm mb-2">🤖 AI Opinion</h3>
-            <p className="whitespace-pre-wrap break-words">
-              This product looks well-priced and highly demanded. Great for flipping. Seller reviews look solid, and the product has no iCloud lock. Strong buy for a quick resale.
-            </p>
+            <p>This product looks well-priced and highly demanded. Strong buy for a quick resale.</p>
             <p className="text-xs text-gray-400 mt-1">Confidence: {currentListing.ai_confidence || 87}%</p>
           </div>
           <div className="bg-gray-800 p-4 rounded-xl">
@@ -121,6 +112,7 @@ export default function ProductPage() {
           </div>
         </div>
 
+        {/* Demand chart */}
         <div className="bg-gray-800 p-4 rounded-xl mt-4">
           <h3 className="text-cyan-400 font-semibold text-sm mb-2">📈 Demand Chart</h3>
           <div className="h-48 w-full">
@@ -144,11 +136,11 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* DESKTOP CHAT */}
-      <div className="hidden md:flex flex-col w-[30%] bg-gray-950 p-4 overflow-y-auto scrollbar-hide ">
+      {/* Desktop AI chat */}
+      <div className="hidden md:flex flex-col w-[30%] bg-gray-950 p-4 overflow-y-auto scrollbar-hide">
         <h2 className="text-cyan-400 font-bold text-sm mb-2">💬 AI Chat Assistant</h2>
-        <div className="bg-gray-800 rounded-xl flex-1 flex flex-col overflow-hidden  ">
-          <div className="flex-1  p-3 space-y-2 overflow-y-auto scrollbar-hide " ref={chatRef}>
+        <div className="bg-gray-800 rounded-xl flex-1 flex flex-col">
+          <div className="flex-1 p-3 space-y-2 overflow-y-auto scrollbar-hide" ref={chatRef}>
             {messages.map((msg, i) => (
               <div key={i} className={`text-sm max-w-xs p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}>
                 {msg.text}
@@ -169,71 +161,40 @@ export default function ProductPage() {
         </div>
       </div>
 
-      {/* MOBILE CHAT ICON */}
-      <button
-        className="fixed bottom-6 right-6 md:hidden bg-cyan-500 text-white p-4 rounded-full shadow-lg z-50"
-        onClick={() => setChatOpen(true)}
-      >
+      {/* Mobile chat button */}
+      <button onClick={() => setChatOpen(true)} className="fixed bottom-6 right-6 md:hidden bg-cyan-500 text-white p-4 rounded-full shadow-lg z-50">
         <FaComments />
       </button>
 
-      {/* MOBILE CHAT MODAL */}
+      {/* Mobile chat modal */}
       {chatOpen && (
-      
-      <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex flex-col">
-      <div
-        className="bg-gray-800 flex flex-col justify-between rounded-t-lg h-full max-h-[100dvh] w-full"
-        style={{ WebkitOverflowScrolling: 'touch' }}
-      >
-        {/* Header */}
-        <div className="flex justify-between items-center p-3 border-b border-gray-700">
-          <h3 className="text-cyan-400 font-bold">AI Chat</h3>
-          <button onClick={() => setChatOpen(false)} className="text-white text-sm">Close</button>
-        </div>
-    
-        {/* Messages */}
-        <div
-          className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide"
-          ref={chatRef}
-        >
-          {messages.map((msg, i) => (
-            <div
-              key={i}
-              className={`text-sm max-w-xs p-2 rounded-lg ${
-                msg.sender === 'user'
-                  ? 'bg-cyan-500 text-white self-end ml-auto'
-                  : 'bg-gray-700 text-white self-start mr-auto'
-              }`}
-            >
-              {msg.text}
+        <div className="fixed inset-0 z-[999] bg-black bg-opacity-70 flex flex-col">
+          <div className="bg-gray-800 flex flex-col h-[100svh] max-h-[100svh]">
+            <div className="flex justify-between items-center p-3 border-b border-gray-700">
+              <h3 className="text-cyan-400 font-bold">AI Chat</h3>
+              <button onClick={() => setChatOpen(false)} className="text-white text-sm">Close</button>
             </div>
-          ))}
+            <div className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide" ref={chatRef}>
+              {messages.map((msg, i) => (
+                <div key={i} className={`text-sm max-w-xs p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}>
+                  {msg.text}
+                </div>
+              ))}
+            </div>
+            <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900">
+              <input
+                type="text"
+                className="flex-1 px-3 py-2 rounded-lg text-white outline-none bg-gray-800 text-[16px]"
+                placeholder="Type a message..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+              />
+              <button onClick={sendMessage} className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold">Send</button>
+            </div>
+          </div>
         </div>
-    
-        {/* Input */}
-        <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900">
-        <input
-  type="text"
-  className="flex-1 px-3 py-2 rounded-lg text-white outline-none bg-gray-800 text-[16px]"
-  placeholder="Type a message..."
-  value={input}
-  onChange={(e) => setInput(e.target.value)}
-  onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-/>
-
-          <button
-            onClick={sendMessage}
-            className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold"
-          >
-            Send
-          </button>
-        </div>
-      </div>
-    </div>
-    
       )}
     </div>
   );
 }
-
-
