@@ -81,7 +81,7 @@ const RoadmapVertical: React.FC<RoadmapVerticalProps> = ({ plan }) => {
           </div>
         ))}
         <div className='flex flex-col-reverse justify-center items-center ' >       
-              <h1 className="text-2xl  font-bold text-amber-300">500🏆</h1>
+              <h1 className="text-2xl  font-bold text-amber-300">1500🏆</h1>
               <div className="-mt-10 h-10 w-1 bg-cyan-500" />
               </div>
       </div>
