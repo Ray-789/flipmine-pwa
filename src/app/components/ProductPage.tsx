@@ -53,7 +53,7 @@ export default function ProductPage() {
   if (!currentListing) return <p className="text-white p-6">No product selected.</p>;
 
   return (
-    <div className=" fixed h-[100svh] w-screen flex flex-col md:flex-row bg-gray-900 text-white overflow-hidden">
+    <div className="fixed top-0 left-0 w-full h-[100svh] flex flex-col md:flex-row bg-gray-900 text-white overflow-hidden overscroll-none touch-manipulation">
       {/* LEFT SIDE (Main content) */}
       <div className=" flex-1 overflow-y-auto scrollbar-hide p-6 space-y-6">
         {/* Product images and info */}
