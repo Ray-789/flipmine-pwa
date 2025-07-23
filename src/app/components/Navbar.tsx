@@ -3,7 +3,14 @@
 import { FaUserCircle } from 'react-icons/fa';
 import Link from 'next/link';
 
-function Navbar() {
+
+interface NavbarProps {
+  showRoadmap: boolean;
+  setShowRoadmap: React.Dispatch<React.SetStateAction<boolean>>;
+  showSettings: boolean;
+  setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
+}
+function Navbar({setShowSettings,setShowRoadmap}: NavbarProps) {
   // const level = Math.floor(xp / 100);
   // const role = level >= 10 ? 'Trader Wolf' : level >= 5 ? 'Strategist' : 'Hustler';
 
@@ -14,7 +21,11 @@ function Navbar() {
         <nav className="hidden md:flex gap-6 text-sm text-gray-300">
           <Link href="/" className="hover:text-white">Dashboard</Link>
           <Link href="/history" className="hover:text-white">History</Link>
-          <Link href="/settings" className="hover:text-white">Settings</Link>
+          <button  className="hover:text-white" onClick={()=>{
+            setShowRoadmap(false);
+            setShowSettings((prev)=>!prev)
+            
+            }} >Settings</button>
         </nav>
       </div>
       <div className="flex items-center gap-6">

@@ -277,7 +277,9 @@ import CategoryChartsSlider from './components/graphsslider';
 import Navbar from './components/Navbar';
 import ProductListing from './components/ProductListings';
 import RoadmapVertical from './components/Roadmap';
-import PlanRoadmapMobile from './components/RoadMapMobile';
+import PlanRoadmapMobile from './components/RoadMapMobile'
+import RoadmapPage from './components/RoadMapPage';
+import SettingsPage from './components/SettingsPage';
 import SidebarFilters from './components/Sidebar';
 
 import { useState } from 'react';
@@ -289,13 +291,14 @@ import { useState } from 'react';
 export default function FlipMineApp() {
   const [plan] = useState(listings);
   const [showRoadmap, setShowRoadmap] = useState(false);
+  const [showSettings, setShowSettings] = useState(false);
   // const [xp, setXp] = useState(0);
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
 
   return (
     <div className=" bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
-      <Navbar  />
+      <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
 
       <div className="flex flex-1">
         {/* Sidebar – hidden on small screens */}
@@ -314,26 +317,39 @@ export default function FlipMineApp() {
           {/* Mobile layout: roadmap horizontal on top */}
           
           <div className="lg:hidden mb-4  h-screen  overflow-y-auto scrollbar-hide  ">
-
-           { showRoadmap? <div className="fixed inset-0 z-30  pt-18 pb-18 overflow-y-auto flex justify-center">
-            <RoadmapVertical plan={plan} />
+          { showSettings && !showRoadmap?
+           <div className="fixed inset-0 z-30  pt-18 pb-18 overflow-y-auto  scrollbar-hide flex justify-center">
+            <SettingsPage/>
             </div> : <><CategoryChartsSlider /><div>
                           <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
                           <PlanRoadmapMobile plan={plan} />
                           <ProductListing listings={plan} />
                       </div></>}
-            <BottomNavbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  />          
+           { showRoadmap&&!showSettings? 
+           <div className=" bg  fixed inset-0 z-50  pt-18 pb-18 overflow-y-auto flex justify-center">
+            <RoadmapPage plan={plan} />
+            </div> : <><CategoryChartsSlider /><div>
+                          <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
+                          <PlanRoadmapMobile plan={plan} />
+                          <ProductListing listings={plan} />
+                      </div></>}
+            <BottomNavbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap} setShowSettings={setShowSettings} showSettings={showSettings}  />          
           </div>
 
           {/* Desktop layout: roadmap on the side */}
 
+         { showSettings ? 
+         
+         <SettingsPage/>
+         :
           <div className="hidden lg:flex gap-6 w-full h-full overflow-hidden">
           <div className="overflow-auto  scrollbar-hide" >
+         
           <CategoryChartsSlider/>
             <ProductListing listings={plan} />
         </div>
             <RoadmapVertical plan={plan} />
-          </div>
+          </div>}
 
           {/* Listings only on mobile (below roadmap) */}
          
