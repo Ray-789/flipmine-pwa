@@ -16,7 +16,7 @@ interface Listing {
 
 export default function RoadmapPage({ plan }: { plan: Listing[] }) {
   return (
-    <div className="bg-gray-900 top-20 fixed inset-0 z-50 pt-4 pb-18 flex justify-center overflow-y-auto">
+    <div className="bg-gray-900  fixed inset-0 z-50 pt-4 pb-18 flex justify-center overflow-y-auto">
       <RoadmapVertical plan={plan} />
     </div>
   );
