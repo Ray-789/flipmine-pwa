@@ -311,7 +311,7 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
-        <main className="flex-1 h-[calc(100vh-64px)] overflow-auto px-4 py-4 bg-gray-900 scrollbar-hide">
+        <main className="  flex-1 h-[calc(100vh-64px)] overflow-auto px-4 py-4 bg-gray-900 scrollbar-hide">
 
 
           {/* Mobile layout: roadmap horizontal on top */}
@@ -326,9 +326,8 @@ export default function FlipMineApp() {
                           <ProductListing listings={plan} />
                       </div></>}
            { showRoadmap&&!showSettings? 
-           <div className=" bg  fixed inset-0 z-50  pt-18 pb-18 overflow-y-auto flex justify-center">
             <RoadmapPage plan={plan} />
-            </div> : <><CategoryChartsSlider /><div>
+             : <><CategoryChartsSlider /><div>
                           <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
                           <PlanRoadmapMobile plan={plan} />
                           <ProductListing listings={plan} />
