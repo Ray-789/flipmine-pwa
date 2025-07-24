@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect } from 'react';
+import React from 'react';
 import RoadmapVertical from './Roadmap';
 
 interface Listing {
@@ -15,19 +15,9 @@ interface Listing {
 }
 
 export default function RoadmapPage({ plan }: { plan: Listing[] }) {
-  // Lock background scroll when Roadmap is open
-  useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, []);
-
   return (
-    
-      <div className="flex justify-center w-full bg-gray-900">
-        <RoadmapVertical plan={plan} />
-      </div>
+    <div className="bg-gray-900 top-20 fixed inset-0 z-50 pt-4 pb-18 flex justify-center overflow-y-auto">
+      <RoadmapVertical plan={plan} />
+    </div>
   );
 }
-
