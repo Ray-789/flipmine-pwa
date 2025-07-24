@@ -18,7 +18,7 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 
 export default function SettingsPage() {
   return (
-    <div className="h-[100svh] w-screen overflow-hidden bg-gray-900 text-white flex justify-center items-center overflow-y-auto  ">
+    <div className="h-[100svh] w-screen overflow-hidden bg-gray-900 text-white flex justify-center items-center z-50 overflow-y-auto  ">
       <div className="max-w-2xl w-full h-[95vh] overflow-y-auto scrollbar-hide p-6">
         <h1 className="text-2xl font-bold mb-6 text-cyan-400">⚙️ Settings</h1>
 
