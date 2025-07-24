@@ -317,21 +317,18 @@ export default function FlipMineApp() {
           {/* Mobile layout: roadmap horizontal on top */}
           
           <div className="lg:hidden mb-4  h-screen  overflow-y-auto scrollbar-hide  ">
-          { showSettings && !showRoadmap?
+          { showSettings && !showRoadmap &&
            <div className="fixed inset-0 z-30  pt-18 pb-18 overflow-y-auto  scrollbar-hide flex justify-center">
             <SettingsPage/>
-            </div> : <><CategoryChartsSlider /><div>
-                          <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
-                          <PlanRoadmapMobile plan={plan} />
-                          <ProductListing listings={plan} />
-                      </div></>}
-           { showRoadmap&&!showSettings? 
+            </div> }
+           { showRoadmap&&!showSettings&& 
             <RoadmapPage plan={plan} />
-             : <><CategoryChartsSlider /><div>
+             }
+                      <><CategoryChartsSlider /><div>
                           <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
                           <PlanRoadmapMobile plan={plan} />
                           <ProductListing listings={plan} />
-                      </div></>}
+                      </div></>
             <BottomNavbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap} setShowSettings={setShowSettings} showSettings={showSettings}  />          
           </div>
 

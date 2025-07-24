@@ -53,11 +53,10 @@ export default function ProductPage() {
   if (!currentListing) return <p className="text-white p-6">No product selected.</p>;
 
   return (
-    <div className="fixed top-0 left-0 w-full h-[100svh] flex flex-col md:flex-row bg-gray-900 text-white overflow-hidden overscroll-none touch-manipulation">
+    <div className="fixed inset-0 h-[100dvh] w-full flex flex-col md:flex-row bg-gray-900 text-white overflow-hidden touch-none">
       {/* LEFT SIDE (Main content) */}
-      <div className=" flex-1 overflow-y-auto scrollbar-hide p-6 space-y-6">
-        {/* Product images and info */}
-        <div className=" flex flex-col md:flex-row gap-6">
+      <div className="flex-1 overflow-y-auto scrollbar-hide p-6 space-y-6">
+        <div className="flex flex-col md:flex-row gap-6">
           <div className="relative w-full md:w-60 h-60 rounded-xl overflow-hidden shrink-0 mx-auto">
             <Image
               src={currentListing.images[currentImage]}
@@ -99,7 +98,6 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* AI Opinion + Description */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="bg-gray-800 p-4 rounded-xl">
             <h3 className="text-cyan-400 font-semibold text-sm mb-2">🤖 AI Opinion</h3>
@@ -112,7 +110,6 @@ export default function ProductPage() {
           </div>
         </div>
 
-        {/* Demand chart */}
         <div className="bg-gray-800 p-4 rounded-xl mt-4">
           <h3 className="text-cyan-400 font-semibold text-sm mb-2">📈 Demand Chart</h3>
           <div className="h-48 w-full">
@@ -169,7 +166,7 @@ export default function ProductPage() {
       {/* Mobile chat modal */}
       {chatOpen && (
         <div className="fixed inset-0 z-[999] bg-black bg-opacity-70 flex flex-col">
-          <div className="bg-gray-800 flex flex-col h-[100svh] max-h-[100svh]">
+          <div className="bg-gray-800 flex flex-col h-[100dvh] max-h-[100dvh]">
             <div className="flex justify-between items-center p-3 border-b border-gray-700">
               <h3 className="text-cyan-400 font-bold">AI Chat</h3>
               <button onClick={() => setChatOpen(false)} className="text-white text-sm">Close</button>
