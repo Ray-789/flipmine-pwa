@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-key */
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -36,12 +35,12 @@ function generateChartData(): { name: string; demand: number }[] {
   }));
 }
 
-
 const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
   const router = useRouter();
   const { setListing } = useListingStore();
+
   return (
-    <div className="flex pb-36 inset-0 flex-col gap-6 w-full overflow-y-auto max-h-[calc(100vh-80px)] pr-4 scrollbar-hide">
+    <div className="flex flex-col gap-6 w-full max-h-[100svh] overflow-y-auto px-4 pt-4 pb-36 bg-gray-900 scrollbar-hide">
       <h2 className="text-lg font-bold text-amber-50">💼 Listings</h2>
       {listings.map((item, i) => {
         const chartData = generateChartData();
@@ -50,14 +49,16 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
 
         return (
           <button
-          onClick={() => {
-            setListing(item); // Set the item in global store
-            router.push('/product'); // Navigate to product page
-          }}
-        >
-            <div className="flex flex-col sm:flex-row bg-gray-900 text-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all min-h-[360px]">
+            key={i}
+            onClick={() => {
+              setListing(item);
+              router.push('/product');
+            }}
+            className="w-full"
+          >
+            <div className="flex flex-col sm:flex-row bg-gray-800 text-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all min-h-[360px]">
               {/* Image */}
-              <div className="w-full sm:w-52 min-h-[280px] overflow-hidden z-30">
+              <div className="w-full sm:w-52 min-h-[280px] overflow-hidden">
                 <Image
                   src={item.images?.[0] || '/fallback.jpg'}
                   alt={item.title}
@@ -75,7 +76,6 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
                   <p className="text-xs text-gray-400 mb-1">{item.details}</p>
                   <p className="text-sm font-semibold text-cyan-400">{item.price}</p>
 
-                  {/* Tags */}
                   <div className="mt-2 flex gap-2 text-xs flex-wrap">
                     <span className="bg-blue-100 text-blue-800 px-2 py-0.5 rounded">Electronics</span>
                     <span className="bg-yellow-100 text-yellow-800 px-2 py-0.5 rounded">
@@ -84,7 +84,6 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
                     <span className="bg-red-100 text-red-800 px-2 py-0.5 rounded">Risk: Medium</span>
                   </div>
 
-                  {/* Chart */}
                   <div className="h-20 w-full mt-3">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={chartData}>
@@ -120,13 +119,12 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
                   </div>
                 </div>
 
-                {/* Bottom section */}
                 <div className="mt-2 flex justify-between items-center text-xs flex-wrap gap-2">
                   <p className="text-green-400">
                     Profit: +${Math.floor(Math.random() * 150)}
                   </p>
                   <button
-                    onClick={(e) => e.preventDefault()} // so the button doesn't trigger the link
+                    onClick={(e) => e.preventDefault()}
                     className="bg-gradient-to-br from-cyan-500 to-blue-500 hover:from-blue-600 hover:to-cyan-600 text-white px-4 py-2 rounded-full shadow-xl transition-transform hover:scale-105"
                   >
                     Add to Roadmap
@@ -134,7 +132,7 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
                 </div>
               </div>
             </div>
-            </button>
+          </button>
         );
       })}
     </div>

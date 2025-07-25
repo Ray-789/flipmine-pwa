@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { FaArrowRight, FaTimes } from 'react-icons/fa';
+import {FaArrowLeft, FaArrowRight, FaTimes } from 'react-icons/fa';
 
 interface SidebarFiltersProps {
   showSidebar: boolean;
@@ -14,14 +14,19 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
   return (
     <>
       {/* Floating Toggle Arrow for Mobile (when sidebar is closed) */}
-      {!showSidebar && (
+      {!showSidebar ?(
   <button
     onClick={toggleSidebar}
     className=" z-50 fixed top-1/2 left-2 -translate-y-1/2 z-30 lg:hidden  bg-opacity-30 text-white p-2 rounded-r-full shadow-sm backdrop-blur-sm transition-all hover:bg-opacity-60"
   >
     <FaArrowRight className="text-lg" />
   </button>
-)}
+): <button
+onClick={toggleSidebar}
+className=" z-50 fixed top-1/2 left-66 -translate-y-1/2 z-30 lg:hidden  bg-opacity-30 text-white p-2 rounded-r-full shadow-sm backdrop-blur-sm transition-all hover:bg-opacity-60"
+>
+<FaArrowLeft className="text-lg" />
+</button>}
 
 
       {/* Sidebar */}
@@ -29,10 +34,11 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
         className={`
           ${showSidebar ? 'block' : 'hidden'}
           fixed lg:static 
+          pt-10
           top-0 left-0 
           h-screen w-64 
           bg-gray-800 text-white p-6 space-y-6 overflow-y-auto scrollbar-hide
-          z-[60] lg:z-30 
+          z-[60] lg:z-60
           lg:flex lg:flex-col
         `}
       >
