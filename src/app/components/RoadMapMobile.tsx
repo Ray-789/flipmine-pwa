@@ -29,7 +29,7 @@ function calculateProfit(priceStr: string): number {
 
 const PlanRoadmapMobile: React.FC<PlanRoadmapMobileProps> = ({ plan }) => {
   return (
-    <div className="overflow-x-auto flex  gap-4 py-4 scrollbar-hide">
+    <div className="overflow-x-auto overflow-y-auto flex  gap-4 py-4 scrollbar-hide">
       
       {plan.map((item, index) => (
         <div
