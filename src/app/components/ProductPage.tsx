@@ -3,6 +3,7 @@ import { useListingStore } from '../store/useListings';
 import Image from 'next/image';
 import { useState, useRef, useEffect } from 'react';
 import { FaCopy, FaCheck, FaChevronLeft, FaChevronRight, FaComments } from 'react-icons/fa';
+import { IoSendOutline } from "react-icons/io5";
 import {
   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceDot,
 } from 'recharts';
@@ -134,32 +135,43 @@ export default function ProductPage() {
       </div>
 
       {/* Desktop AI chat */}
-      <div className="hidden md:flex flex-col w-[30%] bg-gray-950 p-4 overflow-y-auto scrollbar-hide">
+      <div className="hidden lg:flex flex-col w-[30%] bg-gray-950 p-4 overflow-y-auto scrollbar-hide">
         <h2 className="text-cyan-400 font-bold text-sm mb-2">💬 AI Chat Assistant</h2>
         <div className="bg-gray-800 rounded-xl flex-1 flex flex-col">
-          <div className="flex-1 p-3 space-y-2 overflow-y-auto scrollbar-hide" ref={chatRef}>
-            {messages.map((msg, i) => (
-              <div key={i} className={`text-sm max-w-xs p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}>
-                {msg.text}
-              </div>
-            ))}
-          </div>
-          <div className="flex border-t border-gray-700 p-2 gap-2">
+        <div className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide" ref={chatRef}>
+  {messages.map((msg, i) => (
+    <div
+      key={i}
+      className={`
+        text-sm max-w-xs w-fit break-words whitespace-pre-wrap
+        p-2 rounded-lg 
+        ${msg.sender === 'user' 
+          ? 'bg-cyan-500 text-white self-end ml-auto' 
+          : 'bg-gray-700 text-white self-start mr-auto'}
+      `}
+    >
+      {msg.text}
+    </div>
+  ))}
+</div>
+
+          <div className="flex border-t border-gray-700 p-2 gap-2 items-center ">
             <input
               type="text"
-              className="bg-gray-900 flex-1 px-3 py-2 rounded-lg text-sm text-white outline-none"
+              className="bg-gray-900 flex-1 px-3 py-2 rounded-lg text-sm text-white outline-none "
               placeholder="Type a message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             />
-            <button onClick={sendMessage} className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold">Send</button>
+             <IoSendOutline onClick={sendMessage} className="text-cyan-500  rounded-lg text-3xl font-bold"  />
+            {/* <button onClick={sendMessage} className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold">Send</button> */}
           </div>
         </div>
       </div>
 
       {/* Mobile chat button */}
-      <button onClick={() => setChatOpen(true)} className="fixed bottom-6 right-6 md:hidden bg-cyan-500 text-white p-4 rounded-full shadow-lg z-50">
+      <button onClick={() => setChatOpen(true)} className="fixed bottom-6 right-6 lg:hidden bg-cyan-500 text-white p-4 rounded-full shadow-lg z-50">
         <FaComments />
       </button>
 
@@ -172,13 +184,23 @@ export default function ProductPage() {
               <button onClick={() => setChatOpen(false)} className="text-white text-sm">Close</button>
             </div>
             <div className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide" ref={chatRef}>
-              {messages.map((msg, i) => (
-                <div key={i} className={`text-sm max-w-xs p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}>
-                  {msg.text}
-                </div>
-              ))}
-            </div>
-            <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900">
+  {messages.map((msg, i) => (
+    <div
+      key={i}
+      className={`
+        text-sm max-w-xs w-fit break-words whitespace-pre-wrap
+        p-2 rounded-lg 
+        ${msg.sender === 'user' 
+          ? 'bg-cyan-500 text-white self-end ml-auto' 
+          : 'bg-gray-700 text-white self-start mr-auto'}
+      `}
+    >
+      {msg.text}
+    </div>
+  ))}
+</div>
+
+            <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900 justify-center items-center ">
               <input
                 type="text"
                 className="flex-1 px-3 py-2 rounded-lg text-white outline-none bg-gray-800 text-[16px]"
@@ -187,7 +209,8 @@ export default function ProductPage() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
               />
-              <button onClick={sendMessage} className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold">Send</button>
+              <IoSendOutline onClick={sendMessage} className="text-cyan-500  rounded-lg text-3xl font-bold"  />
+              {/* <button onClick={sendMessage} className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold">Send</button> */}
             </div>
           </div>
         </div>
