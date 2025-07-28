@@ -54,7 +54,7 @@ export default function ProductPage() {
   if (!currentListing) return <p className="text-white p-6">No product selected.</p>;
 
   return (
-    <div className="fixed inset-0 h-[100dvh] w-full flex flex-col md:flex-row bg-gray-900 text-white overflow-hidden touch-none">
+    <div className="fixed inset-0 h-[100dvh] w-full max-w-screen overflow-x-hidden flex flex-col md:flex-row bg-gray-900 text-white touch-none">
       {/* LEFT SIDE (Main content) */}
       <div className="flex-1 overflow-y-auto scrollbar-hide p-6 space-y-6">
         <div className="flex flex-col md:flex-row gap-6">
@@ -77,13 +77,19 @@ export default function ProductPage() {
           </div>
 
           <div className="flex flex-col gap-2 flex-1">
-            <h1 className="text-xl font-bold text-cyan-400">{currentListing.title}</h1>
+            <h1 className="text-xl font-bold text-cyan-400 break-words break-all">{currentListing.title}</h1>
             <p className="text-lg font-semibold">{currentListing.price}</p>
             <div className="bg-gray-800 p-3 rounded-lg text-sm space-y-1">
               <p><span className="text-gray-400">Condition:</span> {currentListing.details}</p>
               <p><span className="text-gray-400">Location:</span> {currentListing.location}</p>
-              <p><span className="text-gray-400">Seller:</span> <a href={currentListing.seller} target="_blank" className="text-cyan-400 underline">{currentListing.seller}</a></p>
               <p><span className="text-gray-400">Rating:</span> {currentListing.seller_rating}</p>
+              <p className="flex items-center gap-2">
+                <span className="text-gray-400">seller:</span>
+                <a href={currentListing.seller} target="_blank" className="text-cyan-400 underline break-all">Open</a>
+                <button onClick={handleCopy} className="text-cyan-400 hover:text-white transition">
+                  {copied ? <FaCheck className="text-green-400" /> : <FaCopy />}
+                </button>
+              </p>
               <p className="flex items-center gap-2">
                 <span className="text-gray-400">URL:</span>
                 <a href={currentListing.url} target="_blank" className="text-cyan-400 underline break-all">Open</a>
@@ -92,7 +98,7 @@ export default function ProductPage() {
                 </button>
               </p>
             </div>
-            <div className="flex gap-3 text-xs mt-2">
+            <div className="flex gap-3 text-xs mt-2 flex-wrap">
               <span className="bg-blue-800 text-blue-200 px-3 py-1 rounded-full">Category: {currentListing.category || 'N/A'}</span>
               <span className="bg-red-800 text-red-200 px-3 py-1 rounded-full">Risk: {currentListing.risk_level || 'N/A'}</span>
             </div>
@@ -138,34 +144,27 @@ export default function ProductPage() {
       <div className="hidden lg:flex flex-col w-[30%] bg-gray-950 p-4 overflow-y-auto scrollbar-hide">
         <h2 className="text-cyan-400 font-bold text-sm mb-2">💬 AI Chat Assistant</h2>
         <div className="bg-gray-800 rounded-xl flex-1 flex flex-col">
-        <div className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide" ref={chatRef}>
-  {messages.map((msg, i) => (
-    <div
-      key={i}
-      className={`
-        text-sm max-w-xs w-fit break-words whitespace-pre-wrap
-        p-2 rounded-lg 
-        ${msg.sender === 'user' 
-          ? 'bg-cyan-500 text-white self-end ml-auto' 
-          : 'bg-gray-700 text-white self-start mr-auto'}
-      `}
-    >
-      {msg.text}
-    </div>
-  ))}
-</div>
+          <div className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide" ref={chatRef}>
+            {messages.map((msg, i) => (
+              <div
+                key={i}
+                className={`text-sm max-w-xs w-fit break-words whitespace-pre-wrap p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}
+              >
+                {msg.text}
+              </div>
+            ))}
+          </div>
 
-          <div className="flex border-t border-gray-700 p-2 gap-2 items-center ">
+          <div className="flex border-t border-gray-700 p-2 gap-2 items-center">
             <input
               type="text"
-              className="bg-gray-900 flex-1 px-3 py-2 rounded-lg text-sm text-white outline-none "
+              className="bg-gray-900 flex-1 px-3 py-2 rounded-lg text-sm text-white outline-none"
               placeholder="Type a message..."
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
             />
-             <IoSendOutline onClick={sendMessage} className="text-cyan-500  rounded-lg text-3xl font-bold"  />
-            {/* <button onClick={sendMessage} className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold">Send</button> */}
+            <IoSendOutline onClick={sendMessage} className="text-cyan-500 rounded-lg text-3xl font-bold" />
           </div>
         </div>
       </div>
@@ -184,23 +183,17 @@ export default function ProductPage() {
               <button onClick={() => setChatOpen(false)} className="text-white text-sm">Close</button>
             </div>
             <div className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide" ref={chatRef}>
-  {messages.map((msg, i) => (
-    <div
-      key={i}
-      className={`
-        text-sm max-w-xs w-fit break-words whitespace-pre-wrap
-        p-2 rounded-lg 
-        ${msg.sender === 'user' 
-          ? 'bg-cyan-500 text-white self-end ml-auto' 
-          : 'bg-gray-700 text-white self-start mr-auto'}
-      `}
-    >
-      {msg.text}
-    </div>
-  ))}
-</div>
+              {messages.map((msg, i) => (
+                <div
+                  key={i}
+                  className={`text-sm max-w-xs w-fit break-words whitespace-pre-wrap p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}
+                >
+                  {msg.text}
+                </div>
+              ))}
+            </div>
 
-            <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900 justify-center items-center ">
+            <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900 justify-center items-center">
               <input
                 type="text"
                 className="flex-1 px-3 py-2 rounded-lg text-white outline-none bg-gray-800 text-[16px]"
@@ -209,8 +202,7 @@ export default function ProductPage() {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
               />
-              <IoSendOutline onClick={sendMessage} className="text-cyan-500  rounded-lg text-3xl font-bold"  />
-              {/* <button onClick={sendMessage} className="bg-cyan-500 px-4 py-2 rounded-lg text-sm font-bold">Send</button> */}
+              <IoSendOutline onClick={sendMessage} className="text-cyan-500 rounded-lg text-3xl font-bold" />
             </div>
           </div>
         </div>
