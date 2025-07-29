@@ -126,42 +126,6 @@ const ScrollViewPage = () => {
           })}
         </div>
       </div>
-
-      <button onClick={() => setChatOpen(true)} className="fixed bottom-6 right-6 bg-cyan-500 text-white p-4 rounded-full shadow-lg z-50">
-        <FaComments />
-      </button>
-
-      {chatOpen && (
-        <div className="fixed inset-0 z-[999] bg-black bg-opacity-70 flex flex-col">
-          <div className="bg-gray-800 flex flex-col h-full">
-            <div className="flex justify-between items-center p-3 border-b border-gray-700">
-              <h3 className="text-cyan-400 font-bold">AI Chat</h3>
-              <button onClick={() => setChatOpen(false)} className="text-white text-sm">Close</button>
-            </div>
-            <div className="flex-1 overflow-y-auto p-3 space-y-2 scrollbar-hide" ref={chatRef}>
-              {messages.map((msg, i) => (
-                <div
-                  key={i}
-                  className={`text-sm max-w-xs w-fit break-words whitespace-pre-wrap p-2 rounded-lg ${msg.sender === 'user' ? 'bg-cyan-500 text-white self-end ml-auto' : 'bg-gray-700 text-white self-start mr-auto'}`}
-                >
-                  {msg.text}
-                </div>
-              ))}
-            </div>
-            <div className="flex p-2 border-t border-gray-700 gap-2 bg-gray-900 justify-center items-center">
-              <input
-                type="text"
-                className="flex-1 px-3 py-2 rounded-lg text-white outline-none bg-gray-800 text-[16px]"
-                placeholder="Type a message..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-              />
-              <IoSendOutline onClick={sendMessage} className="text-cyan-500 rounded-lg text-3xl font-bold" />
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };

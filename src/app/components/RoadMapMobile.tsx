@@ -27,29 +27,46 @@ function calculateProfit(priceStr: string): number {
   return high && low ? high - low : 0;
 }
 
+// Utility to chunk an array into sub-arrays of given size
+function chunkArray<T>(arr: T[], size: number): T[][] {
+  const chunks: T[][] = [];
+  for (let i = 0; i < arr.length; i += size) {
+    chunks.push(arr.slice(i, i + size));
+  }
+  return chunks;
+}
+
 const PlanRoadmapMobile: React.FC<PlanRoadmapMobileProps> = ({ plan }) => {
+  const pages = chunkArray(plan, 3);
+
   return (
-    <div className="overflow-x-auto overflow-y-auto flex  gap-4 py-4 scrollbar-hide">
-      
-      {plan.map((item, index) => (
+    <div className="overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory flex">
+      {pages.map((page, pageIndex) => (
         <div
-          key={index}
-          className="flex-shrink-0 w-64 bg-gray-800 rounded-xl p-4 shadow-md"
+          key={pageIndex}
+          className="snap-start flex-shrink-0 w-full flex justify-start gap-4 pt-4 "
         >
-          <Image
-            src={item.images?.[0] || '/fallback.jpg'}
-            alt={item.title}
-            width={240}
-            height={160}
-            unoptimized
-            className="w-full h-32 object-cover rounded-md"
-          />
-          <h3 className="text-white text-sm font-bold mt-2 line-clamp-2">
-            {item.title}
-          </h3>
-          <p className="text-green-400 text-sm font-semibold">
-            Profit: ${calculateProfit(item.price)}
-          </p>
+          {page.map((item, idx) => (
+            <div
+              key={idx}
+              className="w-64 bg-gray-800 rounded-xl p-4 shadow-md flex-shrink-0"
+            >
+              <Image
+                src={item.images?.[0] || '/fallback.jpg'}
+                alt={item.title}
+                width={240}
+                height={160}
+                unoptimized
+                className="w-full h-32 object-cover rounded-md"
+              />
+              <h3 className="text-white text-sm font-bold mt-2 line-clamp-2">
+                {item.title}
+              </h3>
+              <p className="text-green-400 text-sm font-semibold">
+                Profit: ${calculateProfit(item.price)}
+              </p>
+            </div>
+          ))}
         </div>
       ))}
     </div>

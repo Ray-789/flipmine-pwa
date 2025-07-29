@@ -303,7 +303,7 @@ export default function FlipMineApp() {
     return setListings(listings); // ← This saves it globally
   },[listings]);
   return (
-    <div className=" bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
+    <div className="h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
       <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
 
       <div className="flex flex-1">
