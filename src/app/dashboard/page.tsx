@@ -282,17 +282,26 @@ import RoadmapPage from '../components/RoadMapPage';
 import SettingsPage from '../components/SettingsPage';
 import SidebarFilters from '../components/Sidebar';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useListingStore } from '../store/useListings';
+import ScrollViewPage from '../components/ScrollView';
 
 
 export default function FlipMineApp() {
   const [plan] = useState(listings);
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [showScroll, setShowScroll] = useState(false);
   // const [xp, setXp] = useState(0);
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
+  const { setListings } = useListingStore();
 
+  useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return setListings(listings); // ← This saves it globally
+  },[listings]);
   return (
     <div className=" bg-gray-100 h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
       <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
@@ -324,24 +333,27 @@ export default function FlipMineApp() {
                       <><CategoryChartsSlider /><div>
                           <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
                           <PlanRoadmapMobile plan={plan} />
-                          <ProductListing listings={plan} />
+                          <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
                       </div></>
             <BottomNavbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap} setShowSettings={setShowSettings} showSettings={showSettings}  />          
           </div>
 
           {/* Desktop layout: roadmap on the side */}
 
+         {showScroll && <ScrollViewPage/>  }
+
+
          { showSettings ? 
          
          <SettingsPage/>
          :
-          <div className="hidden lg:flex gap-6 w-full h-full overflow-y-auto">
+          <div className=" hidden lg:flex gap-6 w-full h-full overflow-y-auto">
           <div className="overflow-auto  scrollbar-hide" >
          
           <CategoryChartsSlider/>
           <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
           <PlanRoadmapMobile plan={plan} />
-            <ProductListing listings={plan} />
+            <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
         </div>
             <RoadmapVertical plan={plan} />
           </div>}
@@ -353,3 +365,4 @@ export default function FlipMineApp() {
     </div>
   );
 }
+

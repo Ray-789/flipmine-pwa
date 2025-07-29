@@ -1,6 +1,9 @@
 import { create } from 'zustand';
 
 interface Listing {
+  category: string;
+  risk_level: string;
+  ai_confidence: number;
   title: string;
   price: string;
   details: string;
@@ -10,18 +13,20 @@ interface Listing {
   url?: string;
   seller?: string;
   seller_rating?: string;
-  ai_opinion?: string;
-  ai_confidence?: string;
-  category?: string;
-  risk_level?: string;
 }
 
 interface ListingStore {
+  listings: Listing[];
+  setListings: (listings: Listing[]) => void;
+
   currentListing: Listing | null;
   setListing: (listing: Listing) => void;
 }
 
 export const useListingStore = create<ListingStore>((set) => ({
+  listings: [],
+  setListings: (listings) => set({ listings }),
+
   currentListing: null,
   setListing: (listing) => set({ currentListing: listing }),
 }));
