@@ -2,9 +2,9 @@
 import { useRouter } from 'next/navigation';
 import { useListingStore } from '../store/useListings';
 import Image from 'next/image';
-import { useState, useRef, useEffect } from 'react';
-import { FaComments, FaPlus } from 'react-icons/fa';
-import { IoSendOutline } from 'react-icons/io5';
+import { useState, useEffect } from 'react';
+import { FaPlus } from 'react-icons/fa';
+
 import {
   LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer, ReferenceDot,
 } from 'recharts';
@@ -15,17 +15,7 @@ const ScrollViewPage = () => {
   const { listings } = useListingStore();
   const { setListing } = useListingStore();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [chatOpen, setChatOpen] = useState(false);
-  const [input, setInput] = useState('');
-  const [messages, setMessages] = useState([
-    { sender: 'ai', text: 'Hey! I’m here to answer any questions about this product.' },
-  ]);
   const router = useRouter();
-  const chatRef = useRef<HTMLDivElement | null>(null);
-
-  useEffect(() => {
-    if (chatRef.current) chatRef.current.scrollTop = chatRef.current.scrollHeight;
-  }, [messages]);
 
   const handleScroll = (e: WheelEvent) => {
     const now = Date.now();
@@ -48,14 +38,7 @@ const ScrollViewPage = () => {
     console.log(`Scrolled to listing #${currentIndex + 1}`);
   }, [currentIndex]);
 
-  const sendMessage = () => {
-    if (!input.trim()) return;
-    setMessages(prev => [...prev, { sender: 'user', text: input }]);
-    setTimeout(() => {
-      setMessages(prev => [...prev, { sender: 'ai', text: "That's a great question. Here's what I think..." }]);
-    }, 500);
-    setInput('');
-  };
+
 
   return (
     <div className="fixed z-50 inset-0 h-screen w-screen bg-gray-900 text-white flex flex-col items-center justify-center">
