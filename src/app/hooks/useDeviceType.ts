@@ -1,21 +1,23 @@
-'use client'
-import { useState, useEffect } from 'react'
+// src/hooks/useDeviceType.ts
+import { useState, useEffect } from 'react';
 
-export function useDeviceType(): 'mobile'|'tablet'|'desktop' {
-  const [device, setDevice] = useState<'mobile'|'tablet'|'desktop'>('desktop')
+export type DeviceType = 'mobile' | 'tablet' | 'desktop';
 
+export function useDeviceType(): DeviceType {
+  const [device, setDevice] = useState<DeviceType>('desktop');
+ 
   useEffect(() => {
-    function update() {
-      const w = window.innerWidth
-      if (w < 640)      setDevice('mobile')
-      else if (w < 1024) setDevice('tablet')
-      else               setDevice('desktop')
+    function onResize() {
+      const w = window.innerWidth;
+      if (w < 768) setDevice('mobile');
+      else if (w < 1024) setDevice('tablet');
+      else setDevice('desktop');
     }
 
-    update()
-    window.addEventListener('resize', update)
-    return () => window.removeEventListener('resize', update)
-  }, [])
+    window.addEventListener('resize', onResize);
+    onResize(); // initial check
+    return () => window.removeEventListener('resize', onResize);
+  }, [device]);
 
-  return device
+  return device;
 }
