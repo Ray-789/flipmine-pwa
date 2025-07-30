@@ -312,7 +312,7 @@ const device = useDeviceType();
     <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
       <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
 
-      <div className="flex flex-1">
+      <div className="pt-16 flex flex-1">
         {/* Sidebar – hidden on small screens */}
         <SidebarFilters
           showSidebar={showSidebar}
@@ -366,7 +366,7 @@ const device = useDeviceType();
         
       
 
-       {device!=='mobile' && (<main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
+       {device!=='mobile' && (<main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-5.5  bg-gray-900 z-55 scrollbar-hide">
 {/* Desktop layout: roadmap on the side */}
 
          {showScroll && <ScrollViewPage/>  }
@@ -374,7 +374,7 @@ const device = useDeviceType();
  { showSettings &&       
          <SettingsPage/>
  }
-          <div className=" hidden lg:flex gap-6 w-full h-full overflow-y-auto">
+          <div className="hidden  lg:flex md:flex gap-6 w-full h-full overflow-y-auto">
           <div className="overflow-auto  scrollbar-hide" >
          
           <CategoryChartsSlider/>
