@@ -26,6 +26,7 @@ export default function Navbar({
   // Detect iOS Safari (iPhone/iPad) and whether we're already "installed"
   const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
   const isInStandalone =
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     window.navigator.standalone === true ||
     window.matchMedia('(display-mode: standalone)').matches;
