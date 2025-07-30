@@ -1,4 +1,5 @@
 // src/hooks/useDeviceType.ts
+"use client"
 import { useState, useEffect } from 'react';
 
 export type DeviceType = 'mobile' | 'tablet' | 'desktop';
