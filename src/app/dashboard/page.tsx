@@ -374,7 +374,7 @@ const device = useDeviceType();
  { showSettings &&       
          <SettingsPage/>
  }
-          <div className="hidden  lg:flex md:flex gap-6 w-full h-full overflow-y-auto">
+          { (!showSettings&&!showRoadmap&&!showScroll) && (<div className="hidden  lg:flex md:flex gap-6 w-full h-full overflow-y-auto">
           <div className="overflow-auto  scrollbar-hide" >
          
           <CategoryChartsSlider/>
@@ -383,7 +383,7 @@ const device = useDeviceType();
             <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
         </div>
             <RoadmapVertical plan={plan} />
-          </div>
+          </div>)}
          
 
           {/* Listings only on mobile (below roadmap) */}
