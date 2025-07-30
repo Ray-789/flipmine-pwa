@@ -354,6 +354,8 @@ export default function FlipMineApp() {
       setShowRoadmap={setShowRoadmap}
       setShowSettings={setShowSettings}
       showSettings={showSettings}
+      setShowScroll={setShowScroll}
+      showScroll={showScroll}
     />
 +  </div>
 
