@@ -300,13 +300,14 @@ export default function FlipMineApp() {
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
   const { setListings } = useListingStore();
-
+const device = useDeviceType();
   useEffect(() => {
+    console.log(device)
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return setListings(listings); // ← This saves it globally
-  },[listings]);
-   const device = useDeviceType();
+  },[listings,device]);
+   
   return (
     <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
       <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
@@ -328,7 +329,7 @@ export default function FlipMineApp() {
     {/* Mobile layout: roadmap horizontal on top */}
     
       {showSettings  && (
-        <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 no-scrollbar scrollbar-hide">
+        <main className="flex-1 h-[calc(100svh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4 bg-amber-500 scrollbar-hide">
           <SettingsPage />
         </main>
       )}
@@ -363,9 +364,9 @@ export default function FlipMineApp() {
   </>
 )}
         
-        
+      
 
-       {device=='desktop' && (<main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
+       {device!=='mobile' && (<main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
 {/* Desktop layout: roadmap on the side */}
 
          {showScroll && <ScrollViewPage/>  }

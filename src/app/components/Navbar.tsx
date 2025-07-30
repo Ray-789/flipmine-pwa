@@ -19,7 +19,7 @@ function Navbar({setShowSettings,setShowRoadmap}: NavbarProps) {
       <div className=" flex items-center gap-8">
         <h1 className="text-cyan-400 font-bold text-xl">FlipMine</h1>
         <nav className="hidden md:flex gap-6 text-sm text-gray-300">
-          <Link href="/" className="hover:text-white">Dashboard</Link>
+          <Link href="/dashboard" className="hover:text-white">Dashboard</Link>
           <Link href="/history" className="hover:text-white">History</Link>
           <button  className="hover:text-white" onClick={()=>{
             setShowRoadmap(false);
