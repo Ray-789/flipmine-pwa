@@ -326,9 +326,7 @@ export default function FlipMineApp() {
           {/* Mobile layout: roadmap horizontal on top */}
            <div className="lg:hidden w-full">
 {showSettings && !showRoadmap && (
-  <div className="min-h-screen">
     <SettingsPage />
-  </div>
 )}
 
 {showRoadmap && !showSettings && (
