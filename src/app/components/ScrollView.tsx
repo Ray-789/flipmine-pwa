@@ -41,7 +41,7 @@ const ScrollViewPage = () => {
 
 
   return (
-    <div className="fixed z-50 inset-0 h-screen w-screen bg-gray-900 text-white flex flex-col items-center justify-center">
+    <div className="fixed z-40 inset-0 h-screen w-screen bg-gray-900 text-white flex flex-col items-center justify-center">
       <div className="relative pt-64 w-full h-full flex items-center justify-center overflow-y-auto scrollbar-hide">
         <div className="w-full max-w-lg space-y-10 pt-200  py-10">
           {listings.map((listing, index) => {
