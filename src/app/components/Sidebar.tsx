@@ -38,7 +38,7 @@ className=" z-50 fixed top-1/2 left-66 -translate-y-1/2 z-30 lg:hidden  bg-opaci
           top-0 left-0 
           h-screen w-64 
           bg-gray-800 text-white p-6 space-y-6 overflow-y-auto scrollbar-hide
-          z-[60] lg:z-60
+          z-60 
           lg:flex lg:flex-col
         `}
       >

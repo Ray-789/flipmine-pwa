@@ -320,10 +320,9 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
-        <main className="  flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 scrollbar-hide">
+        <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 scrollbar-hide">
 
-
-          {/* Mobile layout: roadmap horizontal on top */}
+        {/* Mobile layout: roadmap horizontal on top */}
            <div className="lg:hidden w-full">
 {showSettings && !showRoadmap && (
     <SettingsPage />
@@ -361,8 +360,9 @@ export default function FlipMineApp() {
 
          {showScroll && <ScrollViewPage/>  }
 
-
-         
+ { showSettings &&       
+         <SettingsPage/>
+ }
           <div className=" hidden lg:flex gap-6 w-full h-full overflow-y-auto">
           <div className="overflow-auto  scrollbar-hide" >
          
@@ -373,6 +373,8 @@ export default function FlipMineApp() {
         </div>
             <RoadmapVertical plan={plan} />
           </div>
+         
+          
 
           {/* Listings only on mobile (below roadmap) */}
          
