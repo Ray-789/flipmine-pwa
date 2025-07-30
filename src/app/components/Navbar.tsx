@@ -1,4 +1,5 @@
 'use client';
+
 import { useState, useEffect } from 'react';
 import { FaUserCircle, FaDownload } from 'react-icons/fa';
 import Link from 'next/link';
@@ -10,7 +11,6 @@ interface NavbarProps {
   setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// Shape of the beforeinstallprompt event
 type BeforeInstallPromptEvent = Event & {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -21,65 +21,63 @@ export default function Navbar({
   setShowRoadmap,
 }: NavbarProps) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
-  const [showInstallIcon, setShowInstallIcon] = useState(false);
-  const [showIosInstallInstructions, setShowIosInstallInstructions] = useState(false);
+  const [showIosInstructions, setShowIosInstructions] = useState(false);
 
-  // Capture the PWA install prompt event
+  // Detect iOS Safari (iPhone/iPad) and whether we're already "installed"
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isInStandalone =
+    // @ts-ignore
+    window.navigator.standalone === true ||
+    window.matchMedia('(display-mode: standalone)').matches;
+
+  // 1️⃣ Capture the Android/Chrome install prompt
   useEffect(() => {
     const handler = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
     window.addEventListener('beforeinstallprompt', handler);
-    window.addEventListener('appinstalled', () => {
-      setDeferredPrompt(null);
-    });
+    window.addEventListener('appinstalled', () => setDeferredPrompt(null));
     return () => {
       window.removeEventListener('beforeinstallprompt', handler);
       window.removeEventListener('appinstalled', () => setDeferredPrompt(null));
     };
   }, []);
 
-  // Toggle between logo text and download icon every 3s, only if install prompt is available
-  useEffect(() => {
-    if (!deferredPrompt) return;
-    const iv = setInterval(() => {
-      setShowInstallIcon((v) => !v);
-    }, 3000);
-    return () => clearInterval(iv);
-  }, [deferredPrompt]);
-
+  // 2️⃣ Click handler for the install button
   const handleInstallClick = () => {
     if (deferredPrompt) {
-      // Chrome / Android install flow
+      // Chrome / Android
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(() => {
-        setDeferredPrompt(null);
-      });
+      deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
       return;
     }
-    // Fallback for iOS
-    if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-      setShowIosInstallInstructions(true);
-      setTimeout(() => setShowIosInstallInstructions(false), 5000);
+    if (isIos && !isInStandalone) {
+      // iOS: show instructions overlay
+      setShowIosInstructions(true);
+      setTimeout(() => setShowIosInstructions(false), 5000);
     }
   };
 
+  // Should we render the install button?
+  const showInstallButton = (!isInStandalone && (deferredPrompt !== null || isIos));
+
   return (
     <>
-      <header className="fixed w-full bg-gray-950 z-100 border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+      <header className="fixed top-0 w-full bg-gray-950 z-100 border-b border-gray-800 px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-8">
-          <button
-            onClick={handleInstallClick}
-            className="text-cyan-400 font-bold text-xl focus:outline-none"
-            aria-label="Install FlipMine"
-          >
-            {deferredPrompt
-              ? showInstallIcon
-                ? <FaDownload className="animate-pulse" />
-                : 'FlipMine'
-              : 'FlipMine'}
-          </button>
+          {showInstallButton && (
+            <button
+              onClick={handleInstallClick}
+              className="text-cyan-400 font-bold text-xl focus:outline-none"
+              aria-label="Install FlipMine"
+            >
+              <FaDownload className="animate-pulse" />
+            </button>
+          )}
+          <span className="text-cyan-400 font-bold text-xl">
+            FlipMine
+          </span>
           <nav className="hidden md:flex gap-6 text-sm text-gray-300">
             <Link href="/dashboard" className="hover:text-white">
               Dashboard
@@ -107,10 +105,12 @@ export default function Navbar({
         </div>
       </header>
 
-      {showIosInstallInstructions && (
+      {/* iOS “Add to Home Screen” instructions overlay */}
+      {showIosInstructions && (
         <div className="fixed inset-0 flex items-end justify-center p-4 pointer-events-none">
           <div className="bg-gray-800 text-white px-4 py-2 rounded shadow-lg pointer-events-auto">
-            Tap <span className="font-bold">Share</span>, then <span className="font-bold">Add to Home Screen</span>.
+            Tap <span className="font-bold">Share</span> then{' '}
+            <span className="font-bold">Add to Home Screen</span>
           </div>
         </div>
       )}
