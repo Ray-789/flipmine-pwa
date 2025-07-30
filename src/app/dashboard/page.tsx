@@ -320,6 +320,10 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
+         {showSettings ?<main className=" bg-amber-600  flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
+            <SettingsPage/>
+                     </main>
+         :
         <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
 
         {/* Mobile layout: roadmap horizontal on top */}
@@ -360,9 +364,9 @@ export default function FlipMineApp() {
 
          {showScroll && <ScrollViewPage/>  }
 
- { showSettings &&       
+ {/* { showSettings &&       
          <SettingsPage/>
- }
+ } */}
           <div className=" hidden lg:flex gap-6 w-full h-full overflow-y-auto">
           <div className="overflow-auto  scrollbar-hide" >
          
@@ -378,7 +382,7 @@ export default function FlipMineApp() {
 
           {/* Listings only on mobile (below roadmap) */}
          
-        </main>
+        </main>}
       </div>
     </div>
   );
