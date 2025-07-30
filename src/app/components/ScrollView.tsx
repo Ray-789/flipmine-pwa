@@ -32,6 +32,7 @@ const ScrollViewPage = () => {
   useEffect(() => {
     window.addEventListener('wheel', handleScroll);
     return () => window.removeEventListener('wheel', handleScroll);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentIndex]);
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const ScrollViewPage = () => {
 
 
   return (
-    <div className="fixed z-40 inset-0 h-screen w-screen bg-gray-900 text-white flex flex-col items-center justify-center">
+    <div className="fixed z-0 inset-0 h-screen w-screen bg-gray-900 text-white flex flex-col items-center justify-center">
       <div className="relative pt-64 w-full h-full flex items-center justify-center overflow-y-auto scrollbar-hide">
         <div className="w-full max-w-lg space-y-10 pt-200  py-10">
           {listings.map((listing, index) => {
