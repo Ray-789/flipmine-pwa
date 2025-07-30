@@ -264,6 +264,9 @@ const originalListings=[
 
 const listings = originalListings.map(item => ({
   ...item,
+   category:'Uncategorized',       // ensure string
+  risk_level:  'Unknown',         // ensure string
+  ai_confidence:  80,
   images: [
     "https://images.unsplash.com/photo-1517336714731-489689fd1ca8",
     "https://images.unsplash.com/photo-1504384308090-c894fdcc538d",
@@ -303,7 +306,7 @@ export default function FlipMineApp() {
     return setListings(listings); // ← This saves it globally
   },[listings]);
   return (
-    <div className="h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
+    <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
       <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
 
       <div className="flex flex-1">
@@ -317,36 +320,49 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
-        <main className="  flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden px-4 py-4 bg-gray-900 scrollbar-hide">
+        <main className="  flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 scrollbar-hide">
 
 
           {/* Mobile layout: roadmap horizontal on top */}
-          
-          <div className="lg:hidden mb-4  h-screen  overflow-y-auto scrollbar-hide  ">
-          { showSettings && !showRoadmap &&
-           <div className="fixed inset-0 z-30  pt-18 pb-18 overflow-y-auto  scrollbar-hide flex justify-center">
-            <SettingsPage/>
-            </div> }
-           { showRoadmap&&!showSettings&& 
-            <RoadmapPage plan={plan} />
-             }
-                      <><CategoryChartsSlider /><div>
-                          <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
-                          <PlanRoadmapMobile plan={plan} />
-                          <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
-                      </div></>
-            <BottomNavbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap} setShowSettings={setShowSettings} showSettings={showSettings}  />          
-          </div>
+           <div className="lg:hidden w-full">
+{showSettings && !showRoadmap && (
+  <div className="min-h-screen">
+    <SettingsPage />
+  </div>
+)}
+
+{showRoadmap && !showSettings && (
+  <div className="min-h-screen">
+    <RoadmapPage plan={plan} />
+  </div>
+)}
+  {!showSettings && !showRoadmap && (
+<div className="min-h-screen  pt-4">
+  <CategoryChartsSlider />
+  <h2 className="text-lg font-bold text-cyan-500 mt-4">just sold🔥🔥</h2>
+  <PlanRoadmapMobile plan={plan} />
+  <ProductListing
+    listings={plan}
+    showScroll={showScroll}
+    setShowScroll={setShowScroll}
+  />
+</div>
+    )}
+
+    <BottomNavbar
+      showRoadmap={showRoadmap}
+      setShowRoadmap={setShowRoadmap}
+      setShowSettings={setShowSettings}
+      showSettings={showSettings}
+    />
++  </div>
 
           {/* Desktop layout: roadmap on the side */}
 
          {showScroll && <ScrollViewPage/>  }
 
 
-         { showSettings ? 
          
-         <SettingsPage/>
-         :
           <div className=" hidden lg:flex gap-6 w-full h-full overflow-y-auto">
           <div className="overflow-auto  scrollbar-hide" >
          
@@ -356,7 +372,7 @@ export default function FlipMineApp() {
             <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
         </div>
             <RoadmapVertical plan={plan} />
-          </div>}
+          </div>
 
           {/* Listings only on mobile (below roadmap) */}
          
@@ -365,4 +381,9 @@ export default function FlipMineApp() {
     </div>
   );
 }
+
+
+
+
+
 

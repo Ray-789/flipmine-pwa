@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
@@ -24,12 +23,15 @@ interface Listing {
   url?: string;
   seller?: string;
   seller_rating?: string;
+  category?: string;
+  risk_level?: string;
+  ai_confidence?: number;
 }
 
 interface ProductListingProps {
   listings: Listing[];
-  showScroll:boolean;
-  setShowScroll:(showScroll:boolean) => void;
+  showScroll: boolean;
+  setShowScroll: (showScroll: boolean) => void;
 }
 
 function generateChartData(): { name: string; demand: number }[] {
@@ -39,7 +41,7 @@ function generateChartData(): { name: string; demand: number }[] {
   }));
 }
 
-const ProductListing: React.FC<ProductListingProps> = ({ listings,setShowScroll }) => {
+const ProductListing: React.FC<ProductListingProps> = ({ listings, setShowScroll }) => {
   const router = useRouter();
   const { setListing } = useListingStore();
   const viewed = useRef(new Set<number>());
@@ -75,10 +77,10 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings,setShowScroll 
     if (viewedCount >= 5) {
       setShowScroll(true);
     }
-  }, [viewedCount]);
+  }, [viewedCount, setShowScroll]);
 
   return (
-    <div className="flex flex-col gap-6 w-full max-h-[100svh] overflow-y-auto px-4 pt-4 pb-36 bg-gray-900 scrollbar-hide">
+    <div className="flex flex-col gap-6 w-full max-h-[100svh] overflow-y-auto md:overflow-y-visible px-4 pt-4 pb-36 bg-gray-900 scrollbar-hide">
       <h2 className="text-lg font-bold text-cyan-500">💼 Listings</h2>
       {listings.map((item, i) => {
         const chartData = generateChartData();
@@ -96,6 +98,7 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings,setShowScroll 
           >
             <button
               onClick={() => {
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
                 // @ts-expect-error
                 setListing(item);
                 router.push('/product');
@@ -185,4 +188,3 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings,setShowScroll 
 };
 
 export default ProductListing;
-

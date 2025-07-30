@@ -18,6 +18,24 @@ interface PlanRoadmapMobileProps {
   plan: Listing[];
 }
 
+
+
+interface Listing {
+  title: string;
+  price: string;
+  details: string;
+  images: string[];
+  location?: string;
+  website?: string;
+  url?: string;
+  seller?: string;
+  seller_rating?: string;
+}
+
+interface PlanRoadmapMobileProps {
+  plan: Listing[];
+}
+
 function calculateProfit(priceStr: string): number {
   const [low, high] = priceStr
     .replace(/[^0-9$]/g, '')
@@ -37,19 +55,22 @@ function chunkArray<T>(arr: T[], size: number): T[][] {
 }
 
 const PlanRoadmapMobile: React.FC<PlanRoadmapMobileProps> = ({ plan }) => {
-  const pages = chunkArray(plan, 3);
+  // Show 2 items per slide
+  const pages = chunkArray(plan, 2);
 
   return (
-    <div className="overflow-x-auto scrollbar-hide scroll-smooth snap-x snap-mandatory flex">
+    <div className="overflow-x-auto scrollbar-hide flex" style={{ scrollSnapType: 'x mandatory' }}>
       {pages.map((page, pageIndex) => (
         <div
           key={pageIndex}
-          className="snap-start flex-shrink-0 w-full flex justify-start gap-4 pt-4 "
+          className="snap-start flex-shrink-0 w-full flex"
+          style={{ gap: '1rem' }}
         >
           {page.map((item, idx) => (
             <div
               key={idx}
-              className="w-64 bg-gray-800 rounded-xl p-4 shadow-md flex-shrink-0"
+              className="flex-shrink-0 bg-gray-800 rounded-xl p-4 shadow-md"
+              style={{ flex: '0 0 calc((100% - 1rem) / 2)' }}
             >
               <Image
                 src={item.images?.[0] || '/fallback.jpg'}
