@@ -300,14 +300,16 @@ export default function FlipMineApp() {
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar(!showSidebar);
   const { setListings } = useListingStore();
-const device = useDeviceType();
+
   useEffect(() => {
-    console.log(device)
+    
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return setListings(listings); // ← This saves it globally
-  },[device, setListings]);
-   
+  },[setListings]);
+
+  
+  const device = useDeviceType();
   return (
     <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
       <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
