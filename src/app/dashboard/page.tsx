@@ -288,6 +288,7 @@ import SidebarFilters from '../components/Sidebar';
 import { useEffect, useState } from 'react';
 import { useListingStore } from '../store/useListings';
 import ScrollViewPage from '../components/ScrollView';
+import { useDeviceType } from '../hooks/useDeviceType';
 
 
 export default function FlipMineApp() {
@@ -305,8 +306,9 @@ export default function FlipMineApp() {
     // @ts-ignore
     return setListings(listings); // ← This saves it globally
   },[listings]);
+   const device = useDeviceType();
   return (
-    <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-hidden">
+    <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
       <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
 
       <div className="flex flex-1">
@@ -320,51 +322,57 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
-         {showSettings && !showRoadmap  ?<main className="flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide items-center justify-center ">
-            <SettingsPage/>
-                     </main>
-         :
+
+{device === 'mobile' && (
+  <>
+    {/* Mobile layout: roadmap horizontal on top */}
+    
+      {showSettings  && (
+        <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 no-scrollbar scrollbar-hide">
+          <SettingsPage />
+        </main>
+      )}
+
+      {showRoadmap && !showSettings && (
         <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
-
-        {/* Mobile layout: roadmap horizontal on top */}
-           <div className="lg:hidden w-full">
-
-
-{showRoadmap && !showSettings && (
-  <div className="min-h-screen">
-    <RoadmapPage plan={plan} />
-  </div>
+          <RoadmapPage plan={plan} />
+        </main>
+      )}
+      {!showSettings && !showRoadmap && (
+        <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
+          <div className="min-h-screen  pt-4">
+            <CategoryChartsSlider />
+            <h2 className="text-lg font-bold text-cyan-500 mt-4">just sold🔥🔥</h2>
+            <PlanRoadmapMobile plan={plan} />
+            <ProductListing
+              listings={plan}
+              showScroll={showScroll}
+              setShowScroll={setShowScroll}
+            />
+          </div>
+        </main>
+      )}
+      <BottomNavbar
+        showRoadmap={showRoadmap}
+        setShowRoadmap={setShowRoadmap}
+        setShowSettings={setShowSettings}
+        showSettings={showSettings}
+        setShowScroll={setShowScroll}
+        showScroll={showScroll}
+      />
+  </>
 )}
-  {!showSettings && !showRoadmap && (
-<div className="min-h-screen  pt-4">
-  <CategoryChartsSlider />
-  <h2 className="text-lg font-bold text-cyan-500 mt-4">just sold🔥🔥</h2>
-  <PlanRoadmapMobile plan={plan} />
-  <ProductListing
-    listings={plan}
-    showScroll={showScroll}
-    setShowScroll={setShowScroll}
-  />
-</div>
-    )}
+        
+        
 
-    <BottomNavbar
-      showRoadmap={showRoadmap}
-      setShowRoadmap={setShowRoadmap}
-      setShowSettings={setShowSettings}
-      showSettings={showSettings}
-      setShowScroll={setShowScroll}
-      showScroll={showScroll}
-    />
-+  </div>
-
-          {/* Desktop layout: roadmap on the side */}
+       {device=='desktop' && (<main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
+{/* Desktop layout: roadmap on the side */}
 
          {showScroll && <ScrollViewPage/>  }
 
- {/* { showSettings &&       
+ { showSettings &&       
          <SettingsPage/>
- } */}
+ }
           <div className=" hidden lg:flex gap-6 w-full h-full overflow-y-auto">
           <div className="overflow-auto  scrollbar-hide" >
          
@@ -376,11 +384,10 @@ export default function FlipMineApp() {
             <RoadmapVertical plan={plan} />
           </div>
          
-          
 
           {/* Listings only on mobile (below roadmap) */}
-         
-        </main>}
+
+</main>)}
       </div>
     </div>
   );
