@@ -320,7 +320,7 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
-        <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 scrollbar-hide">
+        <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
 
         {/* Mobile layout: roadmap horizontal on top */}
            <div className="lg:hidden w-full">
