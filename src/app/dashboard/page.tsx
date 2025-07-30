@@ -306,7 +306,7 @@ const device = useDeviceType();
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     return setListings(listings); // ← This saves it globally
-  },[listings,device]);
+  },[device, setListings]);
    
   return (
     <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
