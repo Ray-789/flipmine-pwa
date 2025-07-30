@@ -320,7 +320,7 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
-         {showSettings ?<main className=" bg-amber-600  flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
+         {showSettings && !showRoadmap  ?<main className="flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide items-center justify-center ">
             <SettingsPage/>
                      </main>
          :
@@ -328,9 +328,7 @@ export default function FlipMineApp() {
 
         {/* Mobile layout: roadmap horizontal on top */}
            <div className="lg:hidden w-full">
-{showSettings && !showRoadmap && (
-    <SettingsPage />
-)}
+
 
 {showRoadmap && !showSettings && (
   <div className="min-h-screen">
