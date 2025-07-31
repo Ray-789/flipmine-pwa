@@ -325,7 +325,7 @@ export default function FlipMineApp() {
         
 
         {/* Main Content */}
-
+   
 {device === 'mobile' && (
   <>
     {/* Mobile layout: roadmap horizontal on top */}
