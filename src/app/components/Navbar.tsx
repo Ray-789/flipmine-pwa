@@ -128,7 +128,7 @@ export default function Navbar({
       </header>
 
       {showIosInstructions && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
+        <div className=" absolute left-0 bottom-0 insert-0 w-full h-full  bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-10 rounded-2xl shadow-2xl border-4 border-cyan-500 max-w-md text-center">
             <h2 className="text-3xl font-extrabold mb-4">Add FlipMine to Home</h2>
             <p className="mb-6 text-lg">
