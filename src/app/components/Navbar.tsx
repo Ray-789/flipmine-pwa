@@ -27,26 +27,26 @@ export default function Navbar({
 }: NavbarProps) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isIos, setIsIos] = useState(false);
-  const [isInStandalone, setIsInStandalone] = useState(false);
+  const [isStandalone, setIsStandalone] = useState(false);
   const [showIosInstructions, setShowIosInstructions] = useState(false);
-  const [pulseIcon, setPulseIcon] = useState(false);
+  const [pulse, setPulse] = useState(false);
 
-  // 1) Detect iOS / iPadOS
+  // 1) Detect iOS / iPadOS & standalone
   useEffect(() => {
     const ua = window.navigator.userAgent.toLowerCase();
-    const isiPhone = ua.includes('iphone') || ua.includes('ipod');
-    const isiPadUA = ua.includes('ipad');
+    const isiPhone = /iphone|ipod/.test(ua);
+    const isiPadUA = /ipad/.test(ua);
     // iPadOS 13+ lies and says MacIntel
     const isiPadTouch = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
     setIsIos(isiPhone || isiPadUA || isiPadTouch);
 
-    // also detect if already running standalone
-    const iosStandalone = window.navigator.standalone === true;
-    const mmStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    setIsInStandalone(iosStandalone || mmStandalone);
+    setIsStandalone(
+      window.navigator.standalone === true ||
+      window.matchMedia('(display-mode: standalone)').matches
+    );
   }, []);
 
-  // 2) Capture Android/Chrome install prompt
+  // 2) Capture the native install prompt on Chrome/Android
   useEffect(() => {
     const handler = (e: Event) => {
       e.preventDefault();
@@ -60,29 +60,34 @@ export default function Navbar({
     };
   }, []);
 
-  // 3) Pulse icon every 3s when install is available
+  // 3) Pulse between icon & text every 3s, when install is available
   useEffect(() => {
     if (!deferredPrompt && !isIos) return;
-    const iv = setInterval(() => setPulseIcon((v) => !v), 3000);
+    const iv = setInterval(() => setPulse((v) => !v), 3000);
     return () => clearInterval(iv);
   }, [deferredPrompt, isIos]);
 
-  const handleInstallClick = () => {
+  // What to do on click
+  const onInstallClick = () => {
+    console.log('install click');
     if (deferredPrompt) {
-      // Chrome/Android
+      // Chrome/Android path
       deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
+      deferredPrompt.userChoice.then((choice) => {
+        console.log('user choice', choice.outcome);
+        setDeferredPrompt(null);
+      });
       return;
     }
-    if (isIos && !isInStandalone) {
+    if (isIos && !isStandalone) {
       // iOS fallback
       setShowIosInstructions(true);
-      // auto-hide after 5s
       setTimeout(() => setShowIosInstructions(false), 5000);
     }
   };
 
-  const showInstallButton = !isInStandalone && (deferredPrompt !== null || isIos);
+  // Should we render that install button?
+  const showInstallButton = !isStandalone && (deferredPrompt !== null || isIos);
 
   return (
     <>
@@ -90,13 +95,13 @@ export default function Navbar({
         <div className="flex items-center gap-8">
           {showInstallButton ? (
             <button
-              onClick={handleInstallClick}
+              onClick={onInstallClick}
               className="flex items-center gap-2 text-cyan-400 font-bold text-xl focus:outline-none"
               aria-label="Install FlipMine"
             >
-              {pulseIcon
+              {pulse
                 ? <FaDownload className="animate-pulse" />
-                : <>FlipMine</>
+                : 'FlipMine'
               }
             </button>
           ) : (
@@ -105,16 +110,14 @@ export default function Navbar({
 
           <nav className="hidden md:flex gap-6 text-sm text-gray-300">
             <Link href="/dashboard" className="hover:text-white">Dashboard</Link>
-            <Link href="/history" className="hover:text-white">History</Link>
+            <Link href="/history"  className="hover:text-white">History</Link>
             <button
               onClick={() => {
                 setShowRoadmap(false);
-                setShowSettings((s) => !s);
+                setShowSettings(s => !s);
               }}
               className="hover:text-white"
-            >
-              Settings
-            </button>
+            >Settings</button>
           </nav>
         </div>
 
@@ -127,17 +130,18 @@ export default function Navbar({
         </div>
       </header>
 
+      {/* iOS overlay */}
       {showIosInstructions && (
-        <div className=" absolute left-0 bottom-0 insert-0 w-full h-full  bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
           <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-10 rounded-2xl shadow-2xl border-4 border-cyan-500 max-w-md text-center">
             <h2 className="text-3xl font-extrabold mb-4">Add FlipMine to Home</h2>
             <p className="mb-6 text-lg">
-              Tap the <span className="font-bold">Share</span> icon and then choose{' '}
+              Tap <span className="font-bold">Share</span> then{' '}
               <span className="font-bold">Add to Home Screen</span>.
             </p>
             <button
               onClick={() => setShowIosInstructions(false)}
-              className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded-lg text-lg transition"
+              className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded-lg text-lg"
             >
               Got it!
             </button>
@@ -147,6 +151,7 @@ export default function Navbar({
     </>
   );
 }
+
 
 
 
