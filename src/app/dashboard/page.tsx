@@ -312,7 +312,7 @@ export default function FlipMineApp() {
   const device = useDeviceType();
   return (
     <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
-      <Navbar showRoadmap={showRoadmap} setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings} showSettings={showSettings}   />
+      <Navbar  setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings}    />
 
       <div className="pt-16 flex flex-1">
         {/* Sidebar – hidden on small screens */}
