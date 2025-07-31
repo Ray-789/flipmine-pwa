@@ -337,7 +337,7 @@ export default function FlipMineApp() {
       )}
 
       {showRoadmap && !showSettings && (
-        <main className=" flex-1 h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden pl-6 pt-4  bg-gray-900 z-55 scrollbar-hide">
+        <main className=" flex flex-1 bg-amber-950   justify-center h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden z-55 scrollbar-hide">
           <RoadmapPage plan={plan} />
         </main>
       )}

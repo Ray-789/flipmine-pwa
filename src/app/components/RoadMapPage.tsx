@@ -16,7 +16,17 @@ interface Listing {
 
 export default function RoadmapPage({ plan }: { plan: Listing[] }) {
   return (
-    <div className="fixed inset-0 bg-gray-900 text-white z-40 pt-22 pb-20 overflow-y-auto scrollbar-hide">
+    <div className="
+        fixed
+        top-16    /* push down below 64px header */  
+        bottom-0
+        left-0
+        right-0
+        bg-gray-900
+        text-white
+        z-40
+        overflow-y-auto
+        scrollbar-hide">
       <div className="flex flex-col items-center">
       <RoadmapVertical plan={plan} />
     </div>
