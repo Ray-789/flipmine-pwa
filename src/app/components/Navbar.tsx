@@ -6,9 +6,8 @@ import { FaUserCircle, FaDownload } from 'react-icons/fa';
 import Link from 'next/link';
 
 interface NavbarProps {
-  showRoadmap: boolean;
+  /** Only need the setters now */
   setShowRoadmap: React.Dispatch<React.SetStateAction<boolean>>;
-  showSettings: boolean;
   setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -18,9 +17,7 @@ type BeforeInstallPromptEvent = Event & {
 };
 
 export default function Navbar({
-  showRoadmap,
   setShowRoadmap,
-  showSettings,
   setShowSettings,
 }: NavbarProps) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -28,46 +25,41 @@ export default function Navbar({
   const [isInStandalone, setIsInStandalone] = useState(false);
   const [showIosInstructions, setShowIosInstructions] = useState(false);
 
-  // Detect iOS & standalone mode in the browser
+  // 1️⃣ Detect iOS & standalone
   useEffect(() => {
-    const ua = navigator.userAgent;
-    setIsIos(/iphone|ipad|ipod/i.test(ua));
+    setIsIos(/iphone|ipad|ipod/i.test(navigator.userAgent));
 
-    // @ts-ignore
-    const standalone = window.navigator.standalone === true;
+    const standalone = (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
     const displayStandalone = window.matchMedia('(display-mode: standalone)').matches;
     setIsInStandalone(standalone || displayStandalone);
   }, []);
 
-  // Capture Chrome/Android beforeinstallprompt
+  // 2️⃣ Capture the Chrome/Android prompt
   useEffect(() => {
-    const handler = (e: Event) => {
+    const onBeforeInstall = (e: Event) => {
       e.preventDefault();
       setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
-    window.addEventListener('beforeinstallprompt', handler);
+    window.addEventListener('beforeinstallprompt', onBeforeInstall);
     window.addEventListener('appinstalled', () => setDeferredPrompt(null));
     return () => {
-      window.removeEventListener('beforeinstallprompt', handler);
+      window.removeEventListener('beforeinstallprompt', onBeforeInstall);
       window.removeEventListener('appinstalled', () => setDeferredPrompt(null));
     };
   }, []);
 
   const handleInstallClick = () => {
     if (deferredPrompt) {
-      // Android/Chrome
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
       return;
     }
-    // iOS fallback
     if (isIos && !isInStandalone) {
       setShowIosInstructions(true);
       setTimeout(() => setShowIosInstructions(false), 5000);
     }
   };
 
-  // Show the install button if not already standalone and we have a prompt or are on iOS
   const showInstallButton = !isInStandalone && (deferredPrompt !== null || isIos);
 
   return (
@@ -107,7 +99,6 @@ export default function Navbar({
         </div>
       </header>
 
-      {/* iOS “Add to Home Screen” overlay */}
       {showIosInstructions && (
         <div className="fixed inset-0 flex items-end justify-center p-4 pointer-events-none">
           <div className="bg-gray-800 text-white px-4 py-2 rounded shadow-lg pointer-events-auto">
@@ -119,5 +110,6 @@ export default function Navbar({
     </>
   );
 }
+
 
 
