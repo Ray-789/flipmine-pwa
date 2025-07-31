@@ -10,13 +10,12 @@ interface NavbarProps {
   setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// 1) Extend the Navigator interface globally
+// “standalone” on iOS
 declare global {
   interface Navigator {
     standalone?: boolean;
   }
 }
-
 type BeforeInstallPromptEvent = Event & {
   prompt(): Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -32,7 +31,7 @@ export default function Navbar({
   const [showIosInstructions, setShowIosInstructions] = useState(false);
   const [showInstallIcon, setShowInstallIcon] = useState(false);
 
-  // 2) Detect iOS & standalone mode
+  // detect iOS / standalone
   useEffect(() => {
     setIsIos(/iphone|ipad|ipod/i.test(navigator.userAgent));
     const iosStandalone = navigator.standalone ?? false;
@@ -40,7 +39,7 @@ export default function Navbar({
     setIsInStandalone(iosStandalone || displayModeStandalone);
   }, []);
 
-  // 3) Capture Chrome/Android install prompt
+  // capture Chrome/Android prompt
   useEffect(() => {
     const onBeforeInstall = (e: Event) => {
       e.preventDefault();
@@ -54,14 +53,13 @@ export default function Navbar({
     };
   }, []);
 
-  // 4) Toggle brand ↔ icon every 3s when install is available
+  // pulse between icon and text
   useEffect(() => {
     if (!deferredPrompt && !isIos) return;
     const iv = setInterval(() => setShowInstallIcon((i) => !i), 3000);
     return () => clearInterval(iv);
   }, [deferredPrompt, isIos]);
 
-  // 5) Handle install clicks
   const handleInstallClick = () => {
     if (deferredPrompt) {
       deferredPrompt.prompt();
@@ -70,46 +68,36 @@ export default function Navbar({
     }
     if (isIos && !isInStandalone) {
       setShowIosInstructions(true);
-      setTimeout(() => setShowIosInstructions(false), 5000);
     }
   };
 
-  // Only show install if not already in standalone and install is possible on this device
   const showInstallButton = !isInStandalone && (deferredPrompt !== null || isIos);
 
   return (
     <>
       <header className="fixed top-0 w-full bg-gray-950 z-50 border-b border-gray-800 px-6 py-4 flex justify-between items-center">
-        <div className="flex items-center gap-8">
+        <div className="flex items-center gap-6">
           {showInstallButton ? (
             <button
               onClick={handleInstallClick}
-              className="text-cyan-400 text-2xl focus:outline-none"
-              aria-label="Install FlipMine"
+              className="flex items-center gap-2 bg-cyan-600 hover:bg-cyan-500 text-white px-4 py-2 rounded-lg text-lg font-semibold shadow-lg transform hover:scale-105 transition"
             >
-              {showInstallIcon ? (
-                <FaDownload className="animate-bounce" />
-              ) : (
-                'FlipMine'
-              )}
+              <FaDownload className="text-2xl animate-bounce" />
+              {showInstallIcon ? 'Install App' : 'FlipMine'}
             </button>
           ) : (
-            <span className="text-cyan-400 font-bold text-xl">FlipMine</span>
+            <span className="text-cyan-400 font-bold text-2xl">FlipMine</span>
           )}
 
           <nav className="hidden md:flex gap-6 text-sm text-gray-300">
-            <Link href="/dashboard" className="hover:text-white">
-              Dashboard
-            </Link>
-            <Link href="/history" className="hover:text-white">
-              History
-            </Link>
+            <Link href="/dashboard" className="hover:text-white">Dashboard</Link>
+            <Link href="/history" className="hover:text-white">History</Link>
             <button
-              className="hover:text-white"
               onClick={() => {
                 setShowRoadmap(false);
                 setShowSettings((s) => !s);
               }}
+              className="hover:text-white"
             >
               Settings
             </button>
@@ -127,9 +115,21 @@ export default function Navbar({
 
       {/* iOS “Add to Home Screen” overlay */}
       {showIosInstructions && (
-        <div className="fixed inset-0 flex items-end justify-center p-4 pointer-events-none z-60">
-          <div className="bg-gray-800 text-white px-4 py-2 rounded shadow-lg pointer-events-auto">
-            Tap <strong>Share</strong> then <strong>Add to Home Screen</strong>
+        <div
+          className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-40 p-4"
+          onClick={() => setShowIosInstructions(false)}
+        >
+          <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-8 rounded-xl shadow-2xl border-4 border-cyan-500 animate-pulse max-w-sm text-center">
+            <h2 className="text-2xl font-bold mb-4">Install FlipMine</h2>
+            <p className="mb-6">
+              Tap <strong>Share</strong>, then <strong>Add to Home Screen</strong> to install.
+            </p>
+            <button
+              onClick={() => setShowIosInstructions(false)}
+              className="mt-2 bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded-lg font-semibold transition"
+            >
+              Got it
+            </button>
           </div>
         </div>
       )}
