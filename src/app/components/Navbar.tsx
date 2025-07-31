@@ -10,6 +10,13 @@ interface NavbarProps {
   setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+// 1) Extend the Navigator interface globally
+declare global {
+  interface Navigator {
+    standalone?: boolean;
+  }
+}
+
 type BeforeInstallPromptEvent = Event & {
   prompt(): Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
@@ -25,16 +32,15 @@ export default function Navbar({
   const [showIosInstructions, setShowIosInstructions] = useState(false);
   const [showInstallIcon, setShowInstallIcon] = useState(false);
 
-  // 1️⃣ Detect iOS & standalone
+  // 2) Detect iOS & standalone mode
   useEffect(() => {
     setIsIos(/iphone|ipad|ipod/i.test(navigator.userAgent));
-    // @ts-expect-error: navigator.standalone is iOS-only
-    const standalone = (window.navigator as any).standalone === true;
-    const displayStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    setIsInStandalone(standalone || displayStandalone);
+    const iosStandalone = navigator.standalone ?? false;
+    const displayModeStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    setIsInStandalone(iosStandalone || displayModeStandalone);
   }, []);
 
-  // 2️⃣ Capture Chrome/Android install prompt
+  // 3) Capture Chrome/Android install prompt
   useEffect(() => {
     const onBeforeInstall = (e: Event) => {
       e.preventDefault();
@@ -48,28 +54,27 @@ export default function Navbar({
     };
   }, []);
 
-  // 3️⃣ Toggle brand ↔ icon every 3s when install available
+  // 4) Toggle brand ↔ icon every 3s when install is available
   useEffect(() => {
     if (!deferredPrompt && !isIos) return;
     const iv = setInterval(() => setShowInstallIcon((i) => !i), 3000);
     return () => clearInterval(iv);
   }, [deferredPrompt, isIos]);
 
+  // 5) Handle install clicks
   const handleInstallClick = () => {
     if (deferredPrompt) {
-      // Chrome / Android
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
       return;
     }
     if (isIos && !isInStandalone) {
-      // iOS fallback
       setShowIosInstructions(true);
       setTimeout(() => setShowIosInstructions(false), 5000);
     }
   };
 
-  // show button if not already in standalone, and install is possible
+  // Only show install if not already in standalone and install is possible on this device
   const showInstallButton = !isInStandalone && (deferredPrompt !== null || isIos);
 
   return (
@@ -131,6 +136,7 @@ export default function Navbar({
     </>
   );
 }
+
 
 
 
