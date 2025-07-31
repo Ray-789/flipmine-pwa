@@ -10,17 +10,16 @@ interface NavbarProps {
   setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-// Extend Navigator for iOS standalone detection
+type BeforeInstallPromptEvent = Event & {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+};
+
 declare global {
   interface Navigator {
     standalone?: boolean;
   }
 }
-
-type BeforeInstallPromptEvent = Event & {
-  prompt(): Promise<void>;
-  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
-};
 
 export default function Navbar({
   setShowRoadmap,
@@ -30,17 +29,24 @@ export default function Navbar({
   const [isIos, setIsIos] = useState(false);
   const [isInStandalone, setIsInStandalone] = useState(false);
   const [showIosInstructions, setShowIosInstructions] = useState(false);
-  const [showInstallIcon, setShowInstallIcon] = useState(false);
+  const [pulseIcon, setPulseIcon] = useState(false);
 
-  // detect iOS / standalone
+  // 1) Detect iOS / iPadOS
   useEffect(() => {
-    setIsIos(/iphone|ipad|ipod/i.test(navigator.userAgent));
-    const iosStand = navigator.standalone ?? false;
-    const displayStandalone = window.matchMedia('(display-mode: standalone)').matches;
-    setIsInStandalone(iosStand || displayStandalone);
+    const ua = window.navigator.userAgent.toLowerCase();
+    const isiPhone = ua.includes('iphone') || ua.includes('ipod');
+    const isiPadUA = ua.includes('ipad');
+    // iPadOS 13+ lies and says MacIntel
+    const isiPadTouch = navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1;
+    setIsIos(isiPhone || isiPadUA || isiPadTouch);
+
+    // also detect if already running standalone
+    const iosStandalone = window.navigator.standalone === true;
+    const mmStandalone = window.matchMedia('(display-mode: standalone)').matches;
+    setIsInStandalone(iosStandalone || mmStandalone);
   }, []);
 
-  // capture Chrome/Android install prompt
+  // 2) Capture Android/Chrome install prompt
   useEffect(() => {
     const handler = (e: Event) => {
       e.preventDefault();
@@ -54,21 +60,25 @@ export default function Navbar({
     };
   }, []);
 
-  // pulse between icon and text every 3s if install available
+  // 3) Pulse icon every 3s when install is available
   useEffect(() => {
     if (!deferredPrompt && !isIos) return;
-    const iv = setInterval(() => setShowInstallIcon((v) => !v), 3000);
+    const iv = setInterval(() => setPulseIcon((v) => !v), 3000);
     return () => clearInterval(iv);
   }, [deferredPrompt, isIos]);
 
   const handleInstallClick = () => {
     if (deferredPrompt) {
+      // Chrome/Android
       deferredPrompt.prompt();
       deferredPrompt.userChoice.then(() => setDeferredPrompt(null));
       return;
     }
     if (isIos && !isInStandalone) {
+      // iOS fallback
       setShowIosInstructions(true);
+      // auto-hide after 5s
+      setTimeout(() => setShowIosInstructions(false), 5000);
     }
   };
 
@@ -81,14 +91,13 @@ export default function Navbar({
           {showInstallButton ? (
             <button
               onClick={handleInstallClick}
-              className="text-cyan-400 font-bold text-xl focus:outline-none flex items-center gap-2"
+              className="flex items-center gap-2 text-cyan-400 font-bold text-xl focus:outline-none"
               aria-label="Install FlipMine"
             >
-              {showInstallIcon ? (
-                <FaDownload className="animate-pulse" />
-              ) : (
-                'FlipMine'
-              )}
+              {pulseIcon
+                ? <FaDownload className="animate-pulse" />
+                : <>FlipMine</>
+              }
             </button>
           ) : (
             <span className="text-cyan-400 font-bold text-2xl">FlipMine</span>
@@ -118,20 +127,17 @@ export default function Navbar({
         </div>
       </header>
 
-      {/* Big, full-screen iOS instructions */}
       {showIosInstructions && (
-        <div
-          className="fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-8"
-          onClick={() => setShowIosInstructions(false)}
-        >
-          <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-12 rounded-2xl shadow-2xl border-4 border-cyan-500 max-w-lg text-center space-y-6">
-            <h2 className="text-4xl font-extrabold">Install FlipMine</h2>
-            <p className="text-lg">
-              Tap <strong>Share</strong> (the ⬆︎ icon), then choose <strong>Add to Home Screen</strong>.
+        <div className="fixed inset-0 bg-black bg-opacity-70 z-40 flex items-center justify-center p-4">
+          <div className="bg-white dark:bg-gray-800 text-gray-900 dark:text-white p-10 rounded-2xl shadow-2xl border-4 border-cyan-500 max-w-md text-center">
+            <h2 className="text-3xl font-extrabold mb-4">Add FlipMine to Home</h2>
+            <p className="mb-6 text-lg">
+              Tap the <span className="font-bold">Share</span> icon and then choose{' '}
+              <span className="font-bold">Add to Home Screen</span>.
             </p>
             <button
               onClick={() => setShowIosInstructions(false)}
-              className="mt-4 bg-cyan-600 hover:bg-cyan-500 text-white px-8 py-3 rounded-lg font-semibold text-lg transition"
+              className="bg-cyan-600 hover:bg-cyan-500 text-white px-6 py-2 rounded-lg text-lg transition"
             >
               Got it!
             </button>
@@ -141,6 +147,7 @@ export default function Navbar({
     </>
   );
 }
+
 
 
 
