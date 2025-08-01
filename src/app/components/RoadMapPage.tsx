@@ -16,9 +16,9 @@ interface Listing {
 
 export default function RoadmapPage({ plan }: { plan: Listing[] }) {
   return (
-    <div className="
-        fixed
-        top-16    /* push down below 64px header */  
+    <div className=" 
+    fixed
+        top-16    /* push down below 64px header */
         bottom-0
         left-0
         right-0

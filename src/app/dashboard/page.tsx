@@ -311,10 +311,10 @@ export default function FlipMineApp() {
   
   const device = useDeviceType();
   return (
-    <div className=" h-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
+    <div className=" fixed inset-0 h-[100dvh] w-full max-w-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
       <Navbar  setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings}    />
 
-      <div className="pt-16 flex flex-1">
+      <div className="pt-16 flex flex-1  ">
         {/* Sidebar – hidden on small screens */}
         <SidebarFilters
           showSidebar={showSidebar}
@@ -337,7 +337,7 @@ export default function FlipMineApp() {
       )}
 
       {showRoadmap && !showSettings && (
-        <main className=" flex flex-1 bg-amber-950   justify-center h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden z-55 scrollbar-hide">
+        <main className=" flex flex-1   justify-center h-[calc(100vh-64px)] overflow-y-auto overflow-x-hidden  bg-gray-900 z-55 scrollbar-hide">
           <RoadmapPage plan={plan} />
         </main>
       )}
@@ -368,10 +368,12 @@ export default function FlipMineApp() {
         
       
 
-       {device!=='mobile' && (<main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-5.5  bg-gray-900 z-55 scrollbar-hide">
+       {device!=='mobile' && (<main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-5.5  bg-gray-900 bg-amber-600 z-55 scrollbar-hide">
 {/* Desktop layout: roadmap on the side */}
 
-         {showScroll && <ScrollViewPage/>  }
+         {showScroll && (
+            <ScrollViewPage/>
+            )  }
 
  { showSettings &&       
          <SettingsPage/>

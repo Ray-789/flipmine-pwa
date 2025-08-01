@@ -80,7 +80,7 @@ const ProductListing: React.FC<ProductListingProps> = ({ listings, setShowScroll
   }, [viewedCount, setShowScroll]);
 
   return (
-    <div className="flex flex-col gap-6 w-full max-h-[100svh] overflow-y-auto md:overflow-y-visible px-4 pt-4 pb-36 bg-gray-900 scrollbar-hide">
+    <div className="flex flex-col gap-6 w-full max-h-[100svh] overflow-y-auto md:overflow-y-visible px-4 pt-4 pb-36  scrollbar-hide">
       <h2 className="text-lg font-bold text-cyan-500">💼 Listings</h2>
       {listings.map((item, i) => {
         const chartData = generateChartData();

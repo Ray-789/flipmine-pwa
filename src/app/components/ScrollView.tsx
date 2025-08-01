@@ -42,9 +42,12 @@ const ScrollViewPage = () => {
 
 
   return (
-    <div className="fixed z-0 inset-0 h-screen w-screen bg-gray-900 text-white flex flex-col items-center justify-center">
-      <div className="relative pt-64 w-full h-full flex items-center justify-center overflow-y-auto scrollbar-hide">
-        <div className="w-full max-w-lg space-y-10 pt-200  py-10">
+    <div
+      className="absolute bg-amber-300 top-16  bottom-0 left-0 right-0
+                 overflow-y-auto bg-amber-300 bg-gray-900 text-white z-40"
+    >
+      <div className="max-w-2xl bg-amber-500 w-full mx-auto p-4 pb-32">
+        <div className="space-y-10 pt-20 py-10">
           {listings.map((listing, index) => {
             const chartData = Array.from({ length: 7 }, (_, i) => ({
               name: `D${i + 1}`,

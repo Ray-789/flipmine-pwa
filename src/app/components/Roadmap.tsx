@@ -34,10 +34,10 @@ const RoadmapVertical: React.FC<RoadmapVerticalProps> = ({ plan }) => {
   };
 
   return (
-    <div className="   shrink-0 flex flex-col items-center  justify-center gap-10 overflow-y-auto  pb-22 scrollbar-hide">
+    <div className="relative  shrink-0 flex flex-col items-center gap-10 overflow-y-auto  pb-4 scrollbar-hide">
       <h2 className="text-lg font-bold text-cyan-500">🛣️ Roadmap</h2>
       <div className="-mt-8 flex flex-col gap-10">
-        {plan.slice(0, 4).map((item, i) => (
+        {plan.map((item, i) => (
           <div key={i} className="relative flex flex-col items-center">
             {i !== 0 ? (
               <div className="absolute -top-10 h-10 w-1 bg-cyan-500 z-0" />
