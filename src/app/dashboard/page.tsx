@@ -283,7 +283,7 @@ import ProductListing from '../components/ProductListings';
 import PlanRoadmapMobile from '../components/RoadMapMobile'
 import RoadmapPage from '../components/RoadMapPage';
 import SettingsPage from '../components/SettingsPage';
-import SidebarFilters from '../components/Sidebar';
+// import SidebarFilters from '../components/Sidebar';
 
 import { useEffect, useState } from 'react';
 import { useListingStore } from '../store/useListings';
@@ -297,8 +297,8 @@ export default function FlipMineApp() {
   const [showSettings, setShowSettings] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   // const [xp, setXp] = useState(0);
-  const [showSidebar, setShowSidebar] = useState(false);
-  const toggleSidebar = () => setShowSidebar(!showSidebar);
+//   const [showSidebar, setShowSidebar] = useState(false);
+//   const toggleSidebar = () => setShowSidebar(!showSidebar);
   const { setListings } = useListingStore();
 
   useEffect(() => {
@@ -316,10 +316,10 @@ export default function FlipMineApp() {
 
       <div className="pt-16 flex flex-1  ">
         {/* Sidebar – hidden on small screens */}
-        <SidebarFilters
+        {/* <SidebarFilters
           showSidebar={showSidebar}
           toggleSidebar={toggleSidebar}
-        />
+        /> */}
 
         {/* Sidebar toggle arrow (floating button) */}
         
