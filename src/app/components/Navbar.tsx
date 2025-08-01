@@ -8,6 +8,7 @@ import Link from 'next/link';
 interface NavbarProps {
   setShowRoadmap: React.Dispatch<React.SetStateAction<boolean>>;
   setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowScroll: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 type BeforeInstallPromptEvent = Event & {
@@ -24,6 +25,7 @@ declare global {
 export default function Navbar({
   setShowRoadmap,
   setShowSettings,
+  setShowScroll,
 }: NavbarProps) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isIos, setIsIos] = useState(false);
@@ -109,7 +111,14 @@ export default function Navbar({
           )}
 
           <nav className="hidden md:flex gap-6 text-sm text-gray-300">
-            <Link href="/dashboard" className="hover:text-white">Dashboard</Link>
+           <button
+              onClick={() => {
+                setShowRoadmap(false);
+                setShowSettings(false);
+                setShowScroll(false)
+              }}
+              className="hover:text-white"
+            >dashboard</button>
             <Link href="/history"  className="hover:text-white">History</Link>
             <button
               onClick={() => {

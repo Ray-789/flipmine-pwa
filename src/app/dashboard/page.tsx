@@ -279,7 +279,7 @@ import BottomNavbar from '../components/BottomNavbar';
 import CategoryChartsSlider from '../components/graphsslider';
 import Navbar from '../components/Navbar';
 import ProductListing from '../components/ProductListings';
-import RoadmapVertical from '../components/Roadmap';
+// import RoadmapVertical from '../components/Roadmap';
 import PlanRoadmapMobile from '../components/RoadMapMobile'
 import RoadmapPage from '../components/RoadMapPage';
 import SettingsPage from '../components/SettingsPage';
@@ -287,7 +287,7 @@ import SidebarFilters from '../components/Sidebar';
 
 import { useEffect, useState } from 'react';
 import { useListingStore } from '../store/useListings';
-import ScrollViewPage from '../components/ScrollView';
+// import ScrollViewPage from '../components/ScrollView';
 import { useDeviceType } from '../hooks/useDeviceType';
 
 
@@ -312,7 +312,7 @@ export default function FlipMineApp() {
   const device = useDeviceType();
   return (
     <div className=" fixed inset-0 h-[100dvh] w-full max-w-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
-      <Navbar  setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings}    />
+      <Navbar setShowScroll={setShowScroll}  setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings}    />
 
       <div className="pt-16 flex flex-1  ">
         {/* Sidebar – hidden on small screens */}
@@ -369,27 +369,9 @@ export default function FlipMineApp() {
       
 
        {device!=='mobile' && (
-      <main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-5.5  bg-gray-900 bg-amber-600 z-55 scrollbar-hide">
-// {/* Desktop layout: roadmap on the side */}
+        <main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-5.5  bg-gray-900 bg-amber-600 z-55 scrollbar-hide">
+   </main>
 
-//          {showScroll && (
-//             <ScrollViewPage/>
-//             )  }
-
-//  { showSettings &&       
-//          <SettingsPage/>
-//  }
-//           { (!showSettings&&!showRoadmap&&!showScroll) && (<div className="hidden  lg:flex md:flex gap-6 w-full h-full overflow-y-auto">
-//           <div className="overflow-auto  scrollbar-hide" >
-         
-//           <CategoryChartsSlider/>
-//           <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
-//           <PlanRoadmapMobile plan={plan} />
-//             <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
-//         </div>
-//             <RoadmapVertical plan={plan} />
-//           </div>)}
-</main>
 
 
 )}
