@@ -368,31 +368,31 @@ export default function FlipMineApp() {
         
       
 
-       {device!=='mobile' && (<main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-5.5  bg-gray-900 bg-amber-600 z-55 scrollbar-hide">
-{/* Desktop layout: roadmap on the side */}
+       {device!=='mobile' && (
+      <main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-5.5  bg-gray-900 bg-amber-600 z-55 scrollbar-hide">
+// {/* Desktop layout: roadmap on the side */}
 
-         {showScroll && (
-            <ScrollViewPage/>
-            )  }
+//          {showScroll && (
+//             <ScrollViewPage/>
+//             )  }
 
- { showSettings &&       
-         <SettingsPage/>
- }
-          { (!showSettings&&!showRoadmap&&!showScroll) && (<div className="hidden  lg:flex md:flex gap-6 w-full h-full overflow-y-auto">
-          <div className="overflow-auto  scrollbar-hide" >
+//  { showSettings &&       
+//          <SettingsPage/>
+//  }
+//           { (!showSettings&&!showRoadmap&&!showScroll) && (<div className="hidden  lg:flex md:flex gap-6 w-full h-full overflow-y-auto">
+//           <div className="overflow-auto  scrollbar-hide" >
          
-          <CategoryChartsSlider/>
-          <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
-          <PlanRoadmapMobile plan={plan} />
-            <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
-        </div>
-            <RoadmapVertical plan={plan} />
-          </div>)}
-         
+//           <CategoryChartsSlider/>
+//           <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
+//           <PlanRoadmapMobile plan={plan} />
+//             <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
+//         </div>
+//             <RoadmapVertical plan={plan} />
+//           </div>)}
+</main>
 
-          {/* Listings only on mobile (below roadmap) */}
 
-</main>)}
+)}
       </div>
     </div>
   );
