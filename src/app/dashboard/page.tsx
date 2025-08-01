@@ -279,15 +279,15 @@ import BottomNavbar from '../components/BottomNavbar';
 import CategoryChartsSlider from '../components/graphsslider';
 import Navbar from '../components/Navbar';
 import ProductListing from '../components/ProductListings';
-// import RoadmapVertical from '../components/Roadmap';
+import RoadmapVertical from '../components/Roadmap';
 import PlanRoadmapMobile from '../components/RoadMapMobile'
 import RoadmapPage from '../components/RoadMapPage';
 import SettingsPage from '../components/SettingsPage';
-// import SidebarFilters from '../components/Sidebar';
+import SidebarFilters from '../components/Sidebar';
 
 import { useEffect, useState } from 'react';
 import { useListingStore } from '../store/useListings';
-// import ScrollViewPage from '../components/ScrollView';
+import ScrollViewPage from '../components/ScrollView';
 import { useDeviceType } from '../hooks/useDeviceType';
 
 
@@ -297,8 +297,8 @@ export default function FlipMineApp() {
   const [showSettings, setShowSettings] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   // const [xp, setXp] = useState(0);
-//   const [showSidebar, setShowSidebar] = useState(false);
-//   const toggleSidebar = () => setShowSidebar(!showSidebar);
+  const [showSidebar, setShowSidebar] = useState(false);
+  const toggleSidebar = () => setShowSidebar(!showSidebar);
   const { setListings } = useListingStore();
 
   useEffect(() => {
@@ -314,12 +314,12 @@ export default function FlipMineApp() {
     <div className=" fixed inset-0 h-[100dvh] w-full max-w-screen text-gray-900 font-sans flex flex-col overflow-auto scrollbar-hide">
       <Navbar setShowScroll={setShowScroll}  setShowRoadmap={setShowRoadmap}  setShowSettings={setShowSettings}    />
 
-      <div className="pt-16 flex flex-1  ">
+      <div className="pt-16 flex flex-1">
         {/* Sidebar – hidden on small screens */}
-        {/* <SidebarFilters
+        <SidebarFilters
           showSidebar={showSidebar}
           toggleSidebar={toggleSidebar}
-        /> */}
+        />
 
         {/* Sidebar toggle arrow (floating button) */}
         
@@ -368,13 +368,33 @@ export default function FlipMineApp() {
         
       
 
-       {device!=='mobile' && (
-        <main className=" flex-1 h-screen overflow-y-auto overflow-x-hidden pl-6 pt-5.5  bg-gray-900 bg-amber-600 z-55 scrollbar-hide">
-   </main>
+       {device!=='mobile' && (<main className=" flex-1  overflow-auto pl-6 pt-5.5  bg-gray-900  z-55 scrollbar-hide">
+{/* Desktop layout: roadmap on the side */}
 
+         {showScroll && (
+            <ScrollViewPage/>
+            )  }
 
+ { showSettings &&       
+         <SettingsPage/>
+ }
+          { (!showSettings&&!showRoadmap&&!showScroll) && (<div className="hidden  lg:flex md:flex gap-6 w-full h-full overflow-y-auto">
+          <div className="overflow-auto  scrollbar-hide" >
+         
+          <CategoryChartsSlider/>
+          <h2 className="text-lg font-bold text-cyan-500">just sold🔥🔥</h2>
+          <PlanRoadmapMobile plan={plan} />
+            <ProductListing listings={plan} showScroll setShowScroll={setShowScroll}  />
+        </div>
+        <div className='z-30' >
+            <RoadmapVertical plan={plan} />
+        </div>  
+          </div>)}
+         
 
-)}
+          {/* Listings only on mobile (below roadmap) */}
+
+</main>)}
       </div>
     </div>
   );

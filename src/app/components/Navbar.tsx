@@ -93,7 +93,7 @@ export default function Navbar({
 
   return (
     <>
-      <header className="fixed top-0 w-full bg-gray-950 z-50 border-b border-gray-800 px-6 py-4 flex justify-between items-center">
+      <header className="fixed top-0 w-full bg-gray-950 z-350 border-b border-gray-800 px-6 py-4 flex justify-between items-center">
         <div className="flex items-center gap-8">
           {showInstallButton ? (
             <button
