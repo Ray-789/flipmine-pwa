@@ -291,6 +291,7 @@ import ScrollViewPage from '../components/ScrollView';
 import { useDeviceType } from '../hooks/useDeviceType';
 
 
+
 export default function FlipMineApp() {
   const [plan] = useState(listings);
   const [showRoadmap, setShowRoadmap] = useState(false);
@@ -302,29 +303,25 @@ export default function FlipMineApp() {
   const device = useDeviceType();
 
   useEffect(() => {
-    // load your listings into global store
-    
+    // load listings into store
     setListings(listings);
   }, [setListings]);
 
   return (
     <div className="h-screen flex flex-col overflow-hidden">
-      {/* Fixed header */}
+      {/* fixed header */}
       <Navbar
         setShowRoadmap={setShowRoadmap}
         setShowSettings={setShowSettings}
         setShowScroll={setShowScroll}
       />
 
-      {/* Content below header */}
+      {/* below header */}
       <div className="pt-16 flex flex-1 overflow-hidden">
-        {/* Optional sidebar */}
-        <SidebarFilters
-          showSidebar={showSidebar}
-          toggleSidebar={toggleSidebar}
-        />
+        {/* optional sidebar */}
+        <SidebarFilters showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
 
-        {/* Single scroll-pane */}
+        {/* main scroll‐pane */}
         <main className="flex-1 overflow-auto pl-6 pt-4 bg-gray-900 scrollbar-hide">
           {device === 'mobile' ? (
             <>
@@ -346,8 +343,6 @@ export default function FlipMineApp() {
                   />
                 </>
               )}
-
-              {/* Mobile bottom nav */}
               <BottomNavbar
                 showRoadmap={showRoadmap}
                 setShowRoadmap={setShowRoadmap}
@@ -364,9 +359,9 @@ export default function FlipMineApp() {
               {showScroll ? (
                 <ScrollViewPage />
               ) : !showRoadmap && !showSettings ? (
-                // Desktop two-column layout
+                /* DESKTOP: two columns */
                 <div className="flex flex-1 gap-6 overflow-hidden">
-                  {/* Left: listings */}
+                  {/* left: listings */}
                   <div className="flex-1 overflow-auto scrollbar-hide pr-4">
                     <CategoryChartsSlider />
                     <h2 className="text-lg font-bold text-cyan-500 mt-4">
@@ -380,14 +375,14 @@ export default function FlipMineApp() {
                     />
                   </div>
 
-                  {/* Right: roadmap */}
-                  <div className="w-80 overflow-auto scrollbar-hide">
+                  {/* right: roadmap */}
+                  <div className=" max-h-[150svh] z-100  overflow-auto scrollbar-hide">
                     <RoadmapVertical plan={plan} />
                   </div>
                 </div>
               ) : showRoadmap ? (
-                // If “roadmap” toggled on desktop
-                <div className="overflow-auto scrollbar-hide">
+                /* full‐width roadmap */
+                <div className="h-full overflow-auto scrollbar-hide">
                   <RoadmapVertical plan={plan} />
                 </div>
               ) : null}
@@ -398,3 +393,4 @@ export default function FlipMineApp() {
     </div>
   );
 }
+

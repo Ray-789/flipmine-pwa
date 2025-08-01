@@ -35,7 +35,7 @@ function CategoryChartsSlider() {
           <div
             key={idx}
             className="bg-[#0f172a] rounded-xl p-4  flex-shrink-0
-                    w-48 lg:w-64    /* 50% on sm/md, 33% on lg+ */
+                    w-48 lg:w-60   /* 50% on sm/md, 33% on lg+ */
                      border border-cyan-600
                      shadow-lg shadow-cyan-500/10
                      hover:shadow-cyan-400/30 transition-shadow duration-300"
