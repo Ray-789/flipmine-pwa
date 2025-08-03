@@ -330,7 +330,7 @@ export default function FlipMineApp() {
               ) : showRoadmap ? (
                 <RoadmapPage  plan={plan}  />
               ) : showScroll ?(
-                 <ScrollViewPage  setShowSidebar={toggleSidebar} setShowScroll={setShowScroll} />
+                 <ScrollViewPage   setShowScroll={setShowScroll} />
               ) :
               (
                 <>
@@ -360,7 +360,7 @@ export default function FlipMineApp() {
               {showSettings && <SettingsPage />}
 
               {showScroll ? (
-                <ScrollViewPage  setShowSidebar={toggleSidebar} setShowScroll={setShowScroll} />
+                <ScrollViewPage   setShowScroll={setShowScroll} />
               ) : !showRoadmap && !showSettings ? (
                 /* DESKTOP: two columns */
                 <div className="flex flex-1 gap-6 overflow-hidden">
