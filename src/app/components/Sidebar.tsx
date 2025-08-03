@@ -35,7 +35,7 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
           ${showSidebar ? 'block' : 'hidden'}
           fixed lg:static 
           pt-5.5
-         
+          bg-gray-800
           top-0 left-0 
           h-screen w-64 
            text-white p-6 space-y-6 overflow-y-auto scrollbar-hide
