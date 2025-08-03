@@ -328,8 +328,11 @@ export default function FlipMineApp() {
               {showSettings ? (
                 <SettingsPage />
               ) : showRoadmap ? (
-                <RoadmapPage plan={plan} />
-              ) : (
+                <RoadmapPage  plan={plan}  />
+              ) : showScroll ?(
+                 <ScrollViewPage  setShowSidebar={toggleSidebar} setShowScroll={setShowScroll} />
+              ) :
+              (
                 <>
                   <CategoryChartsSlider />
                   <h2 className="text-lg font-bold text-cyan-500 mt-4">
@@ -357,7 +360,7 @@ export default function FlipMineApp() {
               {showSettings && <SettingsPage />}
 
               {showScroll ? (
-                <ScrollViewPage />
+                <ScrollViewPage  setShowSidebar={toggleSidebar} setShowScroll={setShowScroll} />
               ) : !showRoadmap && !showSettings ? (
                 /* DESKTOP: two columns */
                 <div className="flex flex-1 gap-6 overflow-hidden">
