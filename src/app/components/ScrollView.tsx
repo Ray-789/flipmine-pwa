@@ -65,9 +65,9 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
 
  if(device=="mobile"){
     return (
-    <div className="absolute top-0 left-0 w-screen h-screen flex flex-col  bg-amber-700 text-white z-500">
+    <div className="absolute top-0 left-0 w-screen h-screen flex flex-col   text-white z-500">
       {/* Top bar */}
-      <div className="  w-1/10  flex items-center  justify-center h-16  border-b border-gray-700">
+      <div className="  w-1/10  flex items-center  justify-center h-16  z-900">
         <button
           onClick={() => setShowScroll(false)}
           className="absolute left-2/54 text-white text-2xl p-2  hover:bg-gray-700 rounded"
@@ -106,7 +106,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                   `}
                   style={{ backgroundImage: `url(${item.images[0]})` }}
                 >
-                <div className="absolute right-0 top-84  h-3/4   w-2/10    transform -translate-y-1/2 flex justify-end  items-end flex-col gap-10 ">
+                <div className="fixed right-0 top-84  h-3/4   w-2/10    transform -translate-y-1/2 flex justify-end  items-end flex-col gap-10 ">
                   <FaHeart className="text-4xl hover:text-red-500 transition" />
                   <FaBookmark className="text-4xl hover:text-yellow-500 transition" />
                   <FaShareAlt className="text-4xl hover:text-blue-500 transition" />
