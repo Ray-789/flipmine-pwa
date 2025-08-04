@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import {FaArrowLeft, FaArrowRight, FaTimes } from 'react-icons/fa';
+import {FaArrowLeft, FaArrowRight} from 'react-icons/fa';
 
 interface SidebarFiltersProps {
   showSidebar: boolean;
@@ -35,7 +35,7 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
           ${showSidebar ? 'block' : 'hidden'}
           fixed lg:static 
           pt-5.5
-
+              bg-gray-900
           top-0 left-0 
           h-screen w-64 
            text-white p-6 space-y-6 overflow-y-auto scrollbar-hide
@@ -44,14 +44,14 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
         `}
       >
         {/* Close Button for Mobile */}
-        <div className="lg:hidden flex justify-end mb-4">
+        {/* <div className="lg:hidden flex justify-end mb-4">
           <button
             onClick={toggleSidebar}
             className="bg-gray-800 p-2 rounded-full text-white"
           >
             <FaTimes />
           </button>
-        </div>
+        </div> */}
 
         <div className="space-y-4  ">
           
@@ -59,7 +59,7 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
   <label className="block font-bold mb-2">SEARCH</label>
   <input
     type="text"
-    placeholder="Enter city or ZIP"
+    placeholder="search for deals"
     className="w-full p-2 rounded-md bg-gray-700 text-white placeholder-gray-400"
   />
 </div>  
