@@ -296,7 +296,7 @@ export default function FlipMineApp() {
   const [plan] = useState(listings);
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [showScroll, setShowScroll] = useState(false);
+  const [showScroll, setShowScroll] = useState(true);
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar((s) => !s);
   const { setListings } = useListingStore();

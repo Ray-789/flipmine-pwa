@@ -35,7 +35,7 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
           ${showSidebar ? 'block' : 'hidden'}
           fixed lg:static 
           pt-5.5
-          bg-gray-800
+
           top-0 left-0 
           h-screen w-64 
            text-white p-6 space-y-6 overflow-y-auto scrollbar-hide
@@ -54,6 +54,15 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
         </div>
 
         <div className="space-y-4  ">
+          
+        <div>
+  <label className="block font-bold mb-2">SEARCH</label>
+  <input
+    type="text"
+    placeholder="Enter city or ZIP"
+    className="w-full p-2 rounded-md bg-gray-700 text-white placeholder-gray-400"
+  />
+</div>  
           <div>
   <label className="block font-bold mb-2">LOCATION</label>
   <input

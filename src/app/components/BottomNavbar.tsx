@@ -14,10 +14,10 @@ setShowScroll:React.Dispatch<React.SetStateAction<boolean>>;
 
 
 
-export default function BottomNavbar({ setShowRoadmap,setShowSettings,setShowScroll }: BottomNavbarProps) {
+export default function BottomNavbar({ setShowRoadmap,setShowSettings,setShowScroll,showScroll }: BottomNavbarProps) {
   return (
-    <nav className="  fixed bottom-0 left-0 right-0 z-700 bg-gray-900 text-white border-t border-gray-700">
-      <div className="flex justify-around items-center h-16">
+    <nav className={`  fixed bottom-0 left-0 right-0 z-700 ${!showScroll && 'bg-gray-900'}  text-white border-t border-gray-700`}>
+      <div className="flex justify-around items-center h-20">
         <NavItem icon={<Home size={24} />} label="Home" func={() =>{ 
           setShowRoadmap(() => false);
            setShowSettings(()=> false);
