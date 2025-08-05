@@ -198,7 +198,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
               <div
                 key={idx}
                 id={`slide-${idx}`}
-                className=" relative  w-5/11 left-1/5  snap-mandatory snap-start h-[calc(100vh-1rem)]  flex items-center justify-center overflow-hidden pt-4 "
+                className=" relative  w-5/11 left-1/5  snap-mandatory snap-start h-[calc(100vh-1rem)]  flex items-center justify-center overflow-hidden pt-6 pb-4 "
               >
                 
                 <div
