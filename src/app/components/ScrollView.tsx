@@ -9,9 +9,13 @@ import {
   LineChart, Line, XAxis, YAxis, Tooltip,
   ResponsiveContainer, ReferenceDot,
 } from 'recharts';
-import {
-  FaChevronLeft,
-  FaHeart, FaBookmark, FaShareAlt, FaPlus,
+import { 
+  FaUserCircle, 
+  FaChevronLeft,  
+  FaHeart, 
+  FaBookmark, 
+  FaShareAlt, 
+  FaPlus 
 } from 'react-icons/fa';
 import { useDeviceType } from '../hooks/useDeviceType';
 
@@ -107,6 +111,26 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                   style={{ backgroundImage: `url(${item.images[0]})` }}
                 >
                 <div className="fixed right-0 top-84  h-3/4   w-2/10    transform -translate-y-1/2 flex justify-end  items-end flex-col gap-10 ">
+                  <div className="flex flex-col items-center gap-2 text-sm text-white">
+                  <FaUserCircle className="text-4xl" />
+                
+                  </div>
+                  {/* <a
+      href={item.website}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-2 text-sm text-cyan-300 hover:underline"
+    >
+      <FaGlobe className="text-4xl" />
+    </a> */}
+
+
+    {/* <div className="flex items-center gap-2 text-sm text-white">
+    {/* choose emoji based on value */}
+    {/* <span className="text-2xl">
+      🤖
+    </span>  */}
+  {/* </div> */}
                   <FaHeart className="text-4xl hover:text-red-500 transition" />
                   <FaBookmark className="text-4xl hover:text-yellow-500 transition" />
                   <FaShareAlt className="text-4xl hover:text-blue-500 transition" />
@@ -147,11 +171,11 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
   return (
     <div className="absolute top-0 left-0 w-screen h-screen flex flex-col bg-gray-900 text-white z-802">
       {/* Top bar */}
-      <div className="  w-1/10  flex items-center  justify-center h-16  border-b border-gray-700">
+      <div className="  w-1/10  flex items-center  justify-center h-16  ">
         
         <button 
         onClick={() => setShowScroll(false)}
-          className="flex items-center gap-2 text-cyan-400 font-bold text-xl focus:outline-none"
+          className="absolute left-6 flex items-center  text-cyan-400 font-bold text-xl focus:outline-none"
           aria-label="Install FlipMine"
                     >
                          FlipMine
@@ -192,6 +216,10 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                   style={{ backgroundImage: `url(${item.images[0]})` }}
                 >
                 <div className=" absolute h-1/2 right-1/11 top-1/2   transform -translate-y-1/2 flex justify-around items-end flex-col gap-4">
+                  
+                  <div className="flex flex-col items-center gap-2 text-sm text-white">
+                  <FaUserCircle className="text-4xl" />
+                  </div>
                   <FaHeart className="text-2xl hover:text-red-500 transition" />
                   <FaBookmark className="text-2xl hover:text-yellow-500 transition" />
                   <FaShareAlt className="text-2xl hover:text-blue-500 transition" />
