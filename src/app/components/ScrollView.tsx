@@ -209,21 +209,18 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                   }}
                   className={`
                       
-                    w-6/11 max-w-xl
+                    w-8/11 max-w-xl
                     h-full rounded-xl overflow-hidden
                     bg-center bg-cover flex flex-col-reverse justify-center item
                    `}
                   style={{ backgroundImage: `url(${item.images[0]})` }}
                 >
-                <div className=" absolute h-1/2 right-1/11 top-1/2   transform -translate-y-1/2 flex justify-around items-end flex-col gap-4">
-                  
-                  <div className="flex flex-col items-center gap-2 text-sm text-white">
-                  <FaUserCircle className="text-4xl" />
-                  </div>
-                  <FaHeart className="text-2xl hover:text-red-500 transition" />
-                  <FaBookmark className="text-2xl hover:text-yellow-500 transition" />
-                  <FaShareAlt className="text-2xl hover:text-blue-500 transition" />
-                  <FaPlus className="text-2xl text-cyan-400 hover:text-cyan-200 transition" />
+                <div className=" absolute h-1/2 right-1/20 top-1/2   transform -translate-y-1/2 flex justify-around items-end flex-col gap-6">
+                  <FaUserCircle className="text-3xl" />
+                  <FaHeart className="text-3xl hover:text-red-500 transition" />
+                  <FaBookmark className="text-3xl hover:text-yellow-500 transition" />
+                  <FaShareAlt className="text-3xl hover:text-blue-500 transition" />
+                  <FaPlus className="text-3xl text-cyan-400 hover:text-cyan-200 transition" />
                 </div>
                   <div className="mt-auto  bg-opacity-90 p-4">
                     <h2 className="text-lg font-semibold">{item.title}</h2>
