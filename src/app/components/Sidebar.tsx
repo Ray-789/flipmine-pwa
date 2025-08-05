@@ -34,7 +34,7 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
         className={`
           ${showSidebar ? 'block' : 'hidden'}
           fixed lg:static 
-          pt-5.5
+pt-0
               bg-gray-900
           top-0 left-0 
           h-screen w-64 
@@ -56,7 +56,7 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
         <div className="space-y-4  ">
           
         <div>
-  <label className="block font-bold ">SEARCH</label>
+  <label className="block font-bold mb-2">SEARCH</label>
   <input
     type="text"
     placeholder="search for deals"
@@ -99,7 +99,7 @@ className="  fixed top-1/2 left-66 -translate-y-1/2 z-770 lg:hidden  bg-opacity-
 
           <div>
             <label className="block text-sm font-bold mb-2">TIMEFRAME</label>
-            <select className="w-full  p-2 rounded-md">
+            <select className="w-full bg-gray-800 p-2 rounded-md">
               <option>1 week</option>
               <option>2 weeks</option>
               <option>1 month</option>
