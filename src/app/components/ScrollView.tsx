@@ -167,7 +167,99 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
       </div>
     </div>
   )
- }else{
+ }
+ 
+ 
+ else if(device==="tablet"){
+return (
+    <div className="absolute top-0 left-0 w-screen h-screen flex flex-col bg-gray-900 text-white z-802">
+      {/* Top bar */}
+      <div className="  w-1/10  flex items-center  justify-center h-16  ">
+        
+        <button 
+        onClick={() => setShowScroll(false)}
+          className="absolute left-6 flex items-center  text-cyan-400 font-bold text-xl focus:outline-none"
+          aria-label="Install FlipMine"
+                    >
+                         FlipMine
+                      
+        </button>
+                  
+      </div>
+
+      {/* Body */}
+      <div className="absolute   h-full left-1/10 w-9/10 top-0   flex justify-center  flex-1 overflow-y-auto scrollbar-hide">
+        <div className="flex-1   overflow-y-auto snap-y snap-mandatory scrollbar-hide ">
+          {listings.map((item, idx) => {
+            const data = Array.from({ length: 7 }, (_, i) => ({
+              name: `D${i + 1}`, demand: Math.floor(Math.random() * 100 + 20),
+            }));
+            const max = data.reduce((a, b) => (a.demand > b.demand ? a : b));
+            const min = data.reduce((a, b) => (a.demand < b.demand ? a : b));
+
+            return (
+              <div
+                key={idx}
+                id={`slide-${idx}`}
+                className=" relative  w-5/11 left-1/5  snap-mandatory snap-start h-[calc(100vh-1rem)]  flex items-center justify-center overflow-hidden pt-4 "
+              >
+                
+                <div
+                  role="button"
+                  onClick={() => {
+                    setListing(item);
+                    router.push('/product');
+                  }}
+                  className={`
+                      
+                    w-8/11 max-w-xl
+                    h-8/12 rounded-xl overflow-hidden
+                    bg-center bg-cover flex flex-col-reverse justify-center item
+                   `}
+                  style={{ backgroundImage: `url(${item.images[0]})` }}
+                >
+                <div className=" absolute h-1/2 right-1/20 top-1/2   transform -translate-y-1/2 flex justify-around items-end flex-col gap-6">
+                  <FaUserCircle className="text-3xl" />
+                  <FaHeart className="text-3xl hover:text-red-500 transition" />
+                  <FaBookmark className="text-3xl hover:text-yellow-500 transition" />
+                  <FaShareAlt className="text-3xl hover:text-blue-500 transition" />
+                  <FaPlus className="text-3xl text-cyan-400 hover:text-cyan-200 transition" />
+                </div>
+                  <div className="mt-auto  bg-opacity-90 p-4">
+                    <h2 className="text-lg font-semibold">{item.title}</h2>
+                    <p className="text-sm text-gray-400">{item.details}</p>
+                    <p className="mt-1 text-green-400 font-bold">{item.price}</p>
+                    <div className="mt-3 h-24">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={data}>
+                          <XAxis dataKey="name" hide />
+                          <YAxis hide />
+                          <Tooltip
+                            contentStyle={{ backgroundColor: '#1e293b', borderColor: '#22d3ee' }}
+                            itemStyle={{ color: '#22d3ee' }}
+                          />
+                          <Line type="monotone" dataKey="demand" stroke="#22d3ee" dot={false}/>
+                          <ReferenceDot x={max.name} y={max.demand} r={4} fill="lime" stroke="white"/>
+                          <ReferenceDot x={min.name} y={min.demand} r={4} fill="red" stroke="white"/>
+                        </LineChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+                </div>
+
+              
+                
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  )
+ }
+ 
+ 
+ else{
   return (
     <div className="absolute top-0 left-0 w-screen h-screen flex flex-col bg-gray-900 text-white z-802">
       {/* Top bar */}
@@ -198,7 +290,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
               <div
                 key={idx}
                 id={`slide-${idx}`}
-                className=" relative  w-5/11 left-1/5  snap-mandatory snap-start h-[calc(100vh-1rem)]  flex items-center justify-center overflow-hidden   "
+                className=" relative  w-5/11 left-1/5  snap-mandatory snap-start h-[calc(100vh-1rem)]  flex items-center justify-center overflow-hidden pt-4 "
               >
                 
                 <div
@@ -210,7 +302,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                   className={`
                       
                     w-8/11 max-w-xl
-                    h-11/12 rounded-xl overflow-hidden
+                    h-full rounded-xl overflow-hidden
                     bg-center bg-cover flex flex-col-reverse justify-center item
                    `}
                   style={{ backgroundImage: `url(${item.images[0]})` }}
