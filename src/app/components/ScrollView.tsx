@@ -213,7 +213,7 @@ return (
                   className={`
                       
                     w-8/11 max-w-xl
-                    h-4/12 rounded-xl overflow-hidden
+                    h-full rounded-xl overflow-hidden
                     bg-center bg-cover flex flex-col-reverse justify-center item
                    `}
                   style={{ backgroundImage: `url(${item.images[0]})` }}
