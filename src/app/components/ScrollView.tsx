@@ -65,7 +65,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
 
  if(device=="mobile"){
     return (
-    <div className="absolute top-0 left-0 w-screen h-screen flex flex-col   text-white z-500">
+    <div className="absolute top-0 left-0 w-screen h-screen flex flex-col   text-white z-820">
       {/* Top bar */}
       <div className="  w-1/10  flex items-center  justify-center h-16  z-900">
         <button
@@ -145,21 +145,24 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
   )
  }else{
   return (
-    <div className="absolute top-0 left-0 w-screen h-screen flex flex-col bg-gray-900 text-white z-500">
+    <div className="absolute top-0 left-0 w-screen h-screen flex flex-col bg-gray-900 text-white z-802">
       {/* Top bar */}
       <div className="  w-1/10  flex items-center  justify-center h-16  border-b border-gray-700">
-        <button
-          onClick={() => setShowScroll(false)}
-          className="absolute left-2/54 text-white text-2xl p-2  hover:bg-gray-700 rounded"
-        >
-          <FaChevronLeft />
-        </button>
         
+        <button 
+        onClick={() => setShowScroll(false)}
+          className="flex items-center gap-2 text-cyan-400 font-bold text-xl focus:outline-none"
+          aria-label="Install FlipMine"
+                    >
+                         FlipMine
+                      
+        </button>
+                  
       </div>
 
       {/* Body */}
-      <div className="absolute  h-full left-1/10 w-9/10 top-0   flex flex-1 overflow-y-auto scrollbar-hide">
-        <div className="flex-1  overflow-y-auto snap-y snap-mandatory scrollbar-hide ">
+      <div className="absolute   h-full left-1/10 w-9/10 top-0   flex justify-center  flex-1 overflow-y-auto scrollbar-hide">
+        <div className="flex-1   overflow-y-auto snap-y snap-mandatory scrollbar-hide ">
           {listings.map((item, idx) => {
             const data = Array.from({ length: 7 }, (_, i) => ({
               name: `D${i + 1}`, demand: Math.floor(Math.random() * 100 + 20),
@@ -171,7 +174,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
               <div
                 key={idx}
                 id={`slide-${idx}`}
-                className=" snap-mandatory snap-start h-[calc(100vh-4rem)] w-full flex items-center justify-center overflow-hidden"
+                className=" relative  w-5/11 left-1/5  snap-mandatory snap-start h-[calc(100vh-1rem)]  flex items-center justify-center overflow-hidden pt-4 "
               >
                 
                 <div
@@ -181,16 +184,14 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                     router.push('/product');
                   }}
                   className={`
-                    w-11/12 max-w-sm
-                    sm:w-10/12 sm:max-w-md
-                    md:w-3/4 md:max-w-lg
-                    lg:w-2/3 lg:max-w-xl
+                      
+                    w-6/11 max-w-xl
                     h-full rounded-xl overflow-hidden
                     bg-center bg-cover flex flex-col-reverse justify-center item
-                  `}
+                   `}
                   style={{ backgroundImage: `url(${item.images[0]})` }}
                 >
-                <div className=" relative h-1/2    transform -translate-y-1/2 flex justify-around items-end flex-col gap-4">
+                <div className=" absolute h-1/2 right-1/11 top-1/2   transform -translate-y-1/2 flex justify-around items-end flex-col gap-4">
                   <FaHeart className="text-2xl hover:text-red-500 transition" />
                   <FaBookmark className="text-2xl hover:text-yellow-500 transition" />
                   <FaShareAlt className="text-2xl hover:text-blue-500 transition" />
