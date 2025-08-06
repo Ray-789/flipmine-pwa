@@ -14,16 +14,18 @@ import { useDeviceType } from '../hooks/useDeviceType'; // Adjust path if needed
 interface SidebarFiltersProps {
   showSidebar: boolean;
   toggleSidebar: () => void;
-  setShowRoadmap: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
+  showRoadmap: boolean;
+    setShowRoadmap: React.Dispatch<React.SetStateAction<boolean>>;
+    showSettings: boolean;
+    setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
+    showScroll:boolean
   setShowScroll:React.Dispatch<React.SetStateAction<boolean>>;
-  showScroll:boolean;
 }
 
 const SidebarFilters: React.FC<SidebarFiltersProps> = ({
   showSidebar,
   toggleSidebar,
-  setShowRoadmap,setShowScroll,setShowSettings
+  setShowRoadmap,setShowScroll,setShowSettings,showRoadmap,showScroll,showSettings
 }) => {
   const device = useDeviceType();
   const [tab, setTab] = useState<'filters' | 'pages'>('filters');
@@ -160,7 +162,7 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
               setShowRoadmap(false);
               setShowSettings(false);
               setShowScroll(false)
-            }}  className="w-full text-xl text-left flex items-center gap-2 hover:text-cyan-400">
+            }}  className={`w-full text-xl ${!showRoadmap&&!showScroll&&!showSettings ?'text-cyan-400':""}  text-left flex items-center gap-2  hover:text-cyan-400`}>
               <FaHome /> Home
             </button>
             <button onClick={()=>{
@@ -324,21 +326,21 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
               setShowRoadmap(false);
               setShowSettings(false);
               setShowScroll(false)
-            }}  className="w-full text-xl text-left flex items-center gap-2 hover:text-cyan-400">
+            }}  className={`w-full text-xl text-left flex ${!showRoadmap&&!showScroll&&!showSettings ?'text-cyan-400':""}  items-center gap-2 hover:text-cyan-400`}>
               <FaHome /> Home
             </button>
             <button onClick={()=>{
               setShowRoadmap(false);
               setShowSettings(false);
               setShowScroll((prev)=>!prev)
-            }}  className="w-full text-xl text-left flex items-center gap-2 hover:text-cyan-400">
+            }}  className={`w-full text-xl text-left ${!showRoadmap&&showScroll&&!showSettings ?'text-cyan-400':""}  flex items-center gap-2 hover:text-cyan-400`}>
               <FaMapMarkedAlt /> Scroll
             </button>
             <button onClick={()=>{ 
               setShowRoadmap(false);
               setShowScroll(false)
               setShowSettings((prev)=>!prev)
-        }} className="w-full text-xl text-left flex items-center gap-2 hover:text-cyan-400">
+        }} className={`w-full text-xl text-left ${!showRoadmap&&!showScroll&&showSettings ?'text-cyan-400':""}  flex items-center gap-2 hover:text-cyan-400`}>
               <FaCog /> Settings
             </button>
             {/* <button onClick={(prev)=>{

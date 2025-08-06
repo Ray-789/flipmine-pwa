@@ -319,7 +319,7 @@ export default function FlipMineApp() {
       {/* below header */}
       <div className="pt-16 flex flex-1 overflow-hidden">
         {/* optional sidebar */}
-        <SidebarFilters showScroll={showScroll} setShowRoadmap={setShowRoadmap} setShowScroll={setShowScroll} setShowSettings={setShowSettings}  showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
+        <SidebarFilters showRoadmap={showRoadmap} showSettings={showSettings}  showScroll={showScroll} setShowRoadmap={setShowRoadmap} setShowScroll={setShowScroll} setShowSettings={setShowSettings}  showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
 
         {/* main scroll‐pane */}
         <main className="flex-1 overflow-auto pl-6 pt-4 bg-gray-900 scrollbar-hide">
