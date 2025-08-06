@@ -296,7 +296,7 @@ export default function FlipMineApp() {
   const [plan] = useState(listings);
   const [showRoadmap, setShowRoadmap] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
-  const [showScroll, setShowScroll] = useState(true);
+  const [showScroll, setShowScroll] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
   const toggleSidebar = () => setShowSidebar((s) => !s);
   const { setListings } = useListingStore();
@@ -319,7 +319,7 @@ export default function FlipMineApp() {
       {/* below header */}
       <div className="pt-16 flex flex-1 overflow-hidden">
         {/* optional sidebar */}
-        <SidebarFilters showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
+        <SidebarFilters showScroll={showScroll} setShowRoadmap={setShowRoadmap} setShowScroll={setShowScroll} setShowSettings={setShowSettings}  showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
 
         {/* main scroll‐pane */}
         <main className="flex-1 overflow-auto pl-6 pt-4 bg-gray-900 scrollbar-hide">
@@ -379,7 +379,7 @@ export default function FlipMineApp() {
                   </div>
 
                   {/* right: roadmap */}
-                  <div className=" max-h-[150svh] z-100  overflow-auto scrollbar-hide">
+                 <div className=" max-h-[200svh] z-100  overflow-auto scrollbar-hide">
                     <RoadmapVertical plan={plan} />
                   </div>
                 </div>

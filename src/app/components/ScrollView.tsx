@@ -211,7 +211,6 @@ return (
                     router.push('/product');
                   }}
                   className={`
-                      
                     w-8/11 max-w-xl
                     h-full rounded-xl overflow-hidden
                     bg-center bg-cover flex flex-col-reverse justify-center item
@@ -245,10 +244,7 @@ return (
                       </ResponsiveContainer>
                     </div>
                   </div>
-                </div>
-
-              
-                
+                </div>                
               </div>
             );
           })}

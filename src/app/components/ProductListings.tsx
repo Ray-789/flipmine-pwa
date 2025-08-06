@@ -2,7 +2,7 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useListingStore } from '../store/useListings';
-import { useEffect, useRef, useState } from 'react';
+import {useRef } from 'react';
 import {
   LineChart,
   Line,
@@ -41,46 +41,46 @@ function generateChartData(): { name: string; demand: number }[] {
   }));
 }
 
-const ProductListing: React.FC<ProductListingProps> = ({ listings, setShowScroll }) => {
+const ProductListing: React.FC<ProductListingProps> = ({ listings }) => {
   const router = useRouter();
   const { setListing } = useListingStore();
-  const viewed = useRef(new Set<number>());
-  const [viewedCount, setViewedCount] = useState(0);
+  // const viewed = useRef(new Set<number>());
+  // const [viewedCount, setViewedCount] = useState(0);
   const itemRefs = useRef<Array<HTMLDivElement | null>>([]);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          const index = Number(entry.target.getAttribute('data-index'));
-          if (entry.isIntersecting && !viewed.current.has(index)) {
-            viewed.current.add(index);
-            setViewedCount((prev) => prev + 1);
-          }
-        });
-      },
-      { threshold: 0.5 }
-    );
+  // useEffect(() => {
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         const index = Number(entry.target.getAttribute('data-index'));
+  //         if (entry.isIntersecting && !viewed.current.has(index)) {
+  //           viewed.current.add(index);
+  //           setViewedCount((prev) => prev + 1);
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.5 }
+  //   );
 
-    itemRefs.current.forEach((el) => {
-      if (el) observer.observe(el);
-    });
+  //   itemRefs.current.forEach((el) => {
+  //     if (el) observer.observe(el);
+  //   });
 
-    return () => {
-      itemRefs.current.forEach((el) => {
-        if (el) observer.unobserve(el);
-      });
-    };
-  }, []);
+  //   return () => {
+  //     itemRefs.current.forEach((el) => {
+  //       if (el) observer.unobserve(el);
+  //     });
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    if (viewedCount >= 5) {
-      setShowScroll(true);
-    }
-  }, [viewedCount, setShowScroll]);
+  // useEffect(() => {
+  //   if (viewedCount >= 5) {
+  //     setShowScroll(true);
+  //   }
+  // }, [viewedCount, setShowScroll]);
 
   return (
-    <div className="flex flex-col gap-6 w-full max-h-[100svh] overflow-y-auto md:overflow-y-visible px-4 pt-4 pb-36  scrollbar-hide">
+    <div className="flex  flex-col gap-6 w-full max-h-[100svh] overflow-y-auto md:overflow-y-visible  pt-4 pb-36  scrollbar-hide">
       <h2 className="text-lg font-bold text-cyan-500">💼 Listings</h2>
       {listings.map((item, i) => {
         const chartData = generateChartData();
