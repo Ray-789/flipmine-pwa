@@ -31,7 +31,7 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
   const [tab, setTab] = useState<'filters' | 'pages'>('filters');
 
   // Only show this component on desktop
-  if (device !== 'desktop'){
+  if (device === 'mobile'){
  return (
     <>
       {/* Toggle Button (Floating Arrow) */}
