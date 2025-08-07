@@ -173,20 +173,6 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
  else if(device==="tablet"){
 return (
     <div className="absolute top-0 left-0 w-screen h-screen flex flex-col bg-gray-900 text-white z-802">
-      {/* Top bar */}
-      <div className="  w-1/10  flex items-center  justify-center h-16  ">
-        
-        <button 
-        onClick={() => setShowScroll(false)}
-          className="absolute left-6 flex items-center  text-cyan-400 font-bold text-xl focus:outline-none"
-          aria-label="Install FlipMine"
-                    >
-                         FlipMine
-                      
-        </button>
-                  
-      </div>
-
       {/* Body */}
       <div className="absolute   h-full left-1/10 w-9/10 top-0   flex justify-center  flex-1 overflow-y-auto scrollbar-hide">
         <div className="flex-1   overflow-y-auto snap-y snap-mandatory scrollbar-hide ">
@@ -258,19 +244,7 @@ return (
  else{
   return (
     <div className="absolute top-0 left-0 w-screen h-screen flex flex-col bg-gray-900 text-white z-802">
-      {/* Top bar */}
-      <div className="  w-1/10  flex items-center  justify-center h-16  ">
-        
-        <button 
-        onClick={() => setShowScroll(false)}
-          className="absolute left-6 flex items-center  text-cyan-400 font-bold text-xl focus:outline-none"
-          aria-label="Install FlipMine"
-                    >
-                         FlipMine
-                      
-        </button>
-                  
-      </div>
+     
 
       {/* Body */}
       <div className="absolute   h-full left-1/10 w-9/10 top-0   flex justify-center  flex-1 overflow-y-auto scrollbar-hide">
