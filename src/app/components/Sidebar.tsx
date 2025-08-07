@@ -218,7 +218,7 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
       <aside
         className={`
           ${showSidebar ? 'block' : 'hidden'}
-        ${!showRoadmap&&!showScroll&&showSettings?'z-804':'z-824' }
+        ${!showRoadmap&&!showScroll&&!showSettings?'z-804':'z-824' }
           relative top-2 pt-3 bg-gray-900 text-white h-[calc(100vh-4.5rem)] w-64 z-803
           overflow-y-auto scrollbar-hide lg:flex lg:flex-col
         `}
