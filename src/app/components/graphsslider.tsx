@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import {
   LineChart,
@@ -28,17 +29,29 @@ function CategoryChartsSlider() {
   });
 
   return (
-    <div className="  pb-4 w-full overflow-x-auto  scrollbar-hide">
-      <h2 className="text-lg font-semibold text-cyan-500  mb-2">📊 Demand Trends</h2>
-      <div className="flex gap-4 overflow-x-auto scrollbar-hide">
+    <div className="pb-4 w-full z-[900] relative">
+      <h2 className="text-lg font-semibold text-cyan-500 mb-2 px-4 md:px-0">📊 Demand Trends</h2>
+      
+      {/* Scroll hint */}
+      <div className="md:hidden text-xs text-cyan-400 text-center -mt-2 mb-2">← Scroll to explore →</div>
+
+      <div
+        className={`
+          flex gap-4 overflow-x-auto scrollbar-hide px-4 md:px-0
+          snap-x snap-mandatory scroll-smooth
+        `}
+      >
         {data.map((cat, idx) => (
           <div
             key={idx}
-            className="bg-[#0f172a] rounded-xl p-4  flex-shrink-0
-                    w-48 lg:w-60   /* 50% on sm/md, 33% on lg+ */
-                     border border-cyan-600
-                     shadow-lg shadow-cyan-500/10
-                     hover:shadow-cyan-400/30 transition-shadow duration-300"
+            className={`
+              bg-[#0f172a] rounded-xl p-4 flex-shrink-0 
+              w-[88vw] sm:w-[80vw] md:w-60
+              border border-cyan-600
+              shadow-lg shadow-cyan-500/10
+              hover:shadow-cyan-400/30 transition-shadow duration-300
+              snap-start
+            `}
           >
             <h3 className="text-white font-semibold text-sm mb-2">{cat.category}</h3>
             <div className="h-32 bg-[#0f172a] p-1 rounded-md">
