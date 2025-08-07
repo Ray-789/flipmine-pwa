@@ -219,7 +219,7 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
         className={`
           ${showSidebar ? 'block' : 'hidden'}
           relative top-2 pt-3 bg-gray-900 text-white h-[calc(100vh-4.5rem)] w-64
-           ${!showRoadmap&&!showScroll&&!showSettings?'z-804':'z-824' } 
+           ${!showScroll&&!showSettings?'z-800':'z-824' } 
           overflow-y-auto scrollbar-hide lg:flex lg:flex-col
         `}
       >
