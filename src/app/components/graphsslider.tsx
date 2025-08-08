@@ -29,7 +29,7 @@ function CategoryChartsSlider() {
   });
 
   return (
-    <div className="pb-4 w-full">
+    <div className="pb-4 w-full z-0">
       <h2 className="text-lg font-semibold text-cyan-500 mb-2 ">📊 Demand Trends</h2>
 
       <div className="w-full flex justify-center">
