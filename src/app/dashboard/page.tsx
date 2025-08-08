@@ -379,7 +379,7 @@ export default function FlipMineApp() {
                   </div>
 
                   {/* right: roadmap */}
-                 <div className=" max-h-[200svh] z-100  overflow-auto scrollbar-hide">
+                 <div className="bg-[#0f172a] max-h-[200svh] z-100  overflow-auto scrollbar-hide">
                     <RoadmapVertical plan={plan} />
                   </div>
                 </div>
