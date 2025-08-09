@@ -25,7 +25,6 @@ export default function BottomNavbar({
   showPost,
   setShowPost,
 }: BottomNavbarProps) {
-  // Priority determines which one is “active” if multiple are true
   const currentPage: PageKey =
     showPost ? 'Post'
     : showRoadmap ? 'RoadMap'
@@ -70,7 +69,9 @@ export default function BottomNavbar({
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-820 bg-gray-900 text-white border-t border-gray-700">
-      <div className="flex justify-around items-center h-20">
+      <div className="flex justify-around items-center h-20 relative">
+        
+        {/* Left 2 buttons */}
         <NavItem
           icon={<Home size={24} />}
           label="Home"
@@ -83,12 +84,17 @@ export default function BottomNavbar({
           active={currentPage === 'Scroll'}
           func={toggleScroll}
         />
-        <NavItem
-          icon={<Plus size={24} />}
-          label="Post"
-          active={currentPage === 'Post'}
-          func={togglePost}
-        />
+
+        {/* Floating Post Button */}
+        <button
+          onClick={togglePost}
+          className={`absolute -top-6 bg-cyan-500 rounded-full p-4 shadow-lg transition hover:bg-cyan-400
+            ${currentPage === 'Post' ? 'ring-4 ring-cyan-300' : ''}`}
+        >
+          <Plus size={28} className="text-white" />
+        </button>
+
+        {/* Right 2 buttons */}
         <NavItem
           icon={<MapPinned size={24} />}
           label="RoadMap"
