@@ -88,7 +88,7 @@ export default function BottomNavbar({
         {/* Floating Post Button */}
         <button
           onClick={togglePost}
-          className={`absolute -top-6 bg-cyan-500 rounded-full p-4 shadow-lg transition hover:bg-cyan-400
+          className={`relative -top-6  bg-cyan-500 rounded-full p-4 shadow-lg transition hover:bg-cyan-400
             ${currentPage === 'Post' ? 'ring-4 ring-cyan-300' : ''}`}
         >
           <Plus size={28} className="text-white" />
