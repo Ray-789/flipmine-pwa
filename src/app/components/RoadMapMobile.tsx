@@ -31,19 +31,26 @@ function calculateProfit(priceStr: string): number {
 
 const PlanRoadmapMobile: React.FC<PlanRoadmapMobileProps> = ({ plan }) => {
   return (
-    <div className="flex gap-4 overflow-x-auto scrollbar-hide snap-x snap-mandatory px-4 pb-4">
-      {plan.map((item, idx) => (
+    <div className="pb-4 w-full z-0">
+
+      <div className="w-full  flex justify-start">
         <div
-          key={idx}
-          className="
-           
-            snap-start
-            flex-shrink-0
-            w-1/2    /* 2 per view on small/medium */
-            lg:w-1/3 /* 3 per view on large+ */
-            pt-2 pb-2 pr-2
-          "
+          className={`
+            flex w-full  gap-7 overflow-x-auto scrollbar-hide 
+            snap-x snap-mandatory scroll-smooth
+            sm:max-w-full md:max-w-[90%] 
+          `}
         >
+          {plan.map((item,idx) => (
+             <div
+              key={idx}
+              className={`
+                bg-[#0f172a] rounded-xl   flex-shrink-0
+                 sm:w-[70vw] md:w-[45vw] lg:w-[16vw]
+                hover:shadow-cyan-400/30 transition-shadow duration-300
+                snap-start
+              `}
+            >
           <div className="bg-gray-800 w-full h-full rounded-xl p-4 shadow-md">
             <Image
               src={item.images?.[0] || '/fallback.jpg'}
@@ -60,12 +67,14 @@ const PlanRoadmapMobile: React.FC<PlanRoadmapMobileProps> = ({ plan }) => {
               Profit: ${calculateProfit(item.price)}
             </p>
           </div>
+        </div>))}
         </div>
-      ))}
+      </div>
     </div>
   );
 };
 
 export default PlanRoadmapMobile;
+
 
 

@@ -59,7 +59,7 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
         `}
       >
         {/* Tab Switcher */}
-        <div className=" h-6 flex justify-around items-center mb-4 px-4">
+        {/* <div className=" h-6 flex justify-around items-center mb-4 px-4">
           <button
             onClick={() => setTab('filters')}
             className={`flex-1 h-full  text-sm font-bold transition ${
@@ -78,10 +78,10 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
             <FaListUl className="inline mr-2" />
             Pages
           </button>
-        </div>
+        </div> */}
 
         {/* FILTERS TAB */}
-        {tab === 'filters' && (
+       
           <div className="space-y-4 px-4">
             <div>
               <label className="block font-bold mb-2">SEARCH</label>
@@ -153,42 +153,8 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
               </div>
             </div>
           </div>
-        )}
-
         {/* PAGES TAB */}
-        {tab === 'pages' && (
-          <div className=" h-6/12 flex  flex-col justify-around space-y-4 px-6 pt-4 text-sm font-medium">
-            <button onClick={()=>{
-              setShowRoadmap(false);
-              setShowSettings(false);
-              setShowScroll(false)
-            }}  className={`w-full text-xl ${!showRoadmap&&!showScroll&&!showSettings ?'text-cyan-400':""}  text-left flex items-center gap-2  hover:text-cyan-400`}>
-              <FaHome /> Home
-            </button>
-            <button onClick={()=>{
-              setShowRoadmap(false);
-              setShowSettings(false);
-              setShowScroll((prev)=>!prev)
-            }}  className="w-full text-xl text-left flex items-center gap-2 hover:text-cyan-400">
-              <FaMapMarkedAlt /> Scroll
-            </button>
-            <button onClick={()=>{ 
-              setShowRoadmap(false);
-              setShowScroll(false)
-              setShowSettings((prev)=>!prev)
-        }} className="w-full text-xl text-left flex items-center gap-2 hover:text-cyan-400">
-              <FaCog /> Settings
-            </button>
-            {/* <button onClick={(prev)=>{
-              setShowSettings(false);
-              setShowScroll(false)
-              setShowRoadmap(!prev)
-              }} className="w-full text-xl text-left flex items-center gap-2 hover:text-cyan-400">
-              <FaListUl /> Roadmap
-            </button> */}
-            
-          </div>
-        )}
+       
       </aside>
     </>
   )
@@ -198,21 +164,7 @@ const SidebarFilters: React.FC<SidebarFiltersProps> = ({
   return (
     <>
       {/* Toggle Button (Floating Arrow) */}
-      {!showSidebar ? (
-        <button
-          onClick={toggleSidebar}
-          className="fixed top-1/2 left-2 -translate-y-1/2 z-770 bg-opacity-30 text-white p-2 rounded-r-full shadow-sm backdrop-blur-sm transition-all hover:bg-opacity-60"
-        >
-          <FaArrowRight className="text-lg" />
-        </button>
-      ) : (
-        <button
-          onClick={toggleSidebar}
-          className="fixed top-1/2 left-64 -translate-y-1/2 z-770 bg-opacity-30 text-white p-2 rounded-r-full shadow-sm backdrop-blur-sm transition-all hover:bg-opacity-60"
-        >
-          <FaArrowLeft className="text-lg" />
-        </button>
-      )}
+      
 
       {/* Sidebar Panel */}
       <aside

@@ -1,6 +1,8 @@
 'use client';
-import { Home, Settings, MapPinned } from 'lucide-react';
 import React from 'react';
+import { Home, Settings, MapPinned, Play, Plus } from 'lucide-react';
+
+type PageKey = 'Home' | 'Scroll' | 'Post' | 'RoadMap' | 'Settings';
 
 interface BottomNavbarProps {
   showRoadmap: boolean;
@@ -9,6 +11,8 @@ interface BottomNavbarProps {
   setShowSettings: React.Dispatch<React.SetStateAction<boolean>>;
   showScroll: boolean;
   setShowScroll: React.Dispatch<React.SetStateAction<boolean>>;
+  showPost: boolean;
+  setShowPost: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export default function BottomNavbar({
@@ -18,14 +22,51 @@ export default function BottomNavbar({
   setShowSettings,
   showScroll,
   setShowScroll,
+  showPost,
+  setShowPost,
 }: BottomNavbarProps) {
-  const currentPage = showRoadmap
-    ? 'RoadMap'
-    : showSettings
-    ? 'Settings'
-    : showScroll
-    ? 'Scroll'
+  // Priority determines which one is “active” if multiple are true
+  const currentPage: PageKey =
+    showPost ? 'Post'
+    : showRoadmap ? 'RoadMap'
+    : showSettings ? 'Settings'
+    : showScroll ? 'Scroll'
     : 'Home';
+
+  const goHome = () => {
+    setShowRoadmap(false);
+    setShowSettings(false);
+    setShowScroll(false);
+    setShowPost(false);
+  };
+
+  const toggleScroll = () => {
+    setShowRoadmap(false);
+    setShowSettings(false);
+    setShowPost(false);
+    setShowScroll(prev => !prev);
+  };
+
+  const togglePost = () => {
+    setShowRoadmap(false);
+    setShowSettings(false);
+    setShowScroll(false);
+    setShowPost(prev => !prev);
+  };
+
+  const toggleRoadmap = () => {
+    setShowSettings(false);
+    setShowScroll(false);
+    setShowPost(false);
+    setShowRoadmap(prev => !prev);
+  };
+
+  const toggleSettings = () => {
+    setShowRoadmap(false);
+    setShowScroll(false);
+    setShowPost(false);
+    setShowSettings(prev => !prev);
+  };
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-820 bg-gray-900 text-white border-t border-gray-700">
@@ -34,31 +75,31 @@ export default function BottomNavbar({
           icon={<Home size={24} />}
           label="Home"
           active={currentPage === 'Home'}
-          func={() => {
-            setShowRoadmap(false);
-            setShowSettings(false);
-            setShowScroll(false);
-          }}
+          func={goHome}
+        />
+        <NavItem
+          icon={<Play size={24} />}
+          label="Scroll"
+          active={currentPage === 'Scroll'}
+          func={toggleScroll}
+        />
+        <NavItem
+          icon={<Plus size={24} />}
+          label="Post"
+          active={currentPage === 'Post'}
+          func={togglePost}
         />
         <NavItem
           icon={<MapPinned size={24} />}
           label="RoadMap"
           active={currentPage === 'RoadMap'}
-          func={() => {
-            setShowSettings(false);
-            setShowScroll(false);
-            setShowRoadmap((prev) => !prev);
-          }}
+          func={toggleRoadmap}
         />
         <NavItem
           icon={<Settings size={24} />}
           label="Settings"
           active={currentPage === 'Settings'}
-          func={() => {
-            setShowRoadmap(false);
-            setShowSettings((prev) => !prev);
-            setShowScroll(false);
-          }}
+          func={toggleSettings}
         />
       </div>
     </nav>
@@ -88,4 +129,5 @@ function NavItem({
     </button>
   );
 }
+
 

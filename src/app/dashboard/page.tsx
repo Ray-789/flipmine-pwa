@@ -295,6 +295,7 @@ import { useDeviceType } from '../hooks/useDeviceType';
 export default function FlipMineApp() {
   const [plan] = useState(listings);
   const [showRoadmap, setShowRoadmap] = useState(false);
+  const [showPost,setShowPost]=useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [showScroll, setShowScroll] = useState(false);
   const [showSidebar, setShowSidebar] = useState(false);
@@ -308,7 +309,7 @@ export default function FlipMineApp() {
   }, [setListings]);
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden">
+    <div className="h-screen flex flex-col bg-amber-400 overflow-hidden">
       {/* fixed header */}
       <Navbar
         setShowRoadmap={setShowRoadmap}
@@ -317,7 +318,7 @@ export default function FlipMineApp() {
       />
 
       {/* below header */}
-      <div className="pt-16 flex flex-1 overflow-hidden">
+      <div className="pt-16 flex flex-1 overflow-hidden  ">
         {/* optional sidebar */}
         <SidebarFilters showRoadmap={showRoadmap} showSettings={showSettings}  showScroll={showScroll} setShowRoadmap={setShowRoadmap} setShowScroll={setShowScroll} setShowSettings={setShowSettings}  showSidebar={showSidebar} toggleSidebar={toggleSidebar} />
 
@@ -327,7 +328,7 @@ export default function FlipMineApp() {
             <>
               {showSettings ? (
                 <SettingsPage />
-              ) : showRoadmap ? (
+              ) : showRoadmap&& device==='mobile' ? (
                 <RoadmapPage  plan={plan}  />
               ) : showScroll ?(
                  <ScrollViewPage   setShowScroll={setShowScroll} />
@@ -353,6 +354,8 @@ export default function FlipMineApp() {
                 setShowSettings={setShowSettings}
                 showScroll={showScroll}
                 setShowScroll={setShowScroll}
+                setShowPost={setShowPost}
+                showPost={showPost}
               />
             </>
           ) : (
@@ -363,9 +366,9 @@ export default function FlipMineApp() {
                 <ScrollViewPage   setShowScroll={setShowScroll} />
               ) : !showRoadmap && !showSettings ? (
                 /* DESKTOP: two columns */
-                <div className="flex flex-1 gap-6 overflow-hidden">
+                <div className="flex bg-[#0f172a] flex-1 z-5 overflow-hidden">
                   {/* left: listings */}
-                  <div className="flex-1 overflow-auto scrollbar-hide pr-4">
+                  <div className="flex-1 overflow-auto z-5 scrollbar-hide pr-2">
                     <CategoryChartsSlider />
                     <h2 className="text-lg font-bold text-cyan-500 mt-4">
                       just sold🔥🔥
@@ -385,9 +388,7 @@ export default function FlipMineApp() {
                 </div>
               ) : showRoadmap ? (
                 /* full‐width roadmap */
-                <div className="h-full overflow-auto scrollbar-hide">
                   <RoadmapVertical plan={plan} />
-                </div>
               ) : null}
             </>
           )}

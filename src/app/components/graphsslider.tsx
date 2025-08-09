@@ -29,13 +29,13 @@ function CategoryChartsSlider() {
   });
 
   return (
-    <div className="pb-4 w-full z-0">
+    <div className="pb-4 w-full    ">
       <h2 className="text-lg font-semibold text-cyan-500 mb-2 ">📊 Demand Trends</h2>
 
-      <div className="w-full flex justify-center">
+      <div className="w-full  flex justify-start">
         <div
           className={`
-            flex max-w-[100%] gap-4 overflow-x-auto scrollbar-hide 
+            flex w-full  gap-6 overflow-x-auto scrollbar-hide 
             snap-x snap-mandatory scroll-smooth
             sm:max-w-full md:max-w-[90%] 
           `}
@@ -44,8 +44,8 @@ function CategoryChartsSlider() {
             <div
               key={idx}
               className={`
-                bg-[#0f172a] rounded-xl p-4 flex-shrink-0
-                w-[90vw] sm:w-[70vw] md:w-[45vw] lg:w-80 xl:w-62
+                bg-[#0f172a] rounded-xl p-4  flex-shrink-0
+                 sm:w-[70vw] md:w-[45vw] lg:w-[16vw]
                 border border-cyan-600
                 shadow-lg shadow-cyan-500/10
                 hover:shadow-cyan-400/30 transition-shadow duration-300
