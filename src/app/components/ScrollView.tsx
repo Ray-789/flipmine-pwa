@@ -66,7 +66,6 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
   //   return () => window.removeEventListener('wheel', onWheel);
   // }, [currentIndex, filtered.length]);
  const device=useDeviceType();
-
  if(device=="mobile"){
     return (
     <div className="absolute top-0 left-0 w-screen h-screen flex flex-col   text-white z-820">
@@ -78,9 +77,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
         >
           <FaChevronLeft />
         </button>
-        
       </div>
-
       {/* Body */}
       <div className="absolute  h-full   top-0   flex flex-1 overflow-y-auto scrollbar-hide">
         <div className="flex-1  overflow-y-auto snap-y snap-mandatory scrollbar-hide ">
@@ -90,12 +87,11 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
             }));
             const max = data.reduce((a, b) => (a.demand > b.demand ? a : b));
             const min = data.reduce((a, b) => (a.demand < b.demand ? a : b));
-
             return (
               <div
                 key={idx}
                 id={`slide-${idx}`}
-                className=" snap-mandatory snap-start h-[calc(100vh-4rem)] w-full flex items-center justify-center bg-amber-300 overflow-hidden"
+                className=" snap-mandatory snap-start h-[calc(100vh-4rem)] w-full flex items-center justify-center  overflow-hidden"
               >
                 
                 <div
@@ -110,33 +106,17 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                   `}
                   style={{ backgroundImage: `url(${item.images[0]})` }}
                 >
-                <div className="fixed right-0 top-84  h-3/4   w-2/10    transform -translate-y-1/2 flex justify-end  items-end flex-col gap-10 ">
+                
+                  <div className="mt-auto  bg-opacity-90 p-4">
+                    <div className="absolute right-0 top-60  h-3/4   w-2/10    transform -translate-y-1/2 flex justify-end  items-end flex-col gap-10 ">
                   <div className="flex flex-col items-center gap-2 text-sm text-white">
                   <FaUserCircle className="text-4xl" />
-                
                   </div>
-                  {/* <a
-      href={item.website}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex items-center gap-2 text-sm text-cyan-300 hover:underline"
-    >
-      <FaGlobe className="text-4xl" />
-    </a> */}
-
-
-    {/* <div className="flex items-center gap-2 text-sm text-white">
-    {/* choose emoji based on value */}
-    {/* <span className="text-2xl">
-      🤖
-    </span>  */}
-  {/* </div> */}
                   <FaHeart className="text-4xl hover:text-red-500 transition" />
                   <FaBookmark className="text-4xl hover:text-yellow-500 transition" />
                   <FaShareAlt className="text-4xl hover:text-blue-500 transition" />
                   <FaPlus className="text-4xl text-cyan-400 hover:text-cyan-200 transition" />
                 </div>
-                  <div className="mt-auto  bg-opacity-90 p-4">
                     <h2 className="text-lg font-semibold">{item.title}</h2>
                     <p className="text-sm text-gray-400">{item.details}</p>
                     <p className="mt-1 text-green-400 font-bold">{item.price}</p>
@@ -157,9 +137,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                     </div>
                   </div>
                 </div>
-
               
-                
               </div>
             );
           })}
