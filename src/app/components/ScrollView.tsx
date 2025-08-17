@@ -102,13 +102,11 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                   }}
                   className={`
                    w-full h-full
-                    bg-center bg-cover flex flex-col-reverse justify-center item
+                    bg-center bg-cover flex flex-row-reverse justify-center item
                   `}
                   style={{ backgroundImage: `url(${item.images[0]})` }}
                 >
-                
-                  <div className="mt-auto  bg-opacity-90 p-4">
-                    <div className="absolute right-0 top-60  h-3/4   w-2/10    transform -translate-y-1/2 flex justify-end  items-end flex-col gap-10 ">
+              <div className=" relative right-0 top-60  h-3/4   w-2/10    transform -translate-y-1/2 flex justify-end  items-end flex-col gap-10 ">
                   <div className="flex flex-col items-center gap-2 text-sm text-white">
                   <FaUserCircle className="text-4xl" />
                   </div>
@@ -116,7 +114,8 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
                   <FaBookmark className="text-4xl hover:text-yellow-500 transition" />
                   <FaShareAlt className="text-4xl hover:text-blue-500 transition" />
                   <FaPlus className="text-4xl text-cyan-400 hover:text-cyan-200 transition" />
-                </div>
+                </div>  
+                  <div className="mt-auto  bg-opacity-90 p-4">
                     <h2 className="text-lg font-semibold">{item.title}</h2>
                     <p className="text-sm text-gray-400">{item.details}</p>
                     <p className="mt-1 text-green-400 font-bold">{item.price}</p>
