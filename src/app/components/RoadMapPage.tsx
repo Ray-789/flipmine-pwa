@@ -34,7 +34,8 @@ export default function RoadmapPage({ plan }: { plan: Listing[] }) {
   return (
     <div className=" 
     flex
-     items-center justify-center
+     items-center 
+     justify-center
         top-16    /* push down below 64px header */
         bottom-0
         left-0
@@ -46,7 +47,7 @@ export default function RoadmapPage({ plan }: { plan: Listing[] }) {
         overflow-y-auto
         scrollbar-hide">
       <div className="flex flex-col items-center">
-      <div className=" flex flex-col items-center gap-10 overflow-y-auto  pb-4 scrollbar-hide">
+      <div className=" relative right-5 flex flex-col items-center gap-10 overflow-y-auto  pb-4 scrollbar-hide">
             <h2 className="text-lg font-bold text-cyan-500">🛣️ Roadmap</h2>
             <div className="-mt-8 overflow-y-auto flex flex-col gap-10">
               {plan.map((item, i) => (

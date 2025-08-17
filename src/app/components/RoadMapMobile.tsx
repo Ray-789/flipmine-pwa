@@ -69,4 +69,3 @@ const PlanRoadmapMobile: React.FC<PlanRoadmapMobileProps> = ({ plan }) => {
 export default PlanRoadmapMobile;
 
 
-
