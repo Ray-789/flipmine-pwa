@@ -11,7 +11,6 @@ import {
 } from 'recharts';
 import { 
   FaUserCircle, 
-  FaChevronLeft,  
   FaHeart, 
   FaBookmark, 
   FaShareAlt, 
@@ -70,14 +69,7 @@ const ScrollViewPage: React.FC<ScrollViewPageProps> = ({ setShowScroll }) => {
     return (
     <div className="absolute top-0 left-0 w-screen h-screen flex flex-col   text-white z-820">
       {/* Top bar */}
-      <div className="  w-1/10  flex items-center  justify-center h-16  z-900">
-        <button
-          onClick={() => setShowScroll(false)}
-          className="absolute left-2/54 text-white text-2xl p-2  hover:bg-gray-700 rounded"
-        >
-          <FaChevronLeft />
-        </button>
-      </div>
+     
       {/* Body */}
       <div className="absolute  h-full   top-0   flex flex-1 overflow-y-auto scrollbar-hide">
         <div className="flex-1  overflow-y-auto snap-y snap-mandatory scrollbar-hide ">
